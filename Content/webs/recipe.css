@@ -1,0 +1,89 @@
+﻿.btnSearch {
+    height:32px;
+}
+.row4 span {
+    margin-top:2px;
+}
+
+#divMain2 {
+    margin-top: 1em;
+}
+
+#divMain2 .row:first-child {
+    margin-top:15px;
+}
+
+#main1-right a {
+    padding:6px 6px 6px 0;
+    
+}
+
+#main1-right font {
+    margin-left:8px;
+}
+
+.row-min {
+    height:62px;
+}
+
+/*分页*/
+.pagination li {
+    /*display:inline-block;*/
+        background-color:white;
+}
+
+.pagination li a {
+  
+     background-color:white;
+  
+}
+.pagination .disabled a {
+    /*display:inline-block;*/
+        background-color:white;
+}
+
+.pagination .disabled a:hover{
+    /*display:inline-block;*/
+        background-color:white;
+}
+
+
+/*--*/
+
+.row1-mid input
+{
+    height:32px;
+}
+
+.row2-left
+{
+    width:180px;
+}
+
+.img-line
+{
+    width:20px;
+    margin-left:3px;
+}
+
+.row5-right span {
+    font-size:12px;
+}
+
+.div-selector {
+    
+    display:none;
+}
+.div-selector-h {
+    margin-left:0px;
+    display:initial
+}
+
+tr th {
+    /*height:80px!important;*/
+    line-height:31px!important;
+}
+.tagcheckbox {
+    height:12px;
+    width:12px;
+}

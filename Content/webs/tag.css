@@ -1,0 +1,207 @@
+﻿body {
+    overflow-x:hidden;
+}
+
+#divMain1 #main1-right
+{
+    height:64px;
+    line-height:44px;
+}
+
+#main1-right font {
+    font-size:12px;
+}
+
+#aRightBorder {
+    margin-left:72px;
+    height:31px;
+    line-height:31px;
+    margin-top:3px;
+}
+.thead1 tr{
+   height:61px;
+
+  /*line-height:74px;*/
+}
+th {
+     /*text-align:center;
+   vertical-align:middle;
+      vertical-align:auto;*/
+      /*padding:0 0 0px 0!important;*/
+      
+   line-height:39px!important;
+}
+
+.th-first
+{
+    padding:-1px 0 0 0!important;
+}
+
+.thead1 tr th:first-child div {
+    margin-left:-20px;   
+}
+
+td:first-child div {
+      margin-left:-20px;   
+}
+.td-edit {
+    margin-left:20px;
+}
+.td-edit a{
+	float: left;
+}
+    .td-edit a font {
+        margin-left:10px;
+    }
+
+
+/*模态框*/
+.modal-content {
+    width:280px;
+    height:600px;
+    margin: 0 auto;
+    border-radius:20px;
+}
+
+.modal-title {
+    font-size:15px;
+    color:rgb(121,112,143);
+}
+
+.modal-header {
+    margin-right:15px;
+}
+
+.modal-header img, .modal-header h4 {
+    float:left;
+    padding-left:8px;
+    line-height:28px;
+}
+
+.modal-header img {
+    width:25px;
+    height:25px;
+    padding:0;
+}
+
+    .modal-header .close {
+        margin-right:-15px;
+    }
+
+.modal-body div {
+    margin-left:-20px;
+    margin-top:20px;
+}
+
+.tag-name {
+    margin-top:2px!important;
+    
+}
+
+.tag-name  font{
+     font-weight:bold;
+}
+
+.tag-name input{
+    width:150px;
+   border:1px solid rgb(153,153,153);
+}
+
+
+.modal-body select {
+    margin-left:13px;
+    width:120px;
+}
+
+.footer {
+    text-align:center;
+}
+
+    .footer button {
+        background-color:#8c83a3;
+        border-color:#8c83a3;
+        width:62px;
+        height:30px;
+        padding-top:5px;
+    }
+        .footer button:hover {
+            background-color:#49425b
+        }
+#modal1 {
+    top:100px;
+}
+
+.td-edit a{
+    color: rgb(121,112,143);
+    font-weight: bold;
+    font-size:12px;
+}
+    .td-edit a:hover,  img:hover {
+        cursor:pointer;
+    }
+
+    /*input*/
+.icheckbox_minimal {
+    background-color:rgb(234,237,242);
+    border-radius:2px;
+}
+.allselect .icheckbox_minimal {
+    background-color:white;
+    border-radius:2px;
+}
+
+/*防止模态框移动页面*/
+body{ overflow-y: auto !important;} #modal1{ overflow: hidden !important;}
+
+.btn-this
+{
+    
+}
+
+.btn-delete
+{
+   margin-top:6px;
+}
+
+#divMain3 td
+{
+    padding-top:10px;
+    
+    line-height:28px;
+}
+
+#main1-right a
+{
+    padding:6px;
+   
+}
+    #main1-right a img
+    {
+     margin-left:0px;
+    }
+    #main1-right a font
+    {
+        margin-left:8px;
+    }
+
+#main1-right .btn-addTemplate img{
+    width:12px;
+}
+.tag-name input, .modal-body select {
+    height:28px;
+    /*width:131px;*/
+    border-radius:3px;
+    border-color:#8c83a3;
+}
+
+.modal-body select {
+    /*height:28px;*/
+    width:131px;
+    /*border-radius:3px;
+    border-color:#8c83a3;*/
+}
+.tag-name input {
+    width:148px;
+    text-align:left;
+    padding-left:5px;
+}

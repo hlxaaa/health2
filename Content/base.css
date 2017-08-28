@@ -1,0 +1,791 @@
+﻿* {
+    padding: 0;
+    margin: 0;
+    margin-left: 15px;
+    font-family: "Microsoft YaHei";
+}
+
+body {
+     margin: 0;
+    padding: 0;
+    margin-left: -15px;
+    /*overflow-x:hidden;*/
+    overflow-x:hidden;
+}
+
+#divTop {
+    height: 3.4em;
+    background-color: rgb(51,47,62);
+    
+}
+
+    #divTop > div {
+        height: 3.4em;
+    }
+
+#divTopRight {
+    /*width: 18em;*/
+    line-height: 3.4em;
+    overflow-y: hidden;
+    float: right;
+    padding-right:20px;
+}
+
+#divTopLeft {
+    float: left;
+    margin-left: 2.25em;
+}
+
+    #divTopLeft font {
+        margin: 0 auto;
+        line-height: 2em;
+        color: white;
+        font-size: 1.53em;
+    }
+
+
+#ulTop {
+    float: right;
+    width: 100%;
+}
+
+    #ulTop li {
+        float: left;
+        color: white;
+    }
+
+        #ulTop li img, #ulTop li font {
+          
+        }
+
+
+
+#divMain {
+    height: 90%;
+    /*display:inline-block;*/
+    /*overflow-x:hidden;*/
+    /*width:auto;*/
+    /*white-space: nowrap;*/
+    background-color:rgb(234,237,242);
+}
+
+#divNav {
+    float: left;
+}
+
+
+
+#divMains {
+    display: inline-block;
+    font-size:12px;
+}
+
+#divNav, #divMains {
+    /*display:inline*/
+    display: inline-block;
+}
+
+#divMain1 #main1-left, #divMain1 #main1-right {
+    height: 3em;
+    line-height: 3em;
+}
+
+#main1-left a, #main1-right a {
+    padding-left: 0px;
+}
+
+#divMain1 #main1-left {
+    float: left;
+    overflow-y: hidden;
+    margin-left:-0.7em;
+}
+
+#main1-left h4 {
+    /*margin-top:1em;*/
+}
+
+#divMain1 #main1-right {
+    float: right;
+    overflow-y: hidden;
+}
+
+#main1-right {
+    /*zoom:80%*/
+
+}
+
+#main1-right a {
+    /*height:2vw;*/
+     font-size:12px;
+    font-weight:bold;
+}
+
+#main1-right img {
+    width:12px;
+}
+
+.btn-this {
+    color: white;
+    border-color: rgb(121,112,143);
+    background-color: rgb(121,112,143);
+   
+}
+
+#divTop, #divMain {
+}
+
+#divNav {
+    width: 11.1em;
+    background-color: rgb(74,66,90);
+    height: 97em;
+    padding: 0;
+}
+
+.list-group {
+    display: inline-block;
+    width: 100%;
+    margin: 0;
+    font-size:14px
+}
+
+    .list-group img, .list-group a {
+        float: left;
+        line-height: 3.6em;
+        color: white;
+     
+        text-decoration:none;
+    }
+    .list-group a {
+        margin-left:21px;
+    }
+        .list-group a:hover {
+            cursor:pointer
+        }
+
+    .list-group img {
+        width: 25px;
+        height: 3.6em;
+           margin-left: 17px;
+    }
+
+    .list-group li {
+        /*background-color:blue;*/
+        margin: 0;
+        /*margin-left:-0.5vw;*/
+        width: 100%;
+        height:52px;
+    }
+
+#divMains {
+    margin: 0;
+    background-color: rgb(234,237,242);
+    /*width: 89.5%;*/
+    width:calc(100% - 205px);
+    /*overflow-x:scroll;*/
+}
+
+#divMain1 {
+    height: 3.6em;
+}
+
+#inputSearch {
+}
+
+#divMain2 {
+    /*height: 100px;*/
+    /*border: 1px solid red;*/
+    background: white;
+    border-radius: 0.3125em;
+    font-size: 0.9em;
+}
+
+    #divMain2 .row {
+        margin: 0;
+        height: 3.6em;
+    }
+
+.row1-left, .row1-mid, .row1-right {
+    float: left;
+    /*border:1px solid red;*/
+    height: 100%;
+    line-height: 3em;
+    overflow-y: hidden;
+}
+
+.row1-left {
+    width: 5em;
+}
+
+.row1-mid {
+    width: 26em;
+}
+
+    .row1-mid input, .row1-mid .btnSearch {
+        float: left;
+        /*padding:0;*/
+        margin: 0;
+        margin-top: 0.2vw;
+        overflow-y: hidden;
+    }
+
+    .row1-mid input {
+        border: 1px solid rgb(121,112,143);
+        height: 70%;
+        width: 20em;
+        /*border-radius:5vw;*/
+        border-bottom-left-radius: 5em;
+        border-top-left-radius: 5em;
+        outline: none;
+    }
+
+.btnSearch {
+    /*float:right;*/
+    border: 1px solid rgb(121,112,143);
+    background-color: rgb(121,112,143);
+    display: block;
+    height: 38px;
+    width: 5.4em;
+    border-bottom-right-radius: 5em;
+    border-top-right-radius: 5em;
+}
+
+    .btnSearch:hover {
+        cursor: pointer;
+    }
+
+.row1-right {
+    width: 6em;
+}
+
+    .row1-right a {
+        text-decoration: none;
+        color: rgb(121,112,143);
+    }
+
+.row2-left, .row2-mid, .row2-right {
+    float: left;
+    /*border:1px solid red;*/
+    height: 100%;
+    line-height: 3em;
+    overflow-y: hidden;
+}
+
+.row2-left {
+    width: 14em;
+}
+
+    .row2-left font, .row2-left label {
+        float: left;
+        height: 100%;
+    }
+
+        .row2-left label input {
+
+        }
+
+.row2-mid {
+    width: 20em;
+    /*padding:5px;*/
+}
+
+    .row2-mid span {
+        width: 10px;
+        margin-left: 10px;
+    }
+
+    .row2-mid span, .row2-mid input, .row2-mid font {
+        margin-left: 0.3125em;
+    }
+
+    .row2-mid input {
+        height: 50%;
+        width: 6em;
+        border: 1px solid black;
+        border-radius: 0.4em;
+    }
+
+.row2-right {
+    width: 20em;
+}
+
+    .row2-right input, .row2-right span {
+        margin-left: 0.3125em;
+    }
+
+    .row2-right input {
+        height: 50%;
+        width: 6em;
+        border: 1px solid black;
+        border-radius: 0.4em;
+    }
+
+.row3 {
+    /*height:auto;*/
+    line-height: 2.7em;
+    /*white-space:nowrap;*/
+}
+
+
+.row3-left, .row3-right {
+    /*line-height:2.7em;*/
+    /*line-height:2em;*/
+    /*overflow-y:hidden;
+    display:inline-block;*/
+}
+
+
+.row3-left {
+    float: left;
+    /*line-height:;*/
+    margin: 0;
+}
+
+    .row3-left font {
+        /*line-height:7.7em*/
+        /*margin-top:-2em;*/
+    }
+
+.row3-right {
+    /*min-height:2em;
+    height:auto;*/
+    display: inline-block;
+}
+
+    .row3-right font {
+        margin: 0;
+    }
+
+    .row3-right div {
+        float: left;
+        /*line-height:2.6em;*/
+    }
+
+        .row3-right div input {
+            /*margin:0.625em;*/
+            margin-right: 0;
+        }
+
+.row4 div, .row4 span, .row4 font {
+    float: left;
+}
+
+.row4 input {
+    height: 1.8em;
+}
+
+
+.row4 input {
+    width: 10em;
+    border: 1px solid black;
+}
+
+/*#inputDate1 {
+    border-radius:0.3vw;
+}*/
+
+.row5 {
+    height: auto;
+    /*padding:0;*/
+    /*margin-left:-0.875em;*/
+    /*white-space:nowrap;*/
+    margin: 0;
+    margin-top: 1em;
+    line-height: 2.7em;
+    
+}
+
+#divMain2 div {
+    overflow-x:hidden
+}
+
+.row5-left, .row5-right {
+    /*float:left;*/
+    /*border:1px solid red;*/
+    /*height:auto;
+    line-height:4.4em;
+    overflow-y:hidden;*/
+    /*display:inline-block;*/
+    /*margin:0;*/
+}
+
+.row5-left {
+    float: left;
+    width: 4.55em;
+}
+
+.row5-right {
+    /*margin:0;
+    padding:0;*/
+    /*min-height:3.3em;
+    height:auto;
+    width:108em;
+    margin-left:0.6em;*/
+    display: inline-block;
+    width: 90%;
+}
+
+    .row5-right span {
+        float: left;
+        margin: 0.9em;
+    }
+
+        .row5-right span:hover {
+            cursor: pointer;
+        }
+
+.row-min {
+    /*background:blue;*/
+    height: 70px;
+}
+
+.row-max {
+    /*background:red;*/
+    min-height: 16em;
+    height: auto;
+}
+
+
+#divMain3 {
+    height: 30%;
+    background: white;
+    border-radius: 0.3125em;
+    /*width:auto;*/
+}
+
+    #divMain3 th {
+        text-align: center;
+    }
+
+    #divMain3 td {
+        text-align: center;
+        height: 1.875em;
+        line-height: 2.125em;
+    }
+
+    #divMain3 table tbody tr input {
+        /*zoom:180%;*/
+    }
+
+#editDelete a {
+    float: left;
+    color: rgb(121,112,143);
+}
+
+    #editDelete a:hover {
+        cursor: pointer;
+    }
+
+#aRightBorder {
+    padding-right: 1.9vw;
+    display: block;
+    border-right: 1px solid rgb(204,204,204);
+}
+
+.pagination {
+    /*display:inline-block;*/
+    /*margin-left:43em;*/
+    
+}
+    .pagination li a {
+        border:none;
+        border-radius:100%;
+    }
+
+    .pagination a:hover {
+        cursor: pointer;
+    }
+
+#divMain1, #divMain2, #divMain3 {
+    margin: 0.7em;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    margin-left:1.7em
+    /*text-align:center;*/
+}
+
+#divMain2 {
+    margin-top:-1em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*控件*/
+.table {
+    width: inherit;
+}
+
+input {
+    /*border-color: #8c83a3;*/
+    outline: none;
+    text-align: center;
+}
+
+li, ul {
+    list-style: none;
+    overflow-x:hidden;
+}
+
+ul {
+    /*display: block;*/
+    /*width:100%;*/
+}
+
+a {
+    text-decoration: none;
+}
+
+h4 {
+    overflow-y: hidden;
+}
+
+
+.label-select {
+    border: 1px solid rgb(121,112,143);
+    background: rgb(121,112,143);
+    color: white;
+}
+
+
+
+
+
+/*icon区*/
+.iconTop {
+    width: 2.2em;
+    height: 3.5em;
+    line-height: 3.5em;
+    
+}
+
+
+.tag-selected {
+    background-color:#49425b;
+    color:white;
+}
+
+.iconTop2 {
+    width: 1.4em;
+    height: 3.5em;
+    line-height: 3.5em;
+}
+
+#icon-triangle {
+    position: absolute;
+    display: block;
+    width: 1em;
+    height: 1em;
+    margin-left: 166px;
+}
+
+.btn-edit {
+    width: 25px;
+    height: 25px;
+    /*line-height: 1.625em;*/
+}
+
+.btn-search {
+    width: 2.7em;
+    margin-top: -0.6em;
+}
+
+/*第三方控件调整*/
+.label-default {
+    border: 1px solid rgb(72,66,92);
+}
+
+/*checkbox美化*/
+.tagcheckbox {
+    /*overflow-y:hidden;
+        overflow-x:hidden*/
+}
+
+.iCheck-helper {
+    border-radius: 0.3125em;
+}
+
+.icheckbox_minimal {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    margin: 0.625em;
+}
+
+.iradio_minimal {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.li-ques {
+    display:none;
+}
+
+.li-ques img{
+    margin-left:38px;
+}
+.li-ques a {
+    margin-left:5px;
+}
+
+.li-ques-open,li-back-open {
+    display:block;
+}
+
+.li-back {
+    display:none;
+}
+
+.li-back img{
+    margin-left:38px;
+}
+.li-back a {
+    margin-left:5px;
+}
+
+.li-back-open {
+    display:block;
+}
+
+img {
+    cursor:pointer;
+}
+
+/*input*/
+.icheckbox_minimal {
+    background-color:rgb(234,237,242);
+    border-radius:2px;
+}
+.allselect .icheckbox_minimal {
+    background-color:white;
+    border-radius:2px;
+}
+
+/*分页*/
+.pagination {
+    margin-top:15px;
+}
+.pagination .disabled a{
+        background-color:rgb(234,237,242);
+}
+
+.pagination .disabled a:hover{
+    background-color:rgb(234,237,242);
+}
+
+.pagination li {
+    /*display:inline-block;*/
+        background-color:rgb(234,237,242);
+       /*border-bottom-left-radius: 100%!important;
+    border-top-left-radius: 100%!important;
+    border-bottom-right-radius: 100%!important;
+    border-top-right-radius: 100%!important;*/
+    text-align:center;
+}
+
+.pagination li a {
+    padding:1px;
+    display:block;
+    border: none;
+    font-size:12px;
+    width:19px;
+     background-color:rgb(234,237,242);
+   border-bottom-left-radius: 100%!important;
+    border-top-left-radius: 100%!important;
+    border-bottom-right-radius: 100%!important;
+    border-top-right-radius: 100%!important;
+     margin-left:3px;
+     
+}
+
+.pagination .active a{
+    background-color:rgb(72,66,92);
+}
+
+.pagination .active a:hover{
+    background-color:rgb(72,66,92);
+}
+
+.pagination li a:hover{
+    background-color:rgb(72,66,92);
+}
+
+
+
+/*8.16*/
+.fl {
+    float:left;
+}
+
+.fr {
+    float:right;
+}
+
+.fc {
+    clear:both;
+}
+
+.bold {
+    font-weight:bold;
+}
+
+.btn-base {
+    background-color: #8c83a3;
+    border-color: #8c83a3;
+    color:white;
+}
+
+.img-base {
+    width:25px;
+}
+
+.font-base {
+    color:rgb(121,112,143);
+    font-size:12px;
+}
+
+select {
+    outline:none;
+}
+
+/*防止模态框移动页面*/
+/*body{ overflow: auto !important;overflow-x:hidden;} #modal1{ overflow: auto !important;}*/
+
+.tipsNumber {
+    position:absolute;
+    display:block;
+    background:red;
+    height:20px;
+    width:20px;
+    line-height:20px;
+    border-radius:50%;
+    text-align:center;
+    font-size:8px;
+    margin-top:-46px;
+    margin-left:25px;
+}
+    .tipsNumber:hover {
+            cursor:pointer
+    }
+
+.modal-backdrop {
+    margin-left:0;
+}
+
+.modal-open {
+    overflow-y:auto;
+}

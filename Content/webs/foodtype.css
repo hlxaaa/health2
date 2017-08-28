@@ -1,0 +1,81 @@
+﻿body {
+}
+.row1-mid .btnSearch {
+    height: 32px;
+}
+#inputSearch {
+    height:32px;
+}
+#divMain2 {
+    background:initial;
+   
+}
+
+.row1-right {
+    float: right;
+    /*width: 369px;*/
+     width: 245px;
+    /*margin-top: 2px;*/
+    
+}
+
+    .row1-right a {
+        height:32px;
+        width:100px;
+        line-height:25px;
+        color:white;
+        padding-top:0;
+        padding-left:0;
+        font-weight:bold;
+        font-size:12px;
+    }
+    .row1-right a img {
+    width: 16px;
+    margin-left: 10px;
+    margin-top: -1px;
+}
+.allselect .icheckbox_minimal {
+    margin-top:6px;
+}
+.td-edit font {
+    color:#8c83a3;
+    font-weight:bold;
+}
+
+.td-edit a:first-child {
+    margin-left:0;
+    border-right:1px solid #8c83a3;
+    padding-right:20px;
+  
+}
+.td-edit a:hover {
+    cursor:pointer
+}
+.btn-delete img {
+    margin-left:0;
+}
+.modal-body button {
+    background-color: #8c83a3;
+    border-color: #8c83a3;
+    height: 28px;
+    margin-top: -4px;
+    margin-left: 20px;
+    line-height: 12px;
+    font-size: 16px;
+}
+#modal1 {
+    margin-left:0;
+}
+.modal-dialog {
+    margin-top:400px;
+}
+
+.modal-body input {
+    height: 28px;
+    width: 280px;
+    border-radius: 5px;
+     border: 1px solid rgb(153,153,153); 
+}
+
+/*body{ overflow: auto !important;} #modal1{ overflow: auto !important;}*/
+                                  

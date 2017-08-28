@@ -1,0 +1,95 @@
+﻿body {
+}
+.control-group h6, .control-group input, .control-group select {
+    float:left;
+}
+#divMain2 {
+    background-color:initial;
+}
+#inputSearch {
+    height:32px
+}
+.btnSearch {
+    height:32px;
+}
+.row1-right {
+    width:216px;
+    
+}
+.btn-this img {
+    width:20px;
+    margin-left:0;
+}
+.btn-this font {
+    color:white;
+    margin-left:5px;
+}
+.batchDelete,.btn-add {
+    height:34px;
+    font-size:12px;
+}
+.batchDelete {
+    width:98px;
+    
+}
+.btn-add {
+    width:65px;
+}
+
+.btn-edit {
+    width:25px;
+    height:25px;
+}
+.edit font{
+    color:#8c83a3;
+    font-weight:bold;
+}
+.modal-dialog {
+    width:416px;
+}
+.modal-content {
+    height:301px;
+    margin-left:0;
+}
+.modal-title {
+    font-size:12px;
+    font-weight:bold;
+    margin-left:5px;
+    color:#8c83a3
+}
+.info input {
+    width:241px;
+    height:28px;
+    border:1px solid #8c83a3 ;
+    border-radius:5px;
+    margin-left:14px;
+}
+.info {
+    margin-top:20px
+}
+.modal-body {
+    padding-top:10px;
+}
+.btn-base {
+    width:63px;
+    height:30px;
+    padding-top:6px;
+    font-size:12px;
+}
+.footer {
+    text-align:center;
+}
+.modal-header {
+    margin-right:15px;
+}
+
+.info select {
+    width: 241px;
+    height: 28px;
+    border: 1px solid #8c83a3;
+    border-radius: 5px;
+    margin-left: 14px;
+}
+a:hover {
+    cursor:pointer;
+}

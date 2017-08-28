@@ -1,0 +1,63 @@
+﻿body {
+}
+#main1-right font {
+    margin-left:5px;
+}
+#main1-right a {
+    width:66px;
+    height:33px;
+}
+#main1-right img {
+    margin-left:10px;
+    margin-top:-2px;
+}
+#divMain3 {
+    height:600px;
+}
+
+.main3-div1 {
+    height:50px;
+    line-height:50px;
+    border-bottom:1px solid black;
+    margin-right:15px;
+}
+
+.div1-font2 {
+    margin-left:5px;
+}
+.icon-uptriangle {
+    height:30px;
+    width:30px;
+    position:absolute;
+    margin-top:-19px;
+    margin-left:6px;
+}
+
+.div1-right a {
+    margin-right:20px;
+}
+    .div1-right a:hover {
+        cursor:pointer;
+    }
+.select-year, .select-month {
+    height:24px;
+    border:1px solid #49425b;
+    border-radius:3px;
+}
+.select-year {
+    
+    width:119px;
+}
+.select-month {
+    width:74px;
+    
+}
+.main3-div2 {
+    margin-top:30px;
+    margin-bottom:40px;
+    height:17px;
+}
+
+.datetime {
+    color:rgb(137,149,199)
+}

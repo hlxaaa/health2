@@ -1,0 +1,159 @@
+﻿body {
+}
+#divModalInfo h6,#divModalInfo span {
+    float:left;
+}
+
+#main1-right {
+    width:415px;
+    margin-top:6px;
+}
+.input-search {
+    height:32px;
+    border: 1px solid rgb(121,112,143);
+
+    width: 269px;
+    /* border-radius: 5vw; */
+    border-bottom-left-radius: 60px;
+    border-top-left-radius: 60px;
+    outline: none;
+}
+
+.btn-search {
+    height:32px;
+    border: 1px solid rgb(121,112,143);
+    background-color: rgb(121,112,143);
+    display: block;
+    margin-left:0;
+    width: 70px;
+    border-bottom-right-radius: 60px;
+    border-top-right-radius:60px;
+    margin-top:0px;
+    text-align:center;
+}
+
+.img-search {
+    margin-top:-7px;
+    width:34px!important;
+    margin-left:0;
+}
+
+.td-sport {
+    padding:4px!important;
+}
+
+.icon-sport {
+    width:33px;
+    margin-left:0px;
+}
+
+.td-edit a{
+    font-weight: bold;
+    color: rgb(121,112,143);
+    margin-left:0px;
+}
+
+a:hover {
+    cursor:pointer
+}
+
+.info {
+  
+}
+
+#modal1 {
+    font-size:13px;
+}
+
+.modal-dialog {
+    width:498px;
+    height:630px;
+}
+.modal-content {
+    margin-left:0px;
+    height:630px;
+}
+
+.modal-header {
+    /*line-height:20px;*/
+    margin-right:15px;
+    height:57px;
+}
+
+.icon-edit {
+    width:25px;
+}
+.modal-title {
+    margin-left:10px;
+    color:#8c83a3;
+    display:block;
+    margin-top:5px;
+}
+
+.info {
+    margin-top:12px;
+}
+
+.info input {
+    height:28px;
+    width:294px;
+    border-radius:3px;
+    border:1px solid #8c83a3;
+}
+
+#info-id {
+    margin-left:0;
+    
+}
+
+.info font:first-child {
+    margin-left:-15px;
+}
+
+.info font {
+    line-height:23px;
+}
+
+.info input {
+    margin-right:58px;
+}
+
+.font-icon {
+    margin-left:66px;
+}
+
+.btn-save {
+    display:inline-block;
+    width:63px;
+    height:30px;
+    background-color:#8c83a3;
+    border:1px solid #8c83a3;
+    color:white;
+    text-align:center;
+    padding-top:4px;
+}
+.footer {
+    text-align:center;
+}
+
+#info-sex {
+        height: 28px;
+    width: 294px;
+    border-radius: 3px;
+    border: 1px solid #8c83a3;
+        margin-right: 58px;
+        
+}
+
+/*分页栏在白色背景中*/
+.pagination li a {
+     background-color:white;
+}
+
+.pagination .disabled a:hover{
+    background-color:white;
+}
+
+.pagination .disabled a {
+    background-color:white;
+}

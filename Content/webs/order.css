@@ -1,0 +1,93 @@
+﻿body {
+}
+#divMain2 {
+    background-color:initial;
+    line-height:70px;
+}
+
+#divMain3 {
+    margin-left: 1.7em;
+}
+table {
+    margin-right:15px;
+}
+
+#inputDate1 ,#inputDate2{
+    height:24px;
+    width:119px;
+    border:1px solid black;
+    border-radius:3px;
+}
+
+.selector-rest {
+    width:209px;
+    height:24px;
+       border:1px solid black;
+    border-radius:8px;
+}
+.row4 {
+    margin-left:7.5px;
+}
+.row4 font {
+    /*line-height:24px;*/
+    margin-left:0;
+}
+#divMain1 {
+    margin-top:13px;
+}
+.icon-new {
+    width:27px;
+}
+
+.modal-dialog {
+    width:314px;
+    font-size:14px;
+}
+.modal-content {
+    height:511px;
+    margin-left:0;
+      border-radius:15px;
+}
+.modal-body {
+    margin-left:0;
+    padding-top:0;
+  
+}
+.info {
+    margin-left:0;
+    margin-top:25px;
+}
+.info-font1 {
+    margin-left:6px;
+}
+
+.info-font2 {
+    position:absolute;
+    left:84px;
+}
+
+.modal-header {
+    margin-right:15px;
+}
+
+
+/*分页栏在白色背景中*/
+.pagination li a {
+     background-color:white;
+}
+
+.pagination .disabled a:hover{
+    background-color:white;
+}
+
+.pagination .disabled a {
+    background-color:white;
+}
+
+
+tbody tr td {
+    color:#83818E;
+}
+.bold td{
+    color:black;
+}
