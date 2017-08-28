@@ -71,7 +71,7 @@ namespace WebApplication1.Webs
         protected void UpdateType() {
             string id = Request["id"];
             string name = Request["name"];
-            bool isExist = Tool.IsExist(name, "name", "FoodType", "");
+            bool isExist = Tool.IsExist(name, "name", "FoodType", " and isDeleted='False'");
             if (isExist)
             {
                 Response.Write("exist");
@@ -88,7 +88,7 @@ namespace WebApplication1.Webs
 
         protected void AddType() {
             string name = Request["name"];
-            bool isExist = Tool.IsExist(name, "name", "FoodType", "");
+            bool isExist = Tool.IsExist(name, "name", "FoodType", " and isDeleted='False'");
             if (isExist)
             {
                 Response.Write("exist");

@@ -1,10 +1,23 @@
 ﻿var isAdd = false;
 var jsonStr;
-var isHasResult = true;
+//var isHasResult = true;
+var isClicked = false;
 
 $(document).ready(function () {
 
-    getTable(jsonStr);
+    //回车触发
+    $('.row1-mid').keydown(function (e) {
+        if (e.keyCode == 13)
+            $('.btnSearch').click();
+    })
+
+    $('.modal-body').keydown(function (e) {
+        if (e.keyCode == 13)
+            $('.modal-body button').click();
+    })
+
+    //getTable(jsonStr);
+    changePage(1);
 
     //$('input').iCheck({
     //    checkboxClass: 'icheckbox_minimal',
@@ -19,6 +32,7 @@ $(document).ready(function () {
 
     $('.btn-add').click(function () {
         isAdd = true;
+        isClicked = false;
         $('#modal1').modal();
         $('.modal-body input:eq(0)').val('');
         clearCss();
@@ -26,6 +40,7 @@ $(document).ready(function () {
 
     $('body').delegate('#aRightBorder', 'click', function () {
         isAdd = false;
+        isClicked = false;
         var id = $(this).prev().val();
         var name = $(this).parent().prev().children('font').text();
         $('#foodId').val(id);
@@ -44,8 +59,8 @@ $(document).ready(function () {
             var data = {
                 method: 'deleteFood',
                 thePage: page,
-                search:search,
-                id:id
+                search: search,
+                id: id
             }
             $.ajax({
                 type: 'post',
@@ -57,7 +72,7 @@ $(document).ready(function () {
                     getTable(res);
                 },
                 error: function (res) {
-                
+
                 }
             })
         }
@@ -65,68 +80,78 @@ $(document).ready(function () {
 
     //add或者update
     $('.btn-primary').click(function () {
-        var name = $('.modal-body input:eq(0)').val().trim();
-        if (name == '') {
-            $('.modal-body input').css('border-color', 'red');
-            return;
-        }
-        var search = $('#inputSearch').val();
-        var page = $('.pagination li[class="active"] a').text();
-
-        $('#modal1').modal('hide');
-        //return;
-        if (isAdd) {
-            var data = {
-                method: 'addFood',
-                search: search,
-                thePage:page,
-                name: name
+        if (!isClicked) {
+            var name = $('.modal-body input:eq(0)').val().trim();
+            if (name == '') {
+                $('.modal-body input').css('border-color', 'red');
+                return;
             }
-            $.ajax({
-                type: 'post',
-                data: data,
-                url: 'Food.aspx',
-                cache: false,
-                success: function (res) {
-                    if (res == 'exist')
-                        alert('已存在该菜品！');
-                    else {
-                        getTable(res);
+            var search = $('#inputSearch').val();
+            var page = $('.pagination li[class="active"] a').text();
+
+
+            //return;
+            if (isAdd) {
+                var data = {
+                    method: 'addFood',
+                    search: search,
+                    thePage: page,
+                    name: name
+                }
+                isClicked = true;
+                $.ajax({
+                    type: 'post',
+                    data: data,
+                    url: 'Food.aspx',
+                    cache: false,
+                    success: function (res) {
+
+                        if (res == 'exist')
+                            alert('已存在该菜品！');
+                        else {
+                            getTable(res);
+                          
+                            $('#modal1').modal('hide');
+                           
+                        }
+                        //location.reload();
+                    },
+                    error: function (res) {
+
                     }
-                        //location.reload();
-                },
-                error: function (res) {
-
-                }
-            })
-        }
-        else {
-            var id = $('#foodId').val();
-            var data = {
-                id:id,
-                method: 'updateFood',
-                search: search,
-                thePage: page,
-                name: name
+                })
             }
-            $.ajax({
-                type: 'post',
-                data: data,
-                url: 'Food.aspx',
-                cache: false,
-                success: function (res) {
-                    if (res == 'exist')
-                        alert('已存在该菜品！');
-                    else
-                        getTable(res);
-                        //location.reload();
-                },
-                error: function (res) {
-
+            else {
+                var id = $('#foodId').val();
+                var data = {
+                    id: id,
+                    method: 'updateFood',
+                    search: search,
+                    thePage: page,
+                    name: name
                 }
-            })
+                isClicked = true;
+                $.ajax({
+                    type: 'post',
+                    data: data,
+                    url: 'Food.aspx',
+                    cache: false,
+                    success: function (res) {
+                        if (res == 'exist')
+                            alert('已存在该菜品！');
+                        else
+                            getTable(res);
+                       
+                        $('#modal1').modal('hide');
+                       
+                        //location.reload();
+                    },
+                    error: function (res) {
+
+                    }
+                })
+            }
         }
-            
     })
 
     //全选js
@@ -165,57 +190,59 @@ $(document).ready(function () {
 })
 
 function clearCss() {
-    $('.modal-body input').css('border','1px solid rgb(153,153,153)');
+    $('.modal-body input').css('border', '1px solid rgb(153,153,153)');
 }
 
-    function allselectToggle() {
-        if ($('.allselect div').attr('class') == 'icheckbox_minimal hover checked') {
-            //var l = $('.ques-select').length;
-            $('.div-food .icheckbox_minimal').attr('class', 'icheckbox_minimal checked');
-        }
-        else {
-            $('.div-food .icheckbox_minimal').attr('class', 'icheckbox_minimal');
-        }
+function allselectToggle() {
+    if ($('.allselect div').attr('class') == 'icheckbox_minimal hover checked') {
+        //var l = $('.ques-select').length;
+        $('.div-food .icheckbox_minimal').attr('class', 'icheckbox_minimal checked');
+    }
+    else {
+        $('.div-food .icheckbox_minimal').attr('class', 'icheckbox_minimal');
+    }
+}
+
+function getTable(jsonStr) {
+    var json = JSON.parse(jsonStr).Table1;
+    //isHasResult = true;
+    if (json == null) {
+        //isHasResult = false;
+        //alert('没有结果');
+        $('#divMain3 .div-food').remove();
+        $('#divMain3').nextAll().remove();
+        return;
+    }
+    $('#divMain3 .div-food').remove();
+
+    for (var i = 0; i < json.length; i++) {
+        var name = json[i].name
+
+        var h = '<div class="div-food">'
++ '<div class="name-wrap">'
++ '<div class="div-name">'
++ '<input type="checkbox">'
++ '<font>' + name + '</font>'
++ '</div>'
++ '<div class="div-edit">'
++ '<input type="hidden"  value="' + json[i].id + '"/>'
++ '<a id="aRightBorder" style="text-decoration: none;">'
++ '<img class="btn-edit" src="/Images/recipe/icon-edit.svg"><font>编辑</font></a>'
++ '<div class="partline3">'
++ '</div>'
++ '<a style="text-decoration: none;" class="btn-delete">'
++ '<img class="btn-edit" src="/Images/recipe/icon-delete.svg"><font>删除</font>'
++ '</a>'
++ '</div>'
++ ' <div class="fc"></div>'
++ '</div>'
++ '</div>'
+        $('#divMain3 .partline2').before(h);
+
     }
 
-    function getTable(jsonStr) {
-        var json = JSON.parse(jsonStr).Table1;
-        isHasResult = true;
-        if (json == null) {
-            isHasResult = false;
-            //alert('没有结果');
-            $('#divMain3 .div-food').remove();
-            $('#divMain3').nextAll().remove();
-            return;
-        }
-        $('#divMain3 .div-food').remove();
-
-        for (var i = 0; i < json.length; i++) {
-            var h = '<div class="div-food">'
-    + '<div class="name-wrap">'
-    + '<div class="div-name">'
-    + '<input type="checkbox">'
-    + '<font>' + json[i].name + '</font>'
-    + '</div>'
-    + '<div class="div-edit">'
-    + '<input type="hidden"  value="' + json[i].id + '"/>'
-    + '<a id="aRightBorder" style="text-decoration: none;">'
-    + '<img class="btn-edit" src="/Images/recipe/icon-edit.svg"><font>编辑</font></a>'
-    + '<div class="partline3">'
-    + '</div>'
-    + '<a style="text-decoration: none;" class="btn-delete">'
-    + '<img class="btn-edit" src="/Images/recipe/icon-delete.svg"><font>删除</font>'
-    + '</a>'
-    + '</div>'
-    + ' <div class="fc"></div>'
-    + '</div>'
-    + '</div>'
-            $('#divMain3 .partline2').before(h);
-
-        }
-
-        var pages = JSON.parse(jsonStr).pages;
-        var thePage = JSON.parse(jsonStr).thePage;
+    var pages = JSON.parse(jsonStr).pages;
+    var thePage = JSON.parse(jsonStr).thePage;
     //    var p = '<nav style="text-align: center; display: block">'
     //+ '<ul class="pagination">'
     //    if(thePage==1)
@@ -236,148 +263,43 @@ function clearCss() {
 
     //    p+= '</ul>'
     //    + '</nav>'
-        var h = getPageHtml(pages, thePage);
+    var h = getPageHtml(pages, thePage);
 
-        $('#divMain3').nextAll().remove();
-        $('#divMain3').after(h);
+    $('#divMain3').nextAll().remove();
+    $('#divMain3').after(h);
 
-        getInputStyle();
+    getInputStyle();
 
+}
+
+function getPage(node) {
+    var thePage = node.innerText;
+    //alert(thePage);
+    changePage(thePage);
+}
+
+function changePage(page) {
+    var search = $('#inputSearch').val();
+
+    var data = {
+        method: 'search',
+        thePage: page,
+        search: search
     }
-
-    function getPage(node) {
-        var thePage = node.innerText;
-        //alert(thePage);
-        changePage(thePage);
-    }
-
-    function changePage(page) {
-        var search = $('#inputSearch').val();
-
-        var data = {
-            method: 'search',
-            thePage: page,
-            search: search
+    $.ajax({
+        type: 'post',
+        data: data,
+        //dataType: 'html',
+        url: 'Food.aspx',
+        cache: false,
+        success: function (data) {
+            getTable(data);
+            //if (!isHasResult)
+            //    alert('没有结果')
+        },
+        error: function (err) {
+            alert('cuole');
         }
-        $.ajax({
-            type: 'post',
-            data: data,
-            //dataType: 'html',
-            url: 'Food.aspx',
-            cache: false,
-            success: function (data) {
-                getTable(data);
-                if(!isHasResult)
-                    alert('没有结果')
-            },
-            error: function (err) {
-                alert('cuole');
-            }
-        })
-    }
+    })
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    function tipsClear() {
-        $('#inputFood').css('border-color', '#515151');
-    }
-
-
-    function addFood() {
-        var name = $('#inputFood').val();
-        if (name == "") {
-            $('#inputFood').css('border-color', 'red');
-            return;
-        }
-        $.ajax({
-            type: "post",
-            url: "Food.aspx?method=addFood&name=" + name,
-            cache: false,
-            success: function (data) {
-                if (data == "exist")
-                    alert("已存在该菜品")
-                else
-                    location.reload();
-            },
-            error: function (err) {
-                alert("错误");
-            }
-        });
-    }
-
-    function deleteFood(id) {
-        //var a = id;
-        var r = confirm("确认删除吗？")
-        if (r == true) {
-            var div = document.getElementById("div" + id);
-            div.parentNode.removeChild(div);
-            $.ajax({
-                type: "post",
-                url: "Food.aspx?method=delete&id=" + id,
-                cache: false,
-                success: function (data) {
-                    //alert("ok");
-                },
-                error: function (err) {
-                    alert("出问题了");
-                }
-            });
-        }
-    }
-    //function funChange()
-    //{
-    //    $.ajax({
-    //        type: "post",
-    //        url: "Restaurant.aspx?method=Restaurant",
-    //        cache: false,
-    //        success: function (data) {
-    //            alert("ok");
-    //            document.getElementById("body1").innerHTML = URL("Restaurant.aspx");
-    //        },
-    //        error: function (err) {
-    //            alert("出问题了");
-    //        }
-    //    });
-    //}
-    //function food()
-    //{
-    //    document.getElementById("container").innerHTML = 
-    //}
-
-    function updateFood() {
-        var name = $('#inputFood').val();
-        if (name == '') {
-            $('#inputFood').css('border-color', 'red');
-            return;
-        }
-        var id = $('#inputId').val();
-        $.ajax({
-            type: "post",
-            //data:data,
-            url: "Food.aspx?method=update&name=" + name + "&id=" + id,
-            cache: false,
-            //async: true,
-            success: function (data) {
-                if (data == "exist")
-                    alert("已存在该菜品")
-                else
-                    location.reload();
-            },
-            error: function (err) {
-                alert("出问题了");
-            }
-        });
-    }

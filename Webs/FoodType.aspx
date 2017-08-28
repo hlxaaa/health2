@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>菜品分类管理</title>
     <script type="text/javascript">
-        var jsonStr = '<%=jsonStr%>'
+        
     </script>
     <script src="../Scripts/jquery-2.0.0.min.js"></script>
     <script src="../Scripts/bootstrap.min.js"></script>
@@ -141,7 +141,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style="background-color: white;">
+                   <%--     <tr style="background-color: white;">
                             <td>
                                 <input type="checkbox">
                             </td>
@@ -160,7 +160,7 @@
                             <td></td>
                             <td></td>
 
-                        </tr>
+                        </tr>--%>
                     </tbody>
                 </table>
             </div>
@@ -182,7 +182,7 @@
                     <div class="fc"></div>
                 </div>
                 <div class="modal-body">
-                    <input id="typename"/>
+                    <input id="typename" maxlength="25" />
                     <button type="button" class="btn btn-primary">
                         确定
                     </button>

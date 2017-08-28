@@ -106,7 +106,7 @@
                         名称:
                     </div>
                     <div class="fl ">
-                        <input type="text" id="title" value="<%=name %>" />
+                        <input type="text" id="title" value="<%=name %>" maxlength="25" />
                     </div>
                     <div class="fr btn-del">
                         <a  style="text-decoration: none;">
@@ -160,13 +160,13 @@
                             <font>
                                 月销售量：
                             </font>
-                            <input type="text" id="sales" value="<%=sales %>"  onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+                            <input type="text" id="sales" value="<%=sales %>"  onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/ maxlength="9">
                         </div>
                         <div class="fl">
                             <font>
                                 人均消费：
                             </font>
-                            <input type="text" id="consumption" value="<%=consumption %>" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+                            <input type="text" id="consumption" value="<%=consumption %>" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="9"/>
                         </div>
                         <div class="fl">
                             <font>

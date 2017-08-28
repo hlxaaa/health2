@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>菜品管理</title>
     <script type="text/javascript">
-        var jsonStr = '<%=jsonStr%>'
+     
     </script>
     <script src="../Scripts/jquery-2.0.0.min.js"></script>
     <script src="../Scripts/bootstrap.min.js"></script>
@@ -129,28 +129,7 @@
             <div class="row" id="divMain3">
                 <div class="partline1"></div>
                 <div class="partline2"></div>
-                <%for (var i = 0; i < 1; i++)
-                  { %>
-                <div class="div-food">
-                    <div class="name-wrap">
-                        <div class="div-name">
-                            <input type="checkbox">
-                            <font>我的名字很长</font>
-                        </div>
-                        <div class="div-edit">
-                            <input type="hidden" value="" />
-                            <a id="aRightBorder" style="text-decoration: none;">
-                                <img class="btn-edit" src="/Images/recipe/icon-edit.svg"><font>编辑</font></a>
-                            <div class="partline3">
-                            </div>
-                            <a style="text-decoration: none;" class="btn-delete">
-                                <img class="btn-edit" src="/Images/recipe/icon-delete.svg"><font>删除</font>
-                            </a>
-                        </div>
-                        <div class="fc"></div>
-                    </div>
-                </div>
-                <%} %>
+                
             </div>
 
         </div>
@@ -169,7 +148,7 @@
                     </h4>
                 </div>
                 <div class="modal-body">
-                    <input />
+                    <input maxlength="25"/>
                     <button type="button" class="btn btn-primary">
                         确定
                     </button>

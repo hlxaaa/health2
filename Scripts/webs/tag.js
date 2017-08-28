@@ -1,17 +1,17 @@
 ﻿var isAdd = false;
+var isClicked = false;
 $(document).ready(function () {
-   
+    //回车触发
+    $('.modal-body').keydown(function (e) {
+        if (e.keyCode == 13)
+            $('.footer button').click();
+    })
 
     getInputStyle();
 
- 
-
-    //$('.btnSearch').click(function () {
-    //    changePage(1);
-    //})
-
     $('.btn-addTemplate').click(function () {
         isAdd = true;
+        isClicked = false;
         $('#modal1').modal();
         $('.tag-name input').val('');
         for (var i = 0; i < 9; i++) {
@@ -22,6 +22,7 @@ $(document).ready(function () {
 
     $('body').delegate('.td-edit #aRightBorder', 'click', function () {
         isAdd = false;
+        isClicked = false;
         var id = $(this).next().next('input').val();
         $('#tagId').val(id);
         $('#modal1').modal();
@@ -59,64 +60,68 @@ $(document).ready(function () {
     })
 
     $('.btn-primary').click(function () {
-        var name = $('.tag-name input').val().trim();
-        if (name == '') {
-            $('.tag-name input').css('border', '1px solid red');
-            return;
-        }
-        var constitutions = new Array();
-        for (var i = 0; i < 9; i++) {
-            constitutions[i] = $('.tag-name').nextAll('div:eq(' + i + ')').children('select').val();
-        }
-        if (isAdd) {
-            var data = {
-                method: 'addTag',
-                name: name,
-                constitutions:constitutions
+        if (!isClicked) {
+            var name = $('.tag-name input').val().trim();
+            if (name == '') {
+                $('.tag-name input').css('border', '1px solid red');
+                return;
             }
-            $.ajax({
-                type: 'post',
-                data: data,
-                url: 'Tag.aspx',
-                cache: false,
-                success: function (res) {
-                    if (res == 'exist')
-                        alert('已存在该标签！');
-                    else {
-                        alert('添加成功');
-                        location.reload();
-                    }
-                },
-                error: function (res) {
-                    alert(2);
-                }
-            })
-        }
-        else {
-            id = $('#tagId').val();
-            var data = {
-                method: 'updateTag',
-                id:id,
-                name: name,
-                constitutions: constitutions
+            var constitutions = new Array();
+            for (var i = 0; i < 9; i++) {
+                constitutions[i] = $('.tag-name').nextAll('div:eq(' + i + ')').children('select').val();
             }
-            $.ajax({
-                type: 'post',
-                data: data,
-                url: 'Tag.aspx',
-                cache: false,
-                success: function (res) {
-                    if (res == 'exist')
-                        alert('已存在该标签！');
-                    else {
-                        alert('更新成功');
-                        location.reload();
-                    }
-                },
-                error: function (res) {
-                    alert(2);
+            if (isAdd) {
+                var data = {
+                    method: 'addTag',
+                    name: name,
+                    constitutions: constitutions
                 }
-            })
+                isClicked = true;
+                $.ajax({
+                    type: 'post',
+                    data: data,
+                    url: 'Tag.aspx',
+                    cache: false,
+                    success: function (res) {
+                        if (res == 'exist')
+                            alert('已存在该标签！');
+                        else {
+                            alert('添加成功');
+                            location.reload();
+                        }
+                    },
+                    error: function (res) {
+                        alert(2);
+                    }
+                })
+            }
+            else {
+                id = $('#tagId').val();
+                var data = {
+                    method: 'updateTag',
+                    id: id,
+                    name: name,
+                    constitutions: constitutions
+                }
+                isClicked = true;
+                $.ajax({
+                    type: 'post',
+                    data: data,
+                    url: 'Tag.aspx',
+                    cache: false,
+                    success: function (res) {
+                        if (res == 'exist')
+                            alert('已存在该标签！');
+                        else {
+                            alert('更新成功');
+                            location.reload();
+                        }
+                    },
+                    error: function (res) {
+                        alert(2);
+                    }
+                })
+            }
         }
     })
 

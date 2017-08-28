@@ -416,3 +416,9 @@ function pushTips(num) {
     $('.tipsNumber').remove();
     $('.iconTop2:first').after('<font class="tipsNumber">'+num+'</font>');
 }
+
+function omit(str, length) {
+    if (str.length > length)
+        str = str.substring(0, length)+'...';
+    return str;
+}

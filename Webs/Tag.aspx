@@ -200,7 +200,7 @@
                 <div class="modal-body">
                     <div class="tag-name">
                         <font>名称:</font>
-                        <input type="type" name="name" value="" />
+                        <input type="text" name="name" value="" maxlength="25" />
                     </div>
                     <div>
                         <font>平和质:</font>

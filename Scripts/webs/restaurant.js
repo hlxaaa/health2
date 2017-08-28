@@ -1,15 +1,11 @@
 ﻿var isAdd = false;
-var isHasResult = true;
+//var isHasResult = true;
 $(document).ready(function () {
-    //$('#modalAdd').keydown(function (e) {
-    //    if (e.keyCode == 13) {
-    //        if (isAdd)
-    //            $('#btnAdd').click();
-    //        else
-    //            $('#btnUpdate').click();
-    //    }
-    //})
-    //批量删除
+    $('#inputSearch').keydown(function (e) {
+        if (e.keyCode == 13)
+            $('.btnSearch').click();
+    })
+
     $('.batchDelete').click(function () {
         var l = $('tr div[class="icheckbox_minimal checked"]').length;
         if (l < 1) {
@@ -73,7 +69,8 @@ $(document).ready(function () {
         }
     })
 
-    getTable(jsonStr);
+    //getTable(jsonStr);
+    changePage(1);
 
     $('input').iCheck({
         checkboxClass: 'icheckbox_minimal',
@@ -93,10 +90,12 @@ $(document).ready(function () {
 
 function getTable(data) {
     var json = JSON.parse(data).Table1;
-    isHasResult = true;
+    //isHasResult = true;
     if (json == null) {
         //alert('没有结果');
-        isHasResult = false;
+        //isHasResult = false;
+        $('tbody tr').remove();
+        $('#divMain3 nav').remove();
         return;
     }
     var h = '<table class=\"table table-striped table-hover\">'
@@ -118,22 +117,20 @@ function getTable(data) {
         + '</thead>'
         + '<tbody>';
     for (var i = 0; i < json.length; i++) {
+        var name = omit(json[i].name, 20);
+        var address=omit(json[i].address,20)
         h += '<tr  style="background-color:white;">';
         h += "<td><input type=\"checkbox\"></td>";
-        //h += "<td>" + json[i].id + "</td>";
-        h += "<td>" + json[i].name + "</td>";
-        //var available = (json[i].available == 'True') ? '有' : '没有';
-        h += "<td>" + json[i].address + "</td>";
-        //h += "<td>" + json[i].foodtypes + "</td>";
+        h += "<td>" + name + "</td>";
+        h += "<td>" + address + "</td>";
         h += "<td>" + json[i].phone + "</td>";
-        //h += "<td>" +foods[i] + "</td>";
         h += "<td>" + json[i].category + "</td>";
         h += "<td>" + json[i].sales + "</td>";
-       
-        //h += "<td>" + json[i].images + "</td>";
         h += "<td>" + json[i].consumption + "元" + "</td>";
         h += "<td>" + json[i].businesshours + "</td>";
-        h += "<td>" + json[i].discount.replace(/\|/g,',') + "</td>";
+        var discount = omit(json[i].discount, 20);
+        discount.replace(/\|/g, ',')
+        h += "<td>" + discount + "</td>";
         h += '<td id="editDelete">'
             +'<input type="hidden" value="'+json[i].id+'" />'
             + '<a id="aRightBorder" class="btn-editRest"><img class="btn-edit" src="/Images/recipe/icon-edit.svg" /><font>编辑</font></a> '
@@ -206,8 +203,8 @@ function changePage(page) {
             });
             $('a').css('text-decoration', 'none');
             allselectToggle();
-            if(!isHasResult)
-                alert('没有结果')
+            //if(!isHasResult)
+            //    alert('没有结果')
         },
         error: function (err) {
             alert('cuole');
