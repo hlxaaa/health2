@@ -19,7 +19,7 @@ namespace WebApplication1.Webs
         protected DataSet ds = new DataSet();
         protected int ran = new Random().Next();
         protected string jsonStr = "";
-        protected JObject jo = new JObject();
+        //protected JObject jo = new JObject();
 
         protected Dictionary<string, string> dictRest = new Dictionary<string, string>();
         protected Dictionary<string, string> dictFood = new Dictionary<string, string>();
@@ -38,11 +38,12 @@ namespace WebApplication1.Webs
             dictFood = Tool.GetDict("Food", "id", "name", conn);
             dictFoodType = Tool.GetDict("FoodType", "id", "name", conn);
             dictTags = Tool.GetDict("Tag", "id", "name", conn);
-            GetRecipe();
+            //GetRecipe();
 
             switch (Request["method"])
             {
                 case "search":
+                    GetRecipe();
                     ResJsonStr();
                     break;
                 case"deleteRecipe":
@@ -53,18 +54,9 @@ namespace WebApplication1.Webs
                     BatchDelete();
                     WebApplication1.Webs.RecipeContent.UpdateRecipeCache();
                     break;
-                //case "update":
-                //    Update(Convert.ToInt32(Request["id"].ToString()));
-                //    break;
-                //case "delete":
-                //    Delete(Convert.ToInt32(Request["id"].ToString()));
-                //    break;
-                //case "addImg":
-                //    AddImg();
-                //    break;
-                //case "deleteImg":
-                //    DeleteImg();
-                //    break;
+                default:
+                    GetRecipe();
+                    break;
             }
         }
 
@@ -94,15 +86,6 @@ namespace WebApplication1.Webs
             string delRecipe = "update Recipe set isDeleted = 'True' where id = "+id;
             SqlCommand sc2 = new SqlCommand(delRecipe, conn);
             sc2.ExecuteScalar();
-
-            //string delTag = "delete from Tag_Relation where typename = 'recipe' and relationId = "+id;
-            //SqlCommand sc3 = new SqlCommand(delTag, conn);
-            //sc3.ExecuteScalar();
-
-            //string delFood = "delete from Recipe_foods where recipeId = "+id;
-            //SqlCommand sc4 = new SqlCommand(delFood, conn);
-            //sc4.ExecuteScalar();
-
             conn.Close();
         }
 
@@ -112,8 +95,6 @@ namespace WebApplication1.Webs
             int pageSize = 10;
             if (Request["pageSize"] != null)
                 pageSize = Convert.ToInt32(Request["pageSize"]);
-            //string[] types = Request.Form.GetValues("type[]");
-            //string[] keys = Request.Form.GetValues("key[]");
             string index = Request["thePage"];
             if (index != null)
                 pageIndex = Convert.ToInt32(index);
@@ -121,10 +102,7 @@ namespace WebApplication1.Webs
             if (size != null)
                 pageSize = Convert.ToInt32(size);
             
-            //string type = "images";
-            //string key = "图片";
             string sqlSelect = "select * from Recipe where isDeleted='False' ";
-
 
             //搜索条件
             int pages = 0;
@@ -161,7 +139,7 @@ namespace WebApplication1.Webs
                     if (v.IndexOf(search) > -1)
                     {
                         string id = Tool.GetKey(dictRest, v);
-                        sqlSelect += " or id in (select r.id from Recipe as r,Restaurant as r2 where r2.id = " + id + " and r2.id=r.restaurantId)";
+                        sqlSelect += " or id in (select r.id from Recipe as r,Restaurant as r2 where r2.id = " + id + " and r2.id=r.restaurantId and r2.isDeleted='False')";
                     }
                 }
 
@@ -265,7 +243,7 @@ namespace WebApplication1.Webs
             string pagesStr = ",\"pages\":" + pages + "";
             string thePageStr = ",\"thePage\":"+thePage+"";
             jsonStr = jsonStr.Substring(0, jsonStr.Length - 1) + pagesStr + thePageStr+"}";
-            jo = JObject.Parse(jsonStr);
+            //jo = JObject.Parse(jsonStr);
         }
 
         protected string GetTags(string id,Dictionary<string, string> dict)
@@ -273,8 +251,6 @@ namespace WebApplication1.Webs
             string[] tags = { };
             string result = "";
             string str = "select tagId from Tag_Relation as t1,Tag as t2 where relationId = "+id+" and typename = 'recipe' and isDeleted = 'False' group by tagId";
-            //string str = "select tagId from " + tbName + " where " + tbId + " = " + id +" and typename='recipe'";
-            //conn.Open();
             DataSet ds = new DataSet();
             SqlDataAdapter da = new SqlDataAdapter(str, conn);
             da.Fill(ds);
@@ -301,14 +277,8 @@ namespace WebApplication1.Webs
 
         protected void ResJsonStr()
         {
-            //string rows = "{\"number\":\"123456\",\"name\":\"tongxiaoyi\"}";
-            //var a = Tool.GetJsonByDataset(ds);
             Response.Write(jsonStr);
             Response.End();
-            //Response.AppendHeader(200,{'Content-Type':'text/html'});
-
-            //Response.Redirect("Recipe.aspx");
-            //Response.End();
         }
 
         protected string GetFoodName(string food,Dictionary<string,string> dict) {
@@ -335,7 +305,6 @@ namespace WebApplication1.Webs
             string[] weight = { };
             string result = "";
             string str = "select r.id,r.recipeId,r.foodtypeId,r.foodId,r.weight from Recipe_foods as r ,Food as f where recipeId ="+id+" and r.foodId = f.id and f.isDeleted='False'";
-            //conn.Open();
             DataSet ds = new DataSet();
             SqlDataAdapter da = new SqlDataAdapter(str, conn);
             da.Fill(ds);
@@ -361,75 +330,5 @@ namespace WebApplication1.Webs
             }
             return result;
         }
-
-        protected void AddRecipe()
-        {
-            string name = Request["name"];
-            string available = Request["availbale"];
-            string rest = Request["rest"];
-            string price = Request["price"];
-            string sales = Request["sales"];
-            string[] tags = Request.Form.GetValues("tags[]");
-            string[] foodTypes = Request.Form.GetValues("foodType[]");
-            string[] foods = Request.Form.GetValues("foods[]");
-            string[] weight = Request.Form.GetValues("weight");
-            string thumbnailIndex = Request["thumbnail"];
-            foreach (HttpPostedFile f in Request.Files) { 
-                //f...
-            }
-
-            string insertRecipe = "insert Recipe (name,available,restaurtId) values () Select @@IDENTITY";
-            SqlCommand sqlCom = new SqlCommand(insertRecipe, conn);
-            int id = (int)sqlCom.ExecuteScalar();
-
-            for (int i = 0; i < tags.Length; i++)
-            {
-                string insertTag = "insert Recipe_tags (recipeId,tagId) values ("+id+","+tags[i]+")";
-            }
-
-            for (int i = 0; i < foods.Length; i++) {
-                string insertFoods = "insert Recipe_foods (recipeId,foodtypeId,foodId,weight) values (" + id + "," + foodTypes[i] + "," + foods[i] + "," + weight[i] + ")";
-            }
-
-            //菜品传过来应该是 foodtypeId，food，weight
-
-            //图片传过来，n个文件，标记为封面图的index，图片大小怎么办。如果是把尺寸传过来，那我要处理
-
-
-        }
-
-        protected void UpdateRecipe()
-        { 
-            //图片，更新页内新增的放到temp。没保存之前，删除图片，不删除文件，传过来之后，不存在的删掉      
-            string id = Request["id"];
-            string name = Request["name"];
-            string available = Request["availbale"];
-            string rest = Request["rest"];
-            string price = Request["price"];
-            string sales = Request["sales"];
-            string[] tags = Request.Form.GetValues("tags[]");
-            string[] foodTypes = Request.Form.GetValues("foodType[]");
-            string[] foods = Request.Form.GetValues("foods[]");
-            string[] weight = Request.Form.GetValues("weight");
-            string thumbnailIndex = Request["thumbnail"];
-            foreach (HttpPostedFile f in Request.Files)
-            {
-                //f...
-            }
-
-            string deleteTags = "delete Recipe_tags where recipeId = "+id;
-            for (int i = 0; i < tags.Length; i++)
-            {
-                string insertTag = "insert Recipe_tags (recipeId,tagId) values (" + id + "," + tags[i] + ")";
-            }
-
-            string deleteFoods = "delete Recipe_Foods where recipeId = "+id;    
-            for (int i = 0; i < foods.Length; i++)
-            {
-                string insertFoods = "insert Recipe_foods (recipeId,foodtypeId,foodId,weight) values (" + id + "," + foodTypes[i] + "," + foods[i] + "," + weight[i] + ")";
-            }
-
-        }
-        
     }
 }

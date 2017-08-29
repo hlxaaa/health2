@@ -36,21 +36,15 @@ namespace WebApplication1.Webs
             if (!string.IsNullOrEmpty(Request["pageIndex"]))
                 pageIndex = Convert.ToInt32(Request["pageIndex"]);
 
-
-
             string sqlSelect = "select a.id ,b.name,a.balance from Seller as a,Restaurant as b where a.restaurantid = b.id";
-
 
             //搜索条件
             int pages = 0;
-            //int thePage = 1;
             if (!string.IsNullOrEmpty(Request["thePage"]))
                 pageIndex = Convert.ToInt32(Request["thePage"]);
 
-            //string search = "";
             if (!string.IsNullOrEmpty(Request["search"]))
             {
-                
                 sqlSelect += " and b.name like '%" + Request["search"] + "%'";
             }
             int x = (pageIndex - 1) * pageSize;
@@ -66,7 +60,6 @@ namespace WebApplication1.Webs
             pages = pages * pageSize == allCount ? pages : pages + 1;
             ds.Clear();
 
-
             SqlDataAdapter da = new SqlDataAdapter(sqlPaging, conn);
             da.Fill(ds);
             ds = Tool.DsToString(ds);
@@ -75,14 +68,6 @@ namespace WebApplication1.Webs
             string thePageStr = ",\"thePage\":" + pageIndex + "";
             jsonStr = jsonStr.Substring(0, jsonStr.Length - 1) + pagesStr + thePageStr + "}";
             conn.Close();
-            //int count = ds.Tables[0].Rows.Count;
-            //name = new string[count];
-            //balance1 = new string[count];
-            //for (int i = 0; i < count; i++)
-            //{
-            //    name[i] = ds.Tables[0].Rows[i]["name"].ToString();
-            //    balance1[i] = ds.Tables[0].Rows[i]["balance"].ToString();
-            //}
         }
 
         protected void ResJsonStr()

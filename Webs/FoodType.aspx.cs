@@ -60,8 +60,8 @@ namespace WebApplication1.Webs
             }
         }
 
-        protected void DeleteType(string id) {
-            string str = "update FoodType set isDeleted = 'True' where id ="+id;
+        protected void DeleteType(string foodTypeId) {
+            string str = "update FoodType set isDeleted = 'True' where id ="+foodTypeId;
             conn.Open();
             SqlCommand sqlCom = new SqlCommand(str, conn);
             sqlCom.ExecuteScalar();
@@ -69,7 +69,7 @@ namespace WebApplication1.Webs
         }
 
         protected void UpdateType() {
-            string id = Request["id"];
+            string foodTypeId = Request["id"];
             string name = Request["name"];
             bool isExist = Tool.IsExist(name, "name", "FoodType", " and isDeleted='False'");
             if (isExist)
@@ -79,7 +79,7 @@ namespace WebApplication1.Webs
                 return;
             }
 
-            string str = "update FoodType set name ='"+name+"' where id = "+id;
+            string str = "update FoodType set name ='"+name+"' where id = "+foodTypeId;
             conn.Open();
             SqlCommand sqlCom = new SqlCommand(str, conn);
             sqlCom.ExecuteScalar();
@@ -104,8 +104,6 @@ namespace WebApplication1.Webs
         }
 
         protected void GetFoodType() {
-
-
             string sqlSelect = "select * from FoodType where isDeleted='False' ";
 
             //查询条件添加区
@@ -118,18 +116,8 @@ namespace WebApplication1.Webs
                 sqlSelect += " name like '%" + name + "%'";
                 sqlSelect += ")";
             }
-            //
-
-            //int x = (pageIndex - 1) * pageSize;
-            //string sqlPaging = "select top " + pageSize + " * from (" + sqlSelect + ") r where id not in (select top " + x + " id from (" + sqlSelect + ") r) order by id";
             conn.Open();
 
-            //SqlDataAdapter daPage = new SqlDataAdapter(sqlSelect, conn);
-            //daPage.Fill(ds);
-            //int allCount = ds.Tables[0].Rows.Count;
-            ////pageSize = allCount / pageSize;
-            ////pageSize = pageSize * pageSize == allCount ? pageSize : pageSize + 1;
-            //ds.Clear();
             sqlSelect += " order by id";
             SqlDataAdapter da = new SqlDataAdapter(sqlSelect, conn);
             da.Fill(ds);

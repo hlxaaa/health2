@@ -29,11 +29,7 @@ namespace WebApplication1.Webs
                 return;
             }
 
-            //dictSeller = Tool.GetDict("Seller", "id", "restaurantid", conn);
             dictRest = Tool.GetDict("Restaurant", "id", "name", conn);
-            //dictRecipe = Tool.GetDict("Recipe", "id", "name", conn);
-            //dictCus = Tool.GetDict("Customer", "id", "name", conn);
-            //Get();
             id = Session["restId"].ToString() ;
             if (id == "0")
             {
@@ -44,14 +40,18 @@ namespace WebApplication1.Webs
             else {
                 loginName = Tool.GetRestNameById(id);
             }
-            GetOrder(id, isAdmin);
+            //GetOrder(id, isAdmin);
             switch (Request["method"])
             {
                 case "search":
+                    GetOrder(id, isAdmin);
                     ResJsonStr();
                     break;
                 case "clickOrder":
                     ClickOrder();
+                    break;
+                default:
+                    GetOrder(id, isAdmin);
                     break;
             }
         }
@@ -91,8 +91,6 @@ namespace WebApplication1.Webs
                 endTime = Request["endTime"];
             sqlSelect += " and o.CreateTime between '" + startTime+" 00:00:00" + "' and '" + endTime+" 23:59:59'";
 
-
-
             if (!string.IsNullOrEmpty(sellerId))
             {
                 sqlSelect += " and o.SellerId = " + sellerId;
@@ -118,33 +116,6 @@ namespace WebApplication1.Webs
             jsonStr = jsonStr.Substring(0, jsonStr.Length - 1) + pagesStr + thePageStr + "}";
 
             conn.Close();
-            //DataSet ds = new DataSet();
-            //string sqlSelect = "select * from Orders";
-            //conn.Open();
-            //SqlDataAdapter myda = new SqlDataAdapter(sqlSelect, conn);
-            //myda.Fill(ds);
-            //conn.Close();
-            //int count = ds.Tables[0].Rows.Count;
-            //id = new int[count];
-            //sellerName = new string[count];
-            //customer = new string[count];
-            //recipe = new string[count];
-            //time = new string[count];
-            //price = new string[count];
-            //pay = new string[count];
-            //payType = new string[count];
-            //for (int i = 0; i < count; i++)
-            //{
-            //    id[i] = Convert.ToInt32(ds.Tables[0].Rows[i]["id"].ToString());
-            //    sellerName[i] = dictRest[dictSeller[ds.Tables[0].Rows[i]["sid"].ToString()]];
-            //    customer[i] = dictCus[ds.Tables[0].Rows[i]["cid"].ToString()];
-            //    recipe[i] = dictRecipe[ds.Tables[0].Rows[i]["recipeId"].ToString()];
-            //    time[i] = ds.Tables[0].Rows[i]["time"].ToString();
-            //    price[i] = ds.Tables[0].Rows[i]["recipePrice"].ToString();
-            //    pay[i] = ds.Tables[0].Rows[i]["pay"].ToString();
-            //    payType[i] = ds.Tables[0].Rows[i]["payType"].ToString();
-            //}
-            //conn.Close();
         }
     }
 }

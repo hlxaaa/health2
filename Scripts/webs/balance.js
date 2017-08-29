@@ -1,5 +1,10 @@
 ﻿var isHasResult = true;
 $(document).ready(function () {
+    $('.input-search').keydown(function (e) {
+        if (e.keyCode == 13)
+            $('.btn-search').click();
+    })
+
     getTable(jsonStr);
 
     $('.btn-search').click(function () {
@@ -111,8 +116,8 @@ function changePage(page) {
         cache: false,
         success: function (data) {
             getTable(data);
-            if(!isHasResult)
-                alert('没有结果')
+            //if(!isHasResult)
+            //    alert('没有结果')
         },
         error: function (err) {
             alert('cuole');

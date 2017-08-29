@@ -1,4 +1,5 @@
 ﻿var quesMax = 0;
+var isClicked = false;
 
 $(document).ready(function () {
     $('#modalAdd').keydown(function (e) {
@@ -19,49 +20,50 @@ $(document).ready(function () {
     quesMax = parseInt(a.split('.')[0]);
 
     $('#btn-update').click(function () {
-        var l = $('tr[class="changed"]').length;
-        if (l < 1)
-        {
-            alert('没有修改')
-            return;
-        }
-        var titles = new Array();
-        var constitutions = new Array();
-        var sexs = new Array();
-        var ids = new Array();
-        for (var i = 0; i < l; i++) {
-            titles[i] = $('tr[class="changed"]:eq(' + i + ') td:eq(1) input').val();
-            if (titles[i].trim() == '') {
-                clearBorder();
-                $('tr[class="changed"]:eq(' + i + ') td:eq(1) input').css('border-color', 'red');
-                alert('输入不能为空！');
+        if (!isClicked) {
+            var l = $('tr[class="changed"]').length;
+            if (l < 1) {
+                alert('没有修改')
                 return;
             }
-            constitutions[i] = $('tr[class="changed"]:eq(' + i + ') td:eq(3) select').val();
-            sexs[i] = $('tr[class="changed"]:eq(' + i + ') td:eq(4) select').val();
-            ids[i]= $('tr[class="changed"]:eq(' + i + ') td:eq(0) input:eq(0)').val();
-        }
-        var data = {
-            method: 'updateQues',
-            ids: ids,
-            titles: titles,
-            constitutions: constitutions,
-            sexs:sexs
-        }
-        $.ajax({
-            type: 'post',
-            data: data,
-            url: 'QuestionPro.aspx',
-            cache: false,
-            success: function (res) {
-                alert('成功保存！');
-                location.reload();
-            },
-            error: function (res) {
-
+            var titles = new Array();
+            var constitutions = new Array();
+            var sexs = new Array();
+            var ids = new Array();
+            for (var i = 0; i < l; i++) {
+                titles[i] = $('tr[class="changed"]:eq(' + i + ') td:eq(1) input').val();
+                if (titles[i].trim() == '') {
+                    clearBorder();
+                    $('tr[class="changed"]:eq(' + i + ') td:eq(1) input').css('border-color', 'red');
+                    alert('输入不能为空！');
+                    return;
+                }
+                constitutions[i] = $('tr[class="changed"]:eq(' + i + ') td:eq(3) select').val();
+                sexs[i] = $('tr[class="changed"]:eq(' + i + ') td:eq(4) select').val();
+                ids[i] = $('tr[class="changed"]:eq(' + i + ') td:eq(0) input:eq(0)').val();
             }
-        })
+            var data = {
+                method: 'updateQues',
+                ids: ids,
+                titles: titles,
+                constitutions: constitutions,
+                sexs: sexs
+            }
+            isClicked = true;
+            $.ajax({
+                type: 'post',
+                data: data,
+                url: 'QuestionPro.aspx',
+                cache: false,
+                success: function (res) {
+                    alert('成功保存！');
+                    location.reload();
+                },
+                error: function (res) {
 
+                }
+            })
+        }
     })
 
     $('body').delegate('.ques-delete', 'click', function () {

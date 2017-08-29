@@ -33,9 +33,6 @@ namespace WebApplication1.Webs
             
             switch (Request["method"])
             {
-                //case "add":
-                //    AddQues();
-                //    break;
                 case "deleteQues":
                     DeleteQues(Request["id"]);
                     break;
@@ -76,11 +73,6 @@ namespace WebApplication1.Webs
             }
             conn.Close();
         }
-
-        //protected void AddQues()
-        //{
-        
-        //}
 
         protected void DeleteQues(string id) {
             string sqlDelete = "delete from Questionnaire where id = " + id;

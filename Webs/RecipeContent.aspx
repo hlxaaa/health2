@@ -50,7 +50,7 @@
     <div id="divMain" class="row">
         <div class="" id="divNav">
 
-            <ul class="list-group">
+      <ul class="list-group">
                 <li class="">
                     <img src="/Images/recipe/icon-food.svg" /><a href="Food.aspx">菜品管理</a>
                 </li>
@@ -69,23 +69,30 @@
                 <li class="">
                     <img src="/Images/recipe/icon-article.svg" /><a href="Article.aspx">文章管理</a>
                 </li>
-                <li class="">
-                    <img src="/Images/recipe/icon-bell.svg" /><a href="Customer.aspx">会员查看</a>
-                </li>
-                <li class="li-allques">
+               
+               <li class="li-allques">
                     <img src="/Images/base/icon-triangle-right.svg" /><a>问卷管理</a>
                 </li>
-                <li class="li-ques">
-                    <img src="/Images/base/icon-easyQues.svg" /><a href="QuestionEasy.aspx">简易版</a></li>
-                <li class="li-ques">
-                    <img src="/Images/base/icon-proQues.svg" /><a href="QuestionPro.aspx">专业版</a></li>
+               <li class="li-ques"><img src="/Images/base/icon-easyQues.svg" /><a href="QuestionEasy.aspx">简易版</a></li>
+                <li class="li-ques"><img src="/Images/base/icon-proQues.svg" /><a href="QuestionPro.aspx">专业版</a></li>
+               <li class="li-allbacks">
+                    <img src="/Images/base/icon-triangle-right.svg" /><a>商家后台</a>
+                </li>
+                 <li class="li-back">
+                    <img src="/Images/base/icon-order.svg" /><a href="Order.aspx">用户订单</a></li>
+                 <li class="li-back">
+                    <img src="/Images/base/icon-balance.svg" /><a href="Balance.aspx">钱包余额</a></li>
+                 <li class="li-back">
+                    <img src="/Images/base/icon-recipeSet.svg" /><a href="RecipeSet.aspx">食谱缺货设置</a></li>
                 <li class="">
-                    <img src="/Images/recipe/icon-bell.svg" /><a href="Seller.aspx">后台商家</a>
+                    <img src="/Images/base/icon-account.svg" /><a href="Seller.aspx">商家账号设置</a>
                 </li>
                 <li class="">
-                    <img src="/Images/recipe/icon-bell.svg" /><a>待定管理</a>
+                    <img src="/Images/base/icon-customer.svg" /><a href="Customer.aspx">会员管理</a>
                 </li>
-
+                <li class="">
+                    <img src="/Images/base/icon-withdraw-white.svg" style="" /><a href="Withdraw.aspx">提现申请</a>
+                </li>
             </ul>
 
         </div>
@@ -102,7 +109,7 @@
                         名称:
                     </div>
                     <div class="fl">
-                        <input type="text" id="title" value="<%=name %>" />
+                        <input type="text" id="title" value="<%=name %>" maxlength="25"/>
                     </div>
                     <div class="fr btn-del">
                         <a style="text-decoration: none;"><img class="btn-edit2" src="/Images/recipe/icon-delete.svg"><font class="bold font-base">删除</font></a>
@@ -145,7 +152,7 @@
                                 价格:
                             </div>
                             <div class="fl">
-                                <input type="text" id="price" value="<%=price %>" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" />
+                                <input type="text" id="price" value="<%=price %>" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="8" />
                             </div>
                         </div>
                         <div class="center-sales">
@@ -153,7 +160,7 @@
                                 销售量:
                             </div>
                             <div class="fl">
-                                <input type="text" id="sales" value="<%=sales %>" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+                                <input type="text" id="sales" value="<%=sales %>" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="8"/>
                             </div>
                         </div>
                         <div class="fc"></div>
@@ -221,7 +228,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="text" class="weight" value="<%=weights[i] %>" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>g
+                                    <input type="text" class="weight" value="<%=weights[i] %>" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="8"/>g
                                 </td>
                                 <td>
                                     <img src="/Images/base/icon-content-del.svg" class="img-base btn-del-food"/>

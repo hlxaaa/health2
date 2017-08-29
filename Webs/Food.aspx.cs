@@ -20,7 +20,6 @@ namespace WebApplication1.Webs
         protected int ran = new Random().Next();
         protected string jsonStr = "";
         protected DataSet ds = new DataSet();
-        protected JObject jo = new JObject();
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -95,8 +94,7 @@ namespace WebApplication1.Webs
                 sqlSelect += " name like '%" + name + "%'";
                 sqlSelect += ") ";
             }
-            //
-            //sqlSelect += " order by name";
+
             int x = (pageIndex - 1) * pageSize;
             string sqlPaging = "select top " + pageSize + " * from (" + sqlSelect + ") r where id not in (select top " + x + " id from (" + sqlSelect + ") r order by id desc) order by id desc";
             conn.Open();
@@ -126,14 +124,13 @@ namespace WebApplication1.Webs
             string pagesStr = ",\"pages\":" + pages + "";
             string thePageStr = ",\"thePage\":" + thePage + "";
             jsonStr = jsonStr.Substring(0, jsonStr.Length - 1) + pagesStr + thePageStr + "}";
-            //jo = JObject.Parse(jsonStr);
         }
 
         protected void AddFood()
         {
             var cache = MemCacheHelper.GetMyConfigInstance();
-            cache.Set("tongxiaoyi", "nande");
-            var a = cache.Get("tongxiaoyi");
+            //cache.Set("tongxiaoyi", "nande");
+            //var a = cache.Get("tongxiaoyi");
             string name = Request["name"];
             string condition = " and isDeleted = 'False'";
             bool isExist = Tool.IsExist(name, "name", "Food", condition);
@@ -153,7 +150,7 @@ namespace WebApplication1.Webs
 
         protected void UpdateFood()
         {
-            string id = Request["id"];
+            string foodId = Request["id"];
             string name = Request["name"];
             string condition = " and isDeleted = 'False'";
             bool isExist = Tool.IsExist(name, "name", "Food", condition);
@@ -164,7 +161,7 @@ namespace WebApplication1.Webs
                 return;
             }
 
-            string updateFood = "update Food set name = '" + name + "' where id = " + id;
+            string updateFood = "update Food set name = '" + name + "' where id = " + foodId;
             conn.Open();
             SqlCommand sqlCom = new SqlCommand(updateFood, conn);
             sqlCom.ExecuteScalar();
@@ -173,8 +170,8 @@ namespace WebApplication1.Webs
 
         protected void DeleteFood()
         {
-            string id = Request["id"];
-            string sqlDelete = "update Food set isDeleted ='True' where id=" + id;
+            string foodId = Request["id"];
+            string sqlDelete = "update Food set isDeleted ='True' where id=" + foodId;
             conn.Open();
             SqlCommand sqlCom = new SqlCommand(sqlDelete, conn);
             sqlCom.ExecuteScalar();

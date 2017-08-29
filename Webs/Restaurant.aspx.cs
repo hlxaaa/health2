@@ -71,11 +71,9 @@ namespace WebApplication1.Webs
             }
         }
 
-        protected void DeleteRest(string id) {
-            //string id = Request["id"];
-
+        protected void DeleteRest(string restId) {
             conn.Open();
-            string getImg = "select images from Restaurant where id = " + id;
+            string getImg = "select images from Restaurant where id = " + restId;
             SqlCommand sqlCom = new SqlCommand(getImg, conn);
             string img = (string)sqlCom.ExecuteScalar();
             string[] imgs = img.Split('|');
@@ -87,8 +85,11 @@ namespace WebApplication1.Webs
                     File.Delete(path + i);
             }
 
-            string delRecipe = "update  Restaurant set isDeleted ='true' where id = " + id;
-            SqlCommand sc2 = new SqlCommand(delRecipe, conn);
+            string delRest = "update  Restaurant set isDeleted ='true' where id = " + restId;
+            SqlCommand sc2 = new SqlCommand(delRest, conn);
+            sc2.ExecuteScalar();
+            string delRecipe = "update Recipe set isDeleted ='true' where restaurantId="+restId;
+            sc2 = new SqlCommand(delRecipe, conn);
             sc2.ExecuteScalar();
             conn.Close();
         }

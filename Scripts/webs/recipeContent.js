@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿var isClicked = false;
+$(document).ready(function () {
     //alert($('#oImg').val());
 
     $('.btn-del').click(function () {
@@ -36,8 +37,13 @@
 
     $('body').delegate('.img-del', 'click', function () {
         $(this).parent().remove();
+        var isChecked = $('.div-imgs .thumb div').hasClass('checked');
+        if (!isChecked) {
+            $('.div-imgs .thumb div:first').addClass('checked')
+        }
     })
 
+    //添加菜品
     $('.btn-addfood').click(function () {
         var a = '<tr style="background-color: white;">';
         a += $('tbody tr:last').html();
@@ -101,91 +107,91 @@
 
     //新增或更新
     $('body').delegate('.btn-save', 'click', function () {
-        $('#title').css('border-color', '#8c83a3');
-        $('#price').css('border-color', '#8c83a3');
-        $('#sales').css('border-color', '#8c83a3');
-        $('tbody tr .weight').each(function () {
-            $(this).css('border-color', '#8c83a3');
-        })
+        if (!isClicked) {
+            $('#title').css('border-color', '#8c83a3');
+            $('#price').css('border-color', '#8c83a3');
+            $('#sales').css('border-color', '#8c83a3');
+            $('tbody tr .weight').each(function () {
+                $(this).css('border-color', '#8c83a3');
+            })
 
-        var name = $('#title').val();
-        if (name.trim() == '') {
-            $('#title').css('border-color', 'red');
-            return;
-        }
-        var a = $('.info1-available div[class="iradio_minimal checked"').parent().hasClass('right-radio')
-        var available = a == true ? false : true;
-        var restId = $('#restName').val();
-        var price = $('#price').val();
-        if (price == '')
-        {
-            $('#price').css('border-color', 'red');
-            return;
-        }
-        var sales = $('#sales').val();
-        if (sales == '') {
-            $('#sales').css('border-color', 'red');
-            return;
-        }
-        var tags=new Array();
-        $('.tags-span font').each(function () {
-            tags.push($(this).text())
-        })
-        if (tags.length == 0) {
-            alert('请至少选择一个标签')
-            return;
-        }
-        var typeIds = new Array();
-        var foodIds = new Array();
-        var weights = new Array();
-        $('tbody tr .foodtype').each(function () {
-            typeIds.push($(this).val());
-        })
-        $('tbody tr .food').each(function () {
-            foodIds.push($(this).val());
-        })
-        //$('tbody tr .weight').each(function () {
-        //    if ($(this).val().trim() == '') {
-        //        $(this).css('border-color', 'red');
-        //        return false
-        //    }
-        //    else
-        //        weights.push($(this).val());
-        //})
-        var l = $('tbody tr .weight').length
-        for (var i = 0; i < l; i++) {
-            var text = $('tbody tr:eq(' + i + ') .weight').val().trim();
-            if (text== '') {
-                $('tbody tr:eq(' + i + ') .weight').css('border-color', 'red');
+            var name = $('#title').val();
+            if (name.trim() == '') {
+                $('#title').css('border-color', 'red');
                 return;
             }
-            weights.push(text);
-        }
+            var a = $('.info1-available div[class="iradio_minimal checked"').parent().hasClass('right-radio')
+            var available = a == true ? false : true;
+            var restId = $('#restName').val();
+            var price = $('#price').val();
+            if (price == '') {
+                $('#price').css('border-color', 'red');
+                return;
+            }
+            var sales = $('#sales').val();
+            if (sales == '') {
+                $('#sales').css('border-color', 'red');
+                return;
+            }
+            var tags = new Array();
+            $('.tags-span font').each(function () {
+                tags.push($(this).text())
+            })
+            if (tags.length == 0) {
+                alert('请至少选择一个标签')
+                return;
+            }
+            var typeIds = new Array();
+            var foodIds = new Array();
+            var weights = new Array();
+            $('tbody tr .foodtype').each(function () {
+                typeIds.push($(this).val());
+            })
+            $('tbody tr .food').each(function () {
+                foodIds.push($(this).val());
+            })
+            //$('tbody tr .weight').each(function () {
+            //    if ($(this).val().trim() == '') {
+            //        $(this).css('border-color', 'red');
+            //        return false
+            //    }
+            //    else
+            //        weights.push($(this).val());
+            //})
+            var l = $('tbody tr .weight').length
+            for (var i = 0; i < l; i++) {
+                var text = $('tbody tr:eq(' + i + ') .weight').val().trim();
+                if (text == '') {
+                    $('tbody tr:eq(' + i + ') .weight').css('border-color', 'red');
+                    return;
+                }
+                weights.push(text);
+            }
 
-        var imgs = new Array();
-        $('.img-show').each(function () {
-            imgs.push($(this).attr('src'));
-        })
-        if (imgs.length == 0) {
-            alert('请至少选择一张图片')
-            return
-        }
-        var l = $('.div-imgs .thumb div').length;
-        var imgIndex;
-        for (var i = 0; i < l; i++) {
-            if ($('.div-imgs:eq(' + i + ') .thumb div').hasClass('checked'))
-                imgIndex = i;
-        }
-        var oImgs = $('#oImg').val();
-        //alert(oImg);
-        //return;
+            var imgs = new Array();
+            $('.img-show').each(function () {
+                imgs.push($(this).attr('src'));
+            })
+            if (imgs.length == 0) {
+                alert('请至少选择一张图片')
+                return
+            }
+            var l = $('.div-imgs .thumb div').length;
+            var imgIndex;
+            for (var i = 0; i < l; i++) {
+                if ($('.div-imgs:eq(' + i + ') .thumb div').hasClass('checked'))
+                    imgIndex = i;
+            }
+            var oImgs = $('#oImg').val();
+            //alert(oImg);
+            //return;
 
 
-        //if (a == true)
-
+            //if (a == true)
+            isClicked = true;
             if (id == '') {
                 var data = {
-                    imgIndex:imgIndex,
+                    imgIndex: imgIndex,
                     name: name,
                     available: available,
                     restId: restId,
@@ -196,8 +202,8 @@
                     foodIds: foodIds,
                     weights: weights,
                     imgs: imgs,
-                    oImgs:oImgs,
-                    method:'addRecipe'
+                    oImgs: oImgs,
+                    method: 'addRecipe'
                 }
                 $.ajax({
                     type: 'post',
@@ -217,7 +223,7 @@
             else {
                 var data = {
                     imgIndex: imgIndex,
-                    id:id,
+                    id: id,
                     name: name,
                     available: available,
                     restId: restId,
@@ -228,7 +234,7 @@
                     foodIds: foodIds,
                     weights: weights,
                     imgs: imgs,
-                    oImgs:oImgs,
+                    oImgs: oImgs,
                     method: 'updateRecipe'
                 }
                 $.ajax({
@@ -245,6 +251,7 @@
                     }
                 })
             }
+        }
     })
    
 })

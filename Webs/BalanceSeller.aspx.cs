@@ -49,7 +49,7 @@ namespace WebApplication1.Webs
             }
 
             //下一页什么的，会有sellerId传过来。
-            id = sellerId;
+            id = sellerId;//传到前端
             availableCash = GetAvailableCash(Tool.GetRestIdBySellerId(sellerId), sellerId);
             balance = GetBalance(sellerId);
             GetDetail(sellerId);
@@ -67,40 +67,25 @@ namespace WebApplication1.Webs
                 case "withdraw":
                     DoWithdraw(sellerId);
                     break;
-                default:
-
-                    break;
             }
 
         }
 
         protected void DoWithdraw(string sellerId)
         {
-            //var sellerId = Request["sellerId"];//暂时用这个id，登录做好之后，要用session里的id
             var number = Request["number"];
-            //string str = "select balance from Seller where id="+sellerId+" and balance>= "+number;
-            //conn.Open();
-            //SqlCommand sqlCom = new SqlCommand(str, conn);
-            //var a = sqlCom.ExecuteScalar();
-
 
             if (availableCash < Convert.ToDouble(number))
             {
                 Response.Write("no-money");
                 Response.End();
-                //conn.Close();
                 return;
             }
             conn.Open();
             SqlCommand sqlCom = new SqlCommand();
-            //double balance = Convert.ToDouble(a) - Convert.ToDouble(number);
             string insertWithdraw = "insert Withdraw values(" + sellerId + ",'" + number + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','False')";
-            //string updateBalance = "update Seller set balance = "+balance+" where id = "+sellerId;
             sqlCom = new SqlCommand(insertWithdraw, conn);
             sqlCom.ExecuteScalar();
-            //sqlCom = new SqlCommand(updateBalance, conn);
-            //sqlCom.ExecuteScalar();
-
             conn.Close();
         }
 
@@ -141,9 +126,7 @@ namespace WebApplication1.Webs
             string pagesStr = ",\"pages\":" + pages + "";
             string thePageStr = ",\"thePage\":" + pageIndex + "";
             jsonDetail = jsonDetail.Substring(0, jsonDetail.Length - 1) + pagesStr + thePageStr + "}";
-
             conn.Close();
-
         }
 
         protected void GetWithdraw(string sellerId)
@@ -179,6 +162,12 @@ namespace WebApplication1.Webs
             conn.Close();
         }
 
+        /// <summary>
+        /// 获取可提取的额度
+        /// </summary>
+        /// <param name="restId">餐厅id</param>
+        /// <param name="sellerId">商家id</param>
+        /// <returns>可提取的额度</returns>
         protected double GetAvailableCash(string restId, string sellerId)
         {
             string str2 = "select * from Withdraw where sellerId = " + sellerId + " and applyState='False'";

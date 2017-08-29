@@ -53,7 +53,7 @@
     <div id="divMain" class="row">
         <div class="" id="divNav">
 
-            <ul class="list-group">
+                <ul class="list-group">
                 <li class="">
                     <img src="/Images/recipe/icon-food.svg" /><a href="Food.aspx">菜品管理</a>
                 </li>
@@ -72,23 +72,30 @@
                 <li class="">
                     <img src="/Images/recipe/icon-article.svg" /><a href="Article.aspx">文章管理</a>
                 </li>
-                <li class="">
-                    <img src="/Images/recipe/icon-bell.svg" /><a href="Customer.aspx">会员查看</a>
-                </li>
-                <li class="li-allques">
+         
+              <li class="li-allques">
                     <img src="/Images/base/icon-triangle-right.svg" /><a>问卷管理</a>
                 </li>
-                <li class="li-ques">
-                    <img src="/Images/base/icon-easyQues.svg" /><a href="QuestionEasy.aspx">简易版</a></li>
-                <li class="li-ques">
-                    <img src="/Images/base/icon-proQues.svg" /><a href="QuestionPro.aspx">专业版</a></li>
+               <li class="li-ques"><img src="/Images/base/icon-easyQues.svg" /><a href="QuestionEasy.aspx">简易版</a></li>
+                <li class="li-ques"><img src="/Images/base/icon-proQues.svg" /><a href="QuestionPro.aspx">专业版</a></li>
+            <li class="li-allbacks">
+                    <img src="/Images/base/icon-triangle-right.svg" /><a>商家后台</a>
+                </li>
+                 <li class="li-back">
+                    <img src="/Images/base/icon-order.svg" /><a href="Order.aspx">用户订单</a></li>
+                 <li class="li-back">
+                    <img src="/Images/base/icon-balance.svg" /><a href="Balance.aspx">钱包余额</a></li>
+                 <li class="li-back">
+                    <img src="/Images/base/icon-recipeSet.svg" /><a href="RecipeSet.aspx">食谱缺货设置</a></li>
                 <li class="">
-                    <img src="/Images/recipe/icon-bell.svg" /><a href="Seller.aspx">后台商家</a>
+                    <img src="/Images/base/icon-account.svg" /><a href="Seller.aspx">商家账号设置</a>
                 </li>
                 <li class="">
-                    <img src="/Images/recipe/icon-bell.svg" /><a>待定管理</a>
+                    <img src="/Images/base/icon-customer.svg" /><a href="Customer.aspx">会员管理</a>
                 </li>
-
+                <li class="">
+                    <img src="/Images/base/icon-withdraw-white.svg" style="" /><a href="Withdraw.aspx">提现申请</a>
+                </li>
             </ul>
 
         </div>
@@ -206,7 +213,7 @@
                     <div class="font-tips">
                         注意：图片建议尺寸至少为400*300，以达到较好的展示效果！
                     </div>
-                    <div>
+                    <div id="divImgs">
                         <%for (var i = 0; i < imgs.Length; i++)
                           { %>
                         <div class="div-imgs fl">
@@ -294,8 +301,12 @@
             <div class="modal-content ">
                 <button type="button" class="close" data-dismiss="modal">×</button>
                 <div class="fl map-left">
-                    <div id="r-result">请输入:<input type="text" id="suggestId" size="20" value="百度" style="width: 150px; z-index: 9999" /></div>
-                    <div id="searchResultPanel" style="border: 1px solid #C0C0C0; width: 150px; height: auto; display: none; z-index: 9999"></div>
+                    <%--<div id="r-result">请输入:<input type="text" id="suggestId" size="20" value="百度" style="width: 250px; z-index: 9999" /></div>
+                    <div id="searchResultPanel" style="border: 1px solid #C0C0C0; width: 250px; height: auto; display: none; z-index: 9999;padding-left:0;margin-left:0px;"></div>--%>
+             
+                    <div id="r-result"><input type="text" id="suggestId" size="20" value=""/></div>
+	<div id="searchResultPanel" style="border:1px solid #C0C0C0;width:280px;height:31px; display:none;"></div>
+                    
                 </div>
                 <div class="fl map-right">
                     <div id="l-map">
@@ -303,23 +314,19 @@
                     <div class="map-coord">
                         <font>坐标</font>
                         <font>X</font>
-                        <input type="text" id="coord-x" />
+                        <input type="text" id="coord-x" readonly="true"/>
                         <font>Y</font>
-                        <input type="text" id="coord-y" />
+                        <input type="text" id="coord-y" readonly="true"/>
                     </div>
                     <a class="btn btn-base btn-getMap">确定</a>
                 </div>
                 <%--<div class="fc"></div>--%>
-                <%--<div id="Div2" style="display: none"></div>--%>
-
-
-                <%--<input readonly="true" id="shopcoord" type="text" style="width: 300px" />--%>
-
-
+    
             </div>
         </div>
 
     </div>
+
     <script>
         var dt1 = '<%=startTime%>'
         var dt2 = '<%=endTime%>'
@@ -344,14 +351,16 @@
             if (e.fromitem.index > -1) {
                 value = _value.province + _value.city + _value.district + _value.street + _value.business;
             }
-            str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+            //str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+            str = "FromItem index = " + e.fromitem.index + " value = " + value;
 
             value = "";
             if (e.toitem.index > -1) {
                 _value = e.toitem.value;
                 value = _value.province + _value.city + _value.district + _value.street + _value.business;
             }
-            str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+            str += " ToItem index = " + e.toitem.index + " value = " + value;
+            //str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
             G("searchResultPanel").innerHTML = str;
         });
 

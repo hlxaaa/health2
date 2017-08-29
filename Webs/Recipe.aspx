@@ -142,17 +142,17 @@
                     </div>
                     <div class="row2-mid">
                         <font>销售量:</font>
-                        <input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+                        <input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="8"/>
                         <%--<img src="/Images/line.svg" alt="Alternate Text" />--%>
                         <%--<span>—</span>--%>
                         <img src="/Images/base/icon-line.svg" alt="Alternate Text" class="img-line"/>
-                        <input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+                        <input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="8"/>
                     </div>
                     <div class="row2-right">
                         <font>价格:</font>
-                        <input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+                        <input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="8"/>
                         <img src="/Images/base/icon-line.svg" alt="Alternate Text" class="img-line"/>
-                        <input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+                        <input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="8"/>
                     </div>
                 </div>
                 <div class="row3">

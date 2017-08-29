@@ -1,7 +1,16 @@
 ﻿var isHasResult = true;
+var isClicked = false;
+
 $(document).ready(function () {
+    $('.input-search').keydown(function (e) {
+        if (e.keyCode == 13)
+            $('.btn-search').click();
+    })
+
+
     $('body').delegate('.td-edit', 'click', function () {
         $('#modal1').modal();
+        isClicked = false;
         //var info = new Array();
         var id = $(this).parent().children('td:eq(0)').html();
         var name = $(this).parent().children('td:eq(1)').html();
@@ -48,70 +57,73 @@ $(document).ready(function () {
     })
 
     $('.footer button').click(function () {
-        var page = $('.pagination li[class="active"] a').text();
-        var id, name, phone, wechat, password, height, weight, sex, age, labour, constitution, score;
-        id = $('#info-id').text()
-        if($('.info:eq(1)').hasClass('changed')){
-            name = $('#info-name').val();
-        }
-             phone = $('#info-phone').val();
-        
-        if ($('.info:eq(3)').hasClass('changed')) {
-             wechat = $('#info-wechat').val();
-        }
-        if ($('.info:eq(4)').hasClass('changed')) {
-             password = $('#info-password').val()
-        }
-        if ($('.info:eq(5)').hasClass('changed')) {
-             height = $('#info-height').val()
-        }
-        if ($('.info:eq(6)').hasClass('changed')) {
-             weight = $('#info-weight').val();
-        }
-        if ($('.info:eq(7)').hasClass('changed')) {
-             sex = $('#info-sex').val()
-        }
-        if ($('.info:eq(8)').hasClass('changed')) {
-             age = $('#info-age').val();
-        }
-        if ($('.info:eq(9)').hasClass('changed')) {
-             labour = $('#info-labour').val()
-        }
-        if ($('.info:eq(10)').hasClass('changed')) {
-             constitution = $('#info-constitution').val()
-        }
-        if ($('.info:eq(11)').hasClass('changed')) {
-             score = $('#info-score').val()
-        }
-        var data = {
-            id: id,
-            name: name,
-            phone: phone,
-            wechat: wechat,
-            password: password,
-            height: height,
-            weight: weight,
-            sex: sex,
-            age: age,
-            labour:labour,
-            constitution: constitution,
-            score: score,
-            method:'updateCustomer'
-        }
-        $.ajax({
-            type: 'post',
-            data: data,
-            url: 'Customer.aspx',
-            cache: false,
-            success: function (data) {
-                alert('更新成功');
-                changePage(page);
-                $('#modal1').modal('hide')
-            },
-            error: function (err) {
-                alert('cuole');
+        if (!isClicked) {
+            var page = $('.pagination li[class="active"] a').text();
+            var id, name, phone, wechat, password, height, weight, sex, age, labour, constitution, score;
+            id = $('#info-id').text()
+            if ($('.info:eq(1)').hasClass('changed')) {
+                name = $('#info-name').val();
             }
-        })
+            phone = $('#info-phone').val();
+
+            if ($('.info:eq(3)').hasClass('changed')) {
+                wechat = $('#info-wechat').val();
+            }
+            if ($('.info:eq(4)').hasClass('changed')) {
+                password = $('#info-password').val()
+            }
+            if ($('.info:eq(5)').hasClass('changed')) {
+                height = $('#info-height').val()
+            }
+            if ($('.info:eq(6)').hasClass('changed')) {
+                weight = $('#info-weight').val();
+            }
+            if ($('.info:eq(7)').hasClass('changed')) {
+                sex = $('#info-sex').val()
+            }
+            if ($('.info:eq(8)').hasClass('changed')) {
+                age = $('#info-age').val();
+            }
+            if ($('.info:eq(9)').hasClass('changed')) {
+                labour = $('#info-labour').val()
+            }
+            if ($('.info:eq(10)').hasClass('changed')) {
+                constitution = $('#info-constitution').val()
+            }
+            if ($('.info:eq(11)').hasClass('changed')) {
+                score = $('#info-score').val()
+            }
+            isClicked = true;
+            var data = {
+                id: id,
+                name: name,
+                phone: phone,
+                wechat: wechat,
+                password: password,
+                height: height,
+                weight: weight,
+                sex: sex,
+                age: age,
+                labour: labour,
+                constitution: constitution,
+                score: score,
+                method: 'updateCustomer'
+            }
+            $.ajax({
+                type: 'post',
+                data: data,
+                url: 'Customer.aspx',
+                cache: false,
+                success: function (data) {
+                    alert('更新成功');
+                    changePage(page);
+                    $('#modal1').modal('hide')
+                },
+                error: function (err) {
+                    alert('cuole');
+                }
+            })
+        }
     })
 
     $('.info').change(function () {
@@ -197,8 +209,8 @@ function changePage(page) {
         cache: false,
         success: function (data) {
             getTable(data);
-            if(!isHasResult)
-                alert('没有结果')
+            //if(!isHasResult)
+            //    alert('没有结果')
         },
         error: function (err) {
             alert('cuole');

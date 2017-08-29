@@ -32,39 +32,44 @@ namespace WebApplication1.Webs
                 Response.Redirect("/error.aspx", false);
                 Response.End();
                 return;
-            }      
+            }
             dictTags = Tool.GetDict("Tag", "id", "name", conn);
-            GetArticle();
+            //GetArticle();
             switch (Request["method"])
             {
                 case "search":
+                    GetArticle();
                     ResJsonStr();
                     break;
                 case "addArticle":
                     AddArticle();
                     UpdateArticleCache();
                     break;
-                case"deleteArticle":
+                case "deleteArticle":
                     DeleteArticle(Request["id"]);
                     UpdateArticleCache();
                     break;
-                case"edit":
+                case "edit":
                     GetContentByid();
                     break;
-                case"updateArticle":
+                case "updateArticle":
                     UpdateArticle();
                     UpdateArticleCache();
                     break;
-                case"batchDelete":
+                case "batchDelete":
                     BatchDelete();
                     UpdateArticleCache();
+                    break;
+                default:
+                    GetArticle();
                     break;
             }
         }
 
-        protected void GetContentByid() {
+        protected void GetContentByid()
+        {
             string id = Request["id"];
-            string selectCont = "select content from Article where id = "+id;
+            string selectCont = "select content from Article where id = " + id;
             conn.Open();
             SqlCommand sqlCom = new SqlCommand(selectCont, conn);
             string content = (string)sqlCom.ExecuteScalar();
@@ -76,7 +81,7 @@ namespace WebApplication1.Webs
 
         protected void GetArticle()
         {
-            
+
             int pageIndex = 1;
             int pageSize = 15;
             string index = Request["thePage"];
@@ -86,7 +91,7 @@ namespace WebApplication1.Webs
             if (size != null)
                 pageSize = Convert.ToInt32(size);
 
-            string sqlSelect = "select id,title,content,tags,cilckCount,loveCount,aTime from Article where 1 = 1 ";
+            string sqlSelect = "select id,title,content,cilckCount,loveCount,aTime from Article where 1 = 1 ";
 
             //搜索条件
             int pages = 0;
@@ -113,9 +118,6 @@ namespace WebApplication1.Webs
                 sqlSelect += ")";
             }
 
- 
-
-            //sqlSelect += " and (name like '%" + search.Trim() +"%' )";
             int x = (pageIndex - 1) * pageSize;
             string sqlPaging = "select top " + pageSize + " * from (" + sqlSelect + ") r where id not in (select top " + x + " id from (" + sqlSelect + ") r order by id desc) order by id desc";
             //sqlSelect += " and id in ( select top "+pageSize+" id from Recipe where id not in (select top "+x+" id from Recipe))";
@@ -135,19 +137,20 @@ namespace WebApplication1.Webs
             ds = Tool.DsToString(ds);
             int count = ds.Tables[0].Rows.Count;
             ids = new string[count];
+            DataColumn dc = new DataColumn("tags");
+            ds.Tables[0].Columns.Add(dc);
             for (int i = 0; i < count; i++)
             {
                 ids[i] = ds.Tables[0].Rows[i]["id"].ToString();
                 ds.Tables[0].Rows[i]["aTime"] = DateTime.Parse(ds.Tables[0].Rows[i]["aTime"].ToString()).ToString("yyyy-MM-dd HH:mm:ss");
                 string temp = ds.Tables[0].Rows[i]["content"].ToString().Replace("*gt;", ">").Replace("*lt;", "<").Replace("*amp", "&");
-                
+
 
                 temp = Regex.Replace(temp, @"[^\u4e00-\u9fa5]+", "");
                 int l = temp.Length > 20 ? 20 : temp.Length;
                 ds.Tables[0].Rows[i]["content"] = temp.Substring(0, l);
 
                 ds.Tables[0].Rows[i]["tags"] = GetTags(ids[i], dictTags);
-                //string result = Regex.Match(content[i], "(?<=<p>).*?(?=</p>)").Value;
             }
 
             conn.Close();
@@ -167,7 +170,8 @@ namespace WebApplication1.Webs
             //var tags = Request["tags[]"];
             var img = "";
             string[] imgs = Request.Form.GetValues("img[]");
-            for (int i = 0; i < imgs.Length; i++) {
+            for (int i = 0; i < imgs.Length; i++)
+            {
                 if (i != 0)
                     img += ",";
                 img += path + imgs[i];
@@ -175,10 +179,11 @@ namespace WebApplication1.Webs
 
             var imgTemp = "";
             string[] imgTemps = Request.Form.GetValues("imgTemp[]");
-            for (int i = 0; i < imgTemps.Length; i++) {
+            for (int i = 0; i < imgTemps.Length; i++)
+            {
                 if (i != 0)
                     imgTemp += ",";
-                imgTemp +=path+ imgTemps[i];
+                imgTemp += path + imgTemps[i];
             }
 
             var thumbnail = Request["thumbnail"];
@@ -188,18 +193,18 @@ namespace WebApplication1.Webs
 
             //string[] tags = Request.Form["tags[]"].Split(',');
             string[] tags = Request.Form.GetValues("tags[]");
-            string tagIds = "";
-            for (int i = 0; i < tags.Length; i++)
-            {
-                if (tags[i] != "")
-                {
-                    if (i != 0)
-                        tagIds += "|";
-                    tagIds += Tool.GetKey(dictTags, tags[i]);
-                }
-            }
+            //string tagIds = "";
+            //for (int i = 0; i < tags.Length; i++)
+            //{
+            //    if (tags[i] != "")
+            //    {
+            //        if (i != 0)
+            //            tagIds += "|";
+            //        tagIds += Tool.GetKey(dictTags, tags[i]);
+            //    }
+            //}
             string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            string sqlInsert = "insert Article (title,content,tags,aTime,thumbnail,cilckCount,loveCount) values ('" + title + "','" + content + "','" + tagIds + "','" + time + "','" + thumbnail + "',0,0) Select @@IDENTITY";
+            string sqlInsert = "insert Article (title,content,tags,aTime,thumbnail,cilckCount,loveCount) values ('" + title + "','" + content + "','此字段不使用','" + time + "','" + thumbnail + "',0,0) Select @@IDENTITY";//tags不能为空，但这个字段已经不适用了-txy
 
             conn.Open();
             SqlCommand sqlCom = new SqlCommand(sqlInsert, conn);
@@ -210,17 +215,19 @@ namespace WebApplication1.Webs
             SqlCommand sqlCom2 = new SqlCommand(urlStr, conn);
             sqlCom2.ExecuteScalar();
 
+            string insertTag = "insert Tag_Relation (relationId,tagId,typename) values ";
             for (int i = 0; i < tags.Length; i++)
             {
                 if (tags[i] != "")
                 {
-                    string tagId= Tool.GetKey(dictTags, tags[i]);
-                    string insertTag = "insert Tag_Relation (relationId,tagId,typename) values ("+id+","+tagId+",'article')";
-                    SqlCommand sqlCom3 = new SqlCommand(insertTag, conn);
-                    sqlCom3.ExecuteScalar();
+                    if (i != 0)
+                        insertTag += ",";
+                    string tagId = Tool.GetKey(dictTags, tags[i]);
+                    insertTag += " (" + id + "," + tagId + ",'article')";
                 }
             }
-            
+            sqlCom = new SqlCommand(insertTag, conn);
+            sqlCom.ExecuteScalar();
 
             conn.Close();
         }
@@ -230,19 +237,18 @@ namespace WebApplication1.Webs
             path = Server.MapPath("");
             path = path.Substring(0, path.Length - 5);
 
-            int id = Convert.ToInt32(Request["id"]);
+            string articleId = Request["id"];
             string title = Request["title"];
             string content = Request["content"];
             string thumbnail = Request["thumbnail"];
-            string oriImg ="";
+            string oriImg = "";
             string[] oriImgs = Request["oriImg"].Split(',');
-            for (int i = 0; i < oriImgs.Length; i++) {
+            for (int i = 0; i < oriImgs.Length; i++)
+            {
                 if (i != 0)
                     oriImg += ",";
                 oriImg += path + oriImgs[i];
             }
-            //string img = Request["img[]"];
-            //string imgTemp = Request["imgTemp[]"];
 
             var img = "";
             string[] imgs = Request.Form.GetValues("img[]");
@@ -264,48 +270,45 @@ namespace WebApplication1.Webs
 
             Tool.ImgUpdate(oriImg.Split(','), img.Split(','));
             string tempUrl = Server.MapPath("~/img/article/temp/");
-            Tool.ImgHandle(img, imgTemp,tempUrl);
+            Tool.ImgHandle(img, imgTemp, tempUrl);
             string[] tags = Request.Form.GetValues("tags[]");
-            string tagIds = "";
-            for (int i = 0; i < tags.Length; i++)
-            {
-                if (tags[i] != "")
-                {
-                    if (i != 0)
-                        tagIds += "|";
-                    tagIds += Tool.GetKey(dictTags, tags[i]);
-                }
+            for (int i = 0; i < tags.Length; i++) {
+                tags[i] = Tool.GetKey(dictTags, tags[i]);
             }
+          
             string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-            string sqlUpdate = "update Article set title = '" + title + "',content = '" + content + "',tags = '" + tagIds + "',aTime = '" + time + "',thumbnail = '" + thumbnail + "' where id = " + id;
+            string sqlUpdate = "update Article set title = '" + title + "',content = '" + content + "',aTime = '" + time + "',thumbnail = '" + thumbnail + "' where id = " + articleId;
             conn.Open();
             SqlCommand sqlCom = new SqlCommand(sqlUpdate, conn);
             sqlCom.ExecuteScalar();
             conn.Close();
+            Tool.UpdateTag_Relation(articleId, "article", tags);
         }
 
-        protected void DeleteArticle(string id)
+        protected void DeleteArticle(string articleId)
         {
             //string id = Request["id"];
             conn.Open();
 
-            string selectImgs = "select content from Article where id = " + id;
+            string selectImgs = "select content from Article where id = " + articleId;
             SqlCommand sqlCom = new SqlCommand(selectImgs, conn);
             string content = (string)sqlCom.ExecuteScalar();
             content = content.Replace("*gt;", ">").Replace("*lt;", "<").Replace("*amp", "&");
             string[] imgs = GetImgPath(content);
 
-            string sqlDelete = "delete from Article where id = " + id;
+            string sqlDelete = "delete from Article where id = " + articleId;
             SqlCommand sqlCom2 = new SqlCommand(sqlDelete, conn);
             sqlCom2.ExecuteScalar();
             conn.Close();
             DeleteImgFile(imgs);
         }
 
-        protected void BatchDelete() {
+        protected void BatchDelete()
+        {
             string[] ids = Request.Form.GetValues("ids[]");
-            foreach (string id in ids) {
+            foreach (string id in ids)
+            {
                 DeleteArticle(id);
             }
             //conn.Open();
@@ -314,19 +317,14 @@ namespace WebApplication1.Webs
             //}
             //string ids = Request["ids[]"];
             //string batchDelete = "delete from Article where id in (" + ids + ")";
-            
+
             //SqlCommand sqlCom = new SqlCommand(batchDelete, conn);
             //sqlCom.ExecuteScalar();
             //conn.Close();
         }
 
-        protected void DeleteImgFile(string[] imgs) {
-            //string selectImgs = "select content from Article where id = " + id;
-            //SqlCommand sqlCom = new SqlCommand(selectImgs, conn);
-            //string content = (string)sqlCom.ExecuteScalar();
-            //content = content.Replace("*gt;", ">").Replace("*lt;", "<").Replace("*amp", "&");
-            //string[] imgs = GetImgPath(content);
-
+        protected void DeleteImgFile(string[] imgs)
+        {
             for (int i = 0; i < imgs.Length; i++)
             {
                 if (imgs[i] != "")
@@ -345,13 +343,17 @@ namespace WebApplication1.Webs
             Response.End();
         }
 
-        protected string GetTags(string id, Dictionary<string, string> dict)
+        /// <summary>
+        /// 由文章id获取标签字符串
+        /// </summary>
+        /// <param name="articleId">文章id</param>
+        /// <param name="dict">标签 id,名称 字典</param>
+        /// <returns></returns>
+        protected string GetTags(string articleId, Dictionary<string, string> dict)
         {
             string[] tags = { };
             string result = "";
-            string str = "select tagId from Tag_Relation as t1,Tag as t2 where relationId = " + id + " and typename = 'article' and isDeleted = 'False' group by tagId";
-            //string str = "select tagId from " + tbName + " where " + tbId + " = " + id +" and typename='recipe'";
-            //conn.Open();
+            string str = "select tagId from Tag_Relation as t1,Tag as t2 where relationId = " + articleId + " and typename = 'article' and isDeleted = 'False' group by tagId";
             DataSet ds = new DataSet();
             SqlDataAdapter da = new SqlDataAdapter(str, conn);
             da.Fill(ds);
@@ -365,7 +367,6 @@ namespace WebApplication1.Webs
                 if (dict.ContainsKey(tagId))
                 {
                     tags[i] = dict[ds.Tables[0].Rows[i]["tagId"].ToString()];
-
                     result += tags[i];
                 }
                 else
@@ -376,35 +377,19 @@ namespace WebApplication1.Webs
             return result;
         }
 
-        protected void ImgUpdate(string oImgs, string imgs)
-        {
-            string[] oImg = oImgs.Split(',');
-            string[] img = imgs.Split(',');
-            for (int i = 0; i < oImg.Length; i++)
-            {
-                bool isExist = false;
-                for (int j = 0; j < img.Length; j++)
-                {
-                    if (oImg[i] == img[j])
-                        isExist = true;
-                }
-                if (!isExist)
-                    File.Delete(oImg[i]);
-            }
-        }
-
         /// <summary>
         /// 从图文html中取到所有图片的路径
         /// </summary>
         /// <param name="content">图文html</param>
         /// <returns>所有图片的路径</returns>
-        protected string[] GetImgPath(string content) {
+        protected string[] GetImgPath(string content)
+        {
             List<string> list = new List<string>();
             string[] temp = content.Split('<');
             for (int i = 0; i < temp.Length; i++)
             {
                 string result = Regex.Match(temp[i], "(?<=src=\").*?(?=\")").Value;
-                if (result != ""&&result!=null)
+                if (result != "" && result != null)
                     list.Add(result);
             }
             return list.ToArray();
@@ -412,7 +397,7 @@ namespace WebApplication1.Webs
 
         public static void UpdateArticleCache()
         {
-            Tool.UpdateCache<DbOpertion.Models.Article>("Article","List_Article", false);
+            Tool.UpdateCache<DbOpertion.Models.Article>("Article", "List_Article", false);
         }
 
         //[WebMethod]  

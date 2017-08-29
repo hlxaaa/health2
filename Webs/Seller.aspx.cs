@@ -135,6 +135,13 @@ namespace WebApplication1.Webs
         protected void AddSeller()
         {
             string loginname = Request["loginname"];
+            bool isExist = Tool.IsExist(loginname, "loginname", "Seller", " and IsDeleted='false'");
+            if (isExist)
+            {
+                Response.Write("exist");
+                Response.End();
+                return;
+            }
             string password = Request["password"];
             string restId = Request["restId"];
             string sqlInsert = "insert Seller (name,loginname,password,restaurantid,recipeids,balance,isDeleted) values ('暂留字段','" +loginname + "','" + password + "'," + restId + ",' ',0,'False')";
@@ -147,10 +154,25 @@ namespace WebApplication1.Webs
         protected void UpdateSeller()
         {
             string id = Request["sellerId"];
-            //string restId = Request["restId"];
-            string account = Request["loginname"];
+            string sqlUpdate = "";
             string password = Request["password"];
-            string sqlUpdate = "update Seller set loginname = '" + account + "',password = '" + password + "' where id = " + id;
+            //string restId = Request["restId"];
+            if (Request["loginname"] != null)
+            {
+                string account = Request["loginname"];
+                bool isExist = Tool.IsExist(account, "loginname", "Seller", " and IsDeleted='false'");
+                if (isExist)
+                {
+                    Response.Write("exist");
+                    Response.End();
+                    return;
+                }
+                sqlUpdate = "update Seller set loginname = '" + account + "',password = '" + password + "' where id = " + id;
+            }
+            else {
+                sqlUpdate = "update Seller set password = '" + password + "' where id = " + id;
+            }
+            
             conn.Open();
             SqlCommand sqlCom = new SqlCommand(sqlUpdate, conn);
             sqlCom.ExecuteScalar();

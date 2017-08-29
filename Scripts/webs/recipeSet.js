@@ -1,6 +1,11 @@
 ﻿var restaurantId;
 var isHasResult = true;
 $(document).ready(function () {
+    $('#inputSearch').keydown(function (e) {
+        if (e.keyCode == 13)
+            $('.btnSearch').click();
+    })
+
     $('#selectRest').val(restaurantId);
     if (jsonStr != '')
         getTable(jsonStr);
@@ -57,8 +62,8 @@ function changePage(page) {
         cache: false,
         success: function (data) {
             getTable(data);
-            if (!isHasResult) 
-                alert('没有结果')
+            //if (!isHasResult) 
+            //    alert('没有结果')
         },
         error: function (err) {
             alert('cuole');
@@ -73,6 +78,7 @@ function getTable(data) {
         //alert('没有结果');
         //clearFoodSelect();
         //clearTagSelect();
+        $('.recipe').remove();
         isHasResult = false;
         return;
     }

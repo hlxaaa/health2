@@ -1,161 +1,146 @@
 ﻿body {
     /*overflow-y:hidden;*/
-    overflow-x:hidden;
-}
-#divMains
-{
-    width:calc(100% - 215px)
+    overflow-x: hidden;
 }
 
-.header-content
-{
-  margin-top:21px;
+#divMains {
+    width: calc(100% - 215px);
 }
 
-.main-body
-{
-    background-color:white;
-    border-radius:10px;
-    margin-top:24px;
+.header-content {
+    margin-top: 21px;
 }
 
-.mainbody-title div
-{
-    line-height:75px;
+.main-body {
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 24px;
 }
 
- .mainbody-title input {
-        height:35px;
-        width:230px;
-        border:1px solid #8c83a3  ;
-        border-radius:5px;
-        text-align:initial;
-        padding-left:5px;
-    }
-.mainbody-info,.mainbody-title
-{
-    border-bottom:1px solid rgb(204,204,204);
-    margin-right:15px;
+.mainbody-title div {
+    line-height: 75px;
 }
 
-.mainbody-title
-{
-    
+.mainbody-title input {
+    height: 35px;
+    width: 230px;
+    border: 1px solid #8c83a3;
+    border-radius: 5px;
+    text-align: initial;
+    padding-left: 5px;
 }
 
-#address,#coordinate
-{
-    color:red;
+.mainbody-info, .mainbody-title {
+    border-bottom: 1px solid rgb(204,204,204);
+    margin-right: 15px;
 }
 
-.info1
-{
-    height:50px;
-    margin-top:22px;
+.mainbody-title {
 }
 
-#category,#phone
-{
-    width:162px;
-    height:25px;
-      border:1px solid #8c83a3  ;
-        border-radius:5px;
+#address, #coordinate {
+    color: red;
+}
+
+.info1 {
+    height: 50px;
+    margin-top: 22px;
+}
+
+#category, #phone {
+    width: 162px;
+    height: 25px;
+    border: 1px solid #8c83a3;
+    border-radius: 5px;
 }
 
 
 
-#sales, #consumption
-{
-     width:85px;
-    height:25px;
-      border:1px solid #8c83a3  ;
-        border-radius:5px;
+#sales, #consumption {
+    width: 85px;
+    height: 25px;
+    border: 1px solid #8c83a3;
+    border-radius: 5px;
 }
 
-#startTime, #endTime
-{
-    width:116px;
-    height:25px;
-      border:1px solid #8c83a3  ;
-        border-radius:5px;
+#startTime, #endTime {
+    width: 116px;
+    height: 25px;
+    border: 1px solid #8c83a3;
+    border-radius: 5px;
 }
 
-.info2
-{
-    margin-top:-5px;
+.info2 {
+    margin-top: -5px;
 }
 
     .info2 div:first-child {
-        margin-left:0;
+        margin-left: 0;
     }
 
-.info3
-{
-    margin-top:20px;
-    padding-bottom:33px;
-    line-height:26px;
+.info3 {
+    margin-top: 20px;
+    padding-bottom: 33px;
+    line-height: 26px;
 }
 
-.discount-input
-{
-    height:27px;
-      border:1px solid #8c83a3  ;
-        border-radius:5px;
-        text-align:left;
-        padding-left:5px;
-        min-width:100px;
-        width:auto;
-        padding-left:5px;
-        padding-right:5px;
+.discount-input {
+    height: 27px;
+    border: 1px solid #8c83a3;
+    border-radius: 5px;
+    text-align: left;
+    padding-left: 5px;
+    min-width: 100px;
+    width: auto;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
-.discount
-{
-    min-width:100px;
-    width:auto;
-    display:block;
+.discount {
+    min-width: 100px;
+    width: auto;
+    display: block;
 }
-.discount-del
-{
+
+.discount-del {
     /*margin-top:-25px;*/
-    padding:5px;
-    margin-left:-6px;
-    width:27px;
-    margin-top:0px;
-    display:block;
-    background:rgb(121,112,143);
-    border-bottom-right-radius:3px;
-    border-top-right-radius:3px;
+    padding: 5px;
+    margin-left: -6px;
+    width: 27px;
+    margin-top: 0px;
+    display: block;
+    background: rgb(121,112,143);
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
 }
 
-.discount-del2
-{
+.discount-del2 {
     /*margin-top:-25px;*/
-    padding:5px;
-    margin-left:-6px;
-    width:27px;
-    margin-top:0px;
-    display:block;
-    background:rgb(121,112,143);
-    border-bottom-right-radius:3px;
-    border-top-right-radius:3px;
+    padding: 5px;
+    margin-left: -6px;
+    width: 27px;
+    margin-top: 0px;
+    display: block;
+    background: rgb(121,112,143);
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
 }
 
 .add-discount {
-    width:auto;
-    height:27px;
-    line-height:17px;
-    color:white;
+    width: auto;
+    height: 27px;
+    line-height: 17px;
+    color: white;
 }
 
 .font-tips {
-    color:red;
-    font-weight:bold;
-    margin-top:15px;
+    color: red;
+    font-weight: bold;
+    margin-top: 15px;
 }
 
 .img-del {
-        display: block;
+    display: block;
     background-color: rgb(121,112,143);
     width: 30px;
     height: 32px;
@@ -166,10 +151,10 @@
 }
 
 .img-show {
-    width:116px;
-    height:102px;
+    width: 116px;
+    height: 102px;
     border-radius: 3px;
-    display:block;
+    display: block;
 }
 
 .thumb {
@@ -179,8 +164,8 @@
 }
 
 .div-imgs {
-    margin-top:13px;
-    margin-bottom:10px;
+    margin-top: 13px;
+    margin-bottom: 10px;
 }
 
 .div-upImg {
@@ -190,109 +175,135 @@
     background-color: rgb(121,112,143);
     /* text-align: center; */
     margin-top: 12px;
-    text-align:center;
-    margin-bottom:20px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
     .div-upImg img {
-        width:50px;
-        margin-left:0px;
-        margin-top:16px;
+        width: 50px;
+        margin-left: 0px;
+        margin-top: 16px;
     }
 
     .div-upImg p {
-        color:white;
-        margin-top:4px;
+        color: white;
+        margin-top: 4px;
     }
 
 .show-recipe {
-    background-color:white;
-    min-height:100px;
-    height:auto;
+    background-color: white;
+    min-height: 100px;
+    height: auto;
     /*border:1px solid red;*/
-    border-radius:10px;
-    margin-top:10px;
-    padding-bottom:20px;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding-bottom: 20px;
 }
 
     .show-recipe div:first-child {
-        border-bottom:1px solid  rgb(204,204,204);
-        margin-right:15px;
-        height:64px;
-        line-height:64px;
-        padding-left:10px;
+        border-bottom: 1px solid rgb(204,204,204);
+        margin-right: 15px;
+        height: 64px;
+        line-height: 64px;
+        padding-left: 10px;
     }
+
 .recipeName {
-    margin-top:10px;
+    margin-top: 10px;
 }
 
 .main-btns {
-    text-align:center;
+    text-align: center;
 }
 
-.main-btns a {
-    display: block;
-    width: 194px;
-    height: 50px;
-    border-color: rgb(121,112,143);
-    background-color: rgb(121,112,143);
-    border-radius: 5px;
-    color: white;
-    line-height: 50px;
-    font-size: 18px;
-    
-      margin-top:40px;
-}
-    .main-btns a:first-child {
-        margin-left:582px;
-      
+    .main-btns a {
+        display: block;
+        width: 194px;
+        height: 50px;
+        border-color: rgb(121,112,143);
+        background-color: rgb(121,112,143);
+        border-radius: 5px;
+        color: white;
+        line-height: 50px;
+        font-size: 18px;
+        margin-top: 40px;
     }
 
-   
+        .main-btns a:first-child {
+            margin-left: 582px;
+        }
+
+
 
 .btn-del {
-    margin-right:20px;
+    margin-right: 20px;
 }
+
 .btn-edit {
-    width:40px;
-    height:30px;
+    width: 40px;
+    height: 30px;
 }
 
-a:hover{
-    cursor:pointer;
+a:hover {
+    cursor: pointer;
 }
+
 .add-discount:hover {
-    cursor:pointer
+    cursor: pointer;
 }
 
-
-  #l-map{height:390px;width:100%;}
-        #r-result{width:100%;}
-
-
-        .tangram-suggestion
-{
- z-index:9999;
+.tangram-suggestion {
+    z-index: 9999;
 }
 
 .m-dialog2 {
-    width: 896px;background-color:white;
-    height:485px;
-    border-radius:10px;
+    width: 896px;
+    background-color: white;
+    height: 485px;
+    border-radius: 10px;
 }
+
 .map-left {
-    width:252px;
+    width: 252px;
 }
 
 .map-right {
-    width:556px;
-    height:390px;
+    width: 556px;
+    height: 390px;
 }
 
 .map-left {
-    padding:0;
+    padding: 0;
 }
 
 #searchResultPanel {
-    width:280px!important;
+    /*width: 280px!important;*/
+    /*padding:0;*/
+
+}
+
+#suggestId {
+        border:1px solid #8c83a3;
+    border-radius:3px;
+    height:31px;
+    width:280px;
+    margin:0;
+}
+
+.map-left, #r-result {
+    margin:0;
+}
+
+.tangram-suggestion-main * {
+    margin:0;
+}
+
+#l-map {
+    height: 390px;
+    width: 100%;
+}
+
+#r-result {
+    width: 100%;
+
 }

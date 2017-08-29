@@ -1,19 +1,27 @@
 ﻿var isAdd = false;
 var isHasResult = true;
+var isClicked = false;
+
 $(document).ready(function () {
-    $('#modalEdit').keydown(function (e) {
-        if (e.keyCode == 13) {
-            if (isAdd)
-                $('#btnAdd').click();
-            else
-                $('#btnUpdate').click();
-        }
+    $('body').delegate('.modal-body', 'keydown', function (e) {
+        if (e.keyCode == 13)
+            $('.footer button').click();
+    })
+
+    $('#inputSearch').keydown(function (e) {
+        if (e.keyCode == 13)
+            $('.btnSearch').click();
+    })
+
+    $('#info-account').change(function () {
+        $(this).addClass('changed')
     })
 
     getTable(jsonStr);
 
     $('.btn-add').click(function () {
         isAdd = true;
+        isClicked = false;
         $('#modal1').modal();
         $('#info-account').val('')
         $('#info-password').val('')
@@ -46,6 +54,7 @@ $(document).ready(function () {
 
     $('body').delegate('.btn-edit-left', 'click', function () {
         isAdd = false;
+        isClicked = false;
         var id = $(this).parent().parent().children('td:eq(1)').html()
         var name = $(this).parent().parent().children('td:eq(2)').html()
         var loginname=$(this).parent().parent().children('td:eq(3)').html()
@@ -61,69 +70,94 @@ $(document).ready(function () {
 
     //更新或增加
     $('.footer button').click(function () {
-        var page = $('.pagination li[class="active"] a').text();
-        var loginname = $('#info-account').val()
-        if (loginname == '') {
-            alert('用户名不能为空');
-            return;
-        }
-        if (loginname.length < 6) {
-            alert('账号长度至少6位')
-            return;
-        }
-        var password = $('#info-password').val()
-        if (password.length < 6) {
-            alert('密码长度至少6位')
-            return;
-        }
-        
-        if (isAdd) {
-            var restId = $('.info:eq(0) select').val();
-            if (restId == '') {
-                //alert(restId);
-                alert('请选择一个餐厅');
+        if (!isClicked) {
+            var page = $('.pagination li[class="active"] a').text();
+            var loginname = $('#info-account').val()
+            if (loginname == '') {
+                alert('用户名不能为空');
                 return;
             }
-            var data = {
-                method: 'addSeller',
-                loginname: loginname,
-                password: password,
-                restId:restId
+            if (loginname.length < 6) {
+                alert('账号长度至少6位')
+                return;
             }
-            $.ajax({
-                type: 'post',
-                data: data,
-                url: 'Seller.aspx',
-                cache: false,
-                success: function (data) {
-                    changePage(page);
-                    $('#modal1').modal('hide')
-                },
-                error: function (err) {
-                    alert('cuole');
-                }
-            })
-        } else {
-            var sellerId = $('#sellerId').val();
-            var data = {
-                method: 'updateSeller',
-                loginname: loginname,
-                password: password,
-                sellerId: sellerId
+            var password = $('#info-password').val()
+            if (password.length < 6) {
+                alert('密码长度至少6位')
+                return;
             }
-            $.ajax({
-                type: 'post',
-                data: data,
-                url: 'Seller.aspx',
-                cache: false,
-                success: function (data) {
-                    changePage(page);
-                    $('#modal1').modal('hide')
-                },
-                error: function (err) {
-                    alert('cuole');
+
+            if (isAdd) {
+                var restId = $('.info:eq(0) select').val();
+                if (restId == '') {
+                    //alert(restId);
+                    alert('请选择一个餐厅');
+                    return;
                 }
-            })
+                var data = {
+                    method: 'addSeller',
+                    loginname: loginname,
+                    password: password,
+                    restId: restId
+                }
+                isClicked = true;
+                $.ajax({
+                    type: 'post',
+                    data: data,
+                    url: 'Seller.aspx',
+                    cache: false,
+                    success: function (data) {
+                        if (data == 'exist') {
+                            alert('已存在该用户名')
+                            return;
+                        } else {
+                            alert('添加成功')
+                            changePage(page);
+                            $('#modal1').modal('hide')
+                        }
+                    },
+                    error: function (err) {
+                        alert('cuole');
+                    }
+                })
+            } else {
+                var sellerId = $('#sellerId').val();
+                var data;
+                if ($('#info-account').hasClass('changed')) {
+                    data = {
+                        method: 'updateSeller',
+                        loginname: loginname,
+                        password: password,
+                        sellerId: sellerId
+                    }
+                } else {
+                    data = {
+                        method: 'updateSeller',
+                        password: password,
+                        sellerId: sellerId
+                    }
+                }
+                isClicked = true;
+                $.ajax({
+                    type: 'post',
+                    data: data,
+                    url: 'Seller.aspx',
+                    cache: false,
+                    success: function (data) {
+                        if (data == 'exist') {
+                            alert('已存在该用户名')
+                            return;
+                        } else {
+                            alert('更新成功')
+                            changePage(page);
+                            $('#modal1').modal('hide')
+                        }
+                    },
+                    error: function (err) {
+                        alert('cuole');
+                    }
+                })
+            }
         }
     })
 
@@ -207,8 +241,9 @@ function getTable(data) {
     $('tbody tr').remove();
     for (var i = 0; i < l; i++) {
         var h = '<tr style="background-color: white;"><td><input type="checkbox"></td>'
-    + '<td class="sellerId">'+json[i].id+'</td>'
-    + '<td>' + json[i].name + '</td>'
+    + '<td class="sellerId">' + json[i].id + '</td>'
+        var name = omit(json[i].name, 13);
+    h+= '<td>' + name + '<input type="hidden" class="input-name" value="'+json[i].name+'"/></td>'
     + '<td>' + json[i].loginname + '</td>'
     + '<td>' + json[i].password + '</td>'
     + '<td></td><td></td><td></td><td class="edit"><a class="btn-edit-left" style="text-decoration: none;"><img class="btn-edit" src="/Images/recipe/icon-edit.svg"><font>编辑</font></a><a style="text-decoration: none;" class="btn-delete"><img class="btn-edit" src="/Images/recipe/icon-delete.svg"><font>删除</font></a></td></tr>'
@@ -259,8 +294,8 @@ function changePage(page) {
         cache: false,
         success: function (data) {
             getTable(data);
-            if(!isHasResult)
-                alert('没有结果')
+            //if(!isHasResult)
+            //    alert('没有结果')
         },
         error: function (err) {
             alert('cuole');

@@ -1,16 +1,37 @@
-﻿$(document).ready(function () {
+﻿var isClicked = false;
+$(document).ready(function () {
     $('.div-upImg').click(function () {
         $('#upImg').click();
     })
 
-    $('body').delegate('.img-del', 'click', function () {
-        $(this).parent().remove();
+    //第一张图片被删除
+    //$('body').delegate('#divImgs', 'change', function () {
+    //    alert(1);
+    //})
+
+    $('.discount-input').keydown(function (e) {
+        if (e.keyCode == 13)
+            $('.add-discount').click();
     })
 
+    $('body').delegate('.img-del', 'click', function () {
+        $(this).parent().remove();
+        var isChecked = $('.div-imgs .thumb div').hasClass('checked');
+        if (!isChecked) {
+            $('.div-imgs .thumb div:first').addClass('checked')
+        }
+    })
+    //local.search("1");
     //点击 取消返回 
     $('.btn-back').click(function () {
         window.history.back();
     })
+
+    ////百度地图相关
+    //$('body').delegate('#suggestId', 'keydown', function () {
+    //    local.search($(this).val());
+      
+    //})
 
     //点击 删除
     $('.btn-del').click(function () {
@@ -42,20 +63,33 @@
     })
 
     $('#startTime').datetimepicker({
-        format: 'hh:ii',
-        //language: 'ch',
-        //autoclose: true,
-        startView: 1,
+        //format: 'hh:ii',
+        //startView: 1,
+        //minView: (0, 'hour'),
+        //minuteStep: 10,
+
+        //language: 'zh-CN',//显示中文
+        format: 'hh:ii',//显示格式
         minView: (0, 'hour'),
+        startView: 1,
+        initialDate: new Date('2017-08-29 ' + dt1),
         minuteStep: 10,
+        //minView: "hour",//设置只显示到月份
+        //initialDate: new Date(),//初始化当前日期
+        //autoclose: true,//选中自动关闭
+        //todayBtn: true//显示今日按钮
+
+        //format: 'yyyy-mm-dd hh:ii:ss',
+        //autoclose: true,
+        //minView: (0,'hour'),
+        //minuteStep: 1
     });
 
     $('#endTime').datetimepicker({
-        format: 'hh:ii',
-        //language: 'ch',
-        //autoclose: true,
-        startView: 1,
+        format: 'hh:ii',//显示格式
         minView: (0, 'hour'),
+        startView: 1,
+        initialDate: new Date('2017-08-29 ' + dt2),
         minuteStep: 10,
     });
     
@@ -89,135 +123,145 @@
 
     //添加或更新
     $('.btn-save').click(function () {
-        $('#title').css('border-color', '#8c83a3');
-        $('#sales').css('border-color', '#8c83a3');
-        $('#consumption').css('border-color', '#8c83a3');
-        $('#startTime').css('border-color', '#8c83a3');
-        $('#endTime').css('border-color', '#8c83a3');
+        if (!isClicked) {
+            $('#title').css('border-color', '#8c83a3');
+            $('#sales').css('border-color', '#8c83a3');
+            $('#consumption').css('border-color', '#8c83a3');
+            $('#startTime').css('border-color', '#8c83a3');
+            $('#endTime').css('border-color', '#8c83a3');
 
-        var name = $('#title').val();
-        if (name == '') {
-            $('#title').css('border-color', 'red');
-            return;
-        }
-        var address = $('#address').text().trim();
-        if (address == '')
-        {
-            alert('请选择地址');
-            return;
-        }
-        var coordinate = $('#coordinate').text().trim();
-        var categoryId = $('#category').val();
-        var phone = $('#phone').val();
-        if (phone.length != 11) {
-            alert('手机号格式不对');
-            return;
-        }
-        var sales = $('#sales').val();
-        if (sales == '') {
-            $('#sales').css('border-color', 'red');
-            return;
-        }
-
-        var consumption = $('#consumption').val();
-        if (consumption == '') {
-            $('#consumption').css('border-color', 'red');
-            return;
-        }
-        var startTime = $('#startTime').val();
-        if (startTime == '') {
-            $('#startTime').css('border-color', 'red');
-            return;
-        }
-        var endTime = $('#endTime').val();
-        if (endTime == '') {
-            $('#endTime').css('border-color', 'red');
-            return;
-        }
-        var discounts = new Array();
-        $('.discount-input2').each(function () {
-            discounts.push($(this).val());
-        })
-   
-        var imgs = new Array();
-        $('.img-show').each(function () {
-            imgs.push($(this).attr('src').substring(1));
-        })
-        if (imgs.length == 0) {
-            alert('请至少选择一张图片')
-            return;
-        }
-        var l = $('.div-imgs .thumb div').length;
-        var imgIndex;
-        for (var i = 0; i < l; i++) {
-            if ($('.div-imgs:eq(' + i + ') .thumb div').hasClass('checked'))
-                imgIndex = i;
-        }
-        var oImgs = $('#oImg').val();
-
-        if (id == '') {
-            var data = {
-                method:'addRest',
-                imgIndex: imgIndex,
-                name: name,
-                address: address,
-                coordinate: coordinate,
-                categoryId: categoryId,
-                phone: phone,
-                sales: sales,
-                consumption: consumption,
-                startTime: startTime,
-                endTime: endTime,
-                discounts: discounts,
-                imgs: imgs,
-                oImgs:oImgs
+            var name = $('#title').val();
+            if (name == '') {
+                $('#title').css('border-color', 'red');
+                return;
             }
-            $.ajax({
-                type: 'post',
-                data: data,
-                url: 'RestaurantContent.aspx',
-                cache: false,
-                success: function (res) {
-                    alert('添加成功');
-                    window.location.href = 'Restaurant.aspx';
-                },
-                error: function (res) {
-
-                }
-            })
-        }
-        else {
-            var data = {
-                method:'updateRest',
-                id: id,
-                imgIndex: imgIndex,
-                name: name,
-                address: address,
-                coordinate: coordinate,
-                categoryId: categoryId,
-                phone: phone,
-                sales: sales,
-                consumption: consumption,
-                startTime: startTime,
-                endTime: endTime,
-                discounts: discounts,
-                imgs: imgs,
-                oImgs:oImgs
+            var address = $('#address').text().trim();
+            if (address == '') {
+                alert('请选择地址');
+                return;
             }
-            $.ajax({
-                type: 'post',
-                data: data,
-                url: 'RestaurantContent.aspx',
-                cache: false,
-                success: function (res) {
-                    alert('更新成功');
-                    window.location.href = 'Restaurant.aspx';
-                    //location.reload();
-                },
-                error: function (res) {
+            var coordinate = $('#coordinate').text().trim();
+            var categoryId = $('#category').val();
+            var phone = $('#phone').val();
+            if (phone.length != 11) {
+                alert('手机号格式不对');
+                return;
+            }
+            var sales = $('#sales').val();
+            if (sales == '') {
+                $('#sales').css('border-color', 'red');
+                return;
+            }
 
+            var consumption = $('#consumption').val();
+            if (consumption == '') {
+                $('#consumption').css('border-color', 'red');
+                return;
+            }
+            var startTime = $('#startTime').val();
+            if (startTime == '') {
+                $('#startTime').css('border-color', 'red');
+                return;
+            }
+            var endTime = $('#endTime').val();
+            if (endTime == '') {
+                $('#endTime').css('border-color', 'red');
+                return;
+            }
+            var discounts = new Array();
+            var isDisEmpty = false;
+            $('.discount-input2').each(function () {
+                if ($(this).val() == '') {
+
+                    isDisEmpty = true;
+                    return
                 }
+                discounts.push($(this).val());
             })
+            if (isDisEmpty) {
+                alert('优惠不能为空')
+                return;
+            }
+            var imgs = new Array();
+            $('.img-show').each(function () {
+                imgs.push($(this).attr('src').substring(1));
+            })
+            if (imgs.length == 0) {
+                alert('请至少选择一张图片')
+                return;
+            }
+            var l = $('.div-imgs .thumb div').length;
+            var imgIndex;
+            for (var i = 0; i < l; i++) {
+                if ($('.div-imgs:eq(' + i + ') .thumb div').hasClass('checked'))
+                    imgIndex = i;
+            }
+            var oImgs = $('#oImg').val();
+            isClicked = true;
+            if (id == '') {
+                var data = {
+                    method: 'addRest',
+                    imgIndex: imgIndex,
+                    name: name,
+                    address: address,
+                    coordinate: coordinate,
+                    categoryId: categoryId,
+                    phone: phone,
+                    sales: sales,
+                    consumption: consumption,
+                    startTime: startTime,
+                    endTime: endTime,
+                    discounts: discounts,
+                    imgs: imgs,
+                    oImgs: oImgs
+                }
+                $.ajax({
+                    type: 'post',
+                    data: data,
+                    url: 'RestaurantContent.aspx',
+                    cache: false,
+                    success: function (res) {
+                        alert('添加成功');
+                        window.location.href = 'Restaurant.aspx';
+                    },
+                    error: function (res) {
+
+                    }
+                })
+            }
+            else {
+                var data = {
+                    method: 'updateRest',
+                    id: id,
+                    imgIndex: imgIndex,
+                    name: name,
+                    address: address,
+                    coordinate: coordinate,
+                    categoryId: categoryId,
+                    phone: phone,
+                    sales: sales,
+                    consumption: consumption,
+                    startTime: startTime,
+                    endTime: endTime,
+                    discounts: discounts,
+                    imgs: imgs,
+                    oImgs: oImgs
+                }
+                $.ajax({
+                    type: 'post',
+                    data: data,
+                    url: 'RestaurantContent.aspx',
+                    cache: false,
+                    success: function (res) {
+                        alert('更新成功');
+                        window.location.href = 'Restaurant.aspx';
+                        //location.reload();
+                    },
+                    error: function (res) {
+
+                    }
+                })
+            }
         }
     })
 })

@@ -82,14 +82,11 @@ function getTable(data) {
         + '<thead>'
         + '<tr>'
         + '<th width="1%"><input type="checkbox"></th>'
-        //+ '<th width="1%">id</th>'
         + '<th width="5%">名称</th>'
         + '<th width="5%">有没有</th>'
-        //+ '<th width="5%">菜品分类</th>'
         + '<th width="20%">菜品</th>'
         + '<th width="5%">餐厅</th>'
         + '<th width="5%">标签</th>'
-        //+ '<th width="5%">图片</th>'
         + '<th width="5%">销售量</th>'
         + '<th width="5%">价格</th>'
         + '<th width="10%">操作</th>'
@@ -99,19 +96,12 @@ function getTable(data) {
     for (var i = 0; i < json.length; i++) {
         h += '<tr  style="background-color:white;">';
         h += "<td><input type=\"checkbox\"></td>";
-        //h += "<td>" + json[i].id + "</td>";
-        h += "<td>" + json[i].name + "</td>";
-        //var available = (json[i].available == 'True') ? '有' : '没有';
+        var name = omit(json[i].name, 12);
+        h += "<td>" + name + "</td>";
         h += "<td>" + json[i].available + "</td>";
-        //h += "<td>" + json[i].foodtypes + "</td>";
-        var foods = json[i].foods;
-        if (foods.length > 20)
-            foods = json[i].foods.replace(/\|/g, ' ').substring(0, 20) + '...';
+        var foods = omit(json[i].foods, 20);
         h += "<td>" + foods + "</td>";
-        //h += "<td>" +foods[i] + "</td>";
-        var rest = json[i].restaurantId;
-        if (rest.length > 8)
-            rest = json[i].restaurantId.substring(0, 8) + '...';
+        var rest =omit(json[i].restaurantId,8);
         h += "<td>" + rest + "</td>";
         var tags = json[i].tags;
         if (tags.length > 11)
@@ -444,6 +434,11 @@ $(document).ready(function () {
                 }
             })
         }
+    })
+
+    $('#inputSearch').keydown(function (e) {
+        if (e.keyCode == 13)
+            $('.btnSearch').click();
     })
 })
 

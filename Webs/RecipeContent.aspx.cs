@@ -43,7 +43,7 @@ namespace WebApplication1.Webs
                 Response.Redirect("/error.aspx", false);
                 Response.End();
                 return;
-            }      
+            }
             if (Request.Files != null && Request.Files.Count > 0)
                 UpImg();
             else
@@ -91,7 +91,7 @@ namespace WebApplication1.Webs
             oImgs = ds.Tables[0].Rows[0]["images"].ToString();//Replace("//", "/")
 
 
-            string selectTag = "select tagId  from Tag_Relation as tr ,Tag as t where typename='recipe' and relationId = "+id+" and t.id=tr.tagId and t.isDeleted='False'";
+            string selectTag = "select tagId  from Tag_Relation as tr ,Tag as t where typename='recipe' and relationId = " + id + " and t.id=tr.tagId and t.isDeleted='False'";
             SqlDataAdapter da2 = new SqlDataAdapter(selectTag, conn);
             ds.Clear();
             da2.Fill(ds);
@@ -102,7 +102,7 @@ namespace WebApplication1.Webs
                 tags[i] = dictTag[ds.Tables[0].Rows[i]["tagId"].ToString()];
             }
 
-            string selectFood = "select foodtypeId,foodId, weight from Recipe_foods as rf ,FoodType as ft,Food as f where recipeId = "+id+" and rf.foodtypeId = ft.id and f.id=foodId and f.IsDeleted='False'";
+            string selectFood = "select foodtypeId,foodId, weight from Recipe_foods as rf ,FoodType as ft,Food as f where recipeId = " + id + " and rf.foodtypeId = ft.id and f.id=foodId and f.IsDeleted='False'";
             SqlDataAdapter da3 = new SqlDataAdapter(selectFood, conn);
             ds.Clear();
             da3.Fill(ds);
@@ -184,7 +184,7 @@ namespace WebApplication1.Webs
             string[] foodIds = Request.Form.GetValues("foodIds[]");
             string[] weights = Request.Form.GetValues("weights[]");
             string[] imgs = Request.Form.GetValues("imgs[]");
-            
+
             string img = "";
             img += imgs[imgIndex].Substring(1);
             for (int i = 0; i < imgs.Length; i++)
@@ -194,16 +194,16 @@ namespace WebApplication1.Webs
             }
             string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-            string str = "insert Recipe (name,available,restaurantId,sales,price,createTime,images) values (\'" + name + "\',\'" + available + "\',\'" + restId + "\',\'" + sales + "\',\'" + price + "\','" + time + "','" + img + "') Select @@IDENTITY";
+            string str = "insert Recipe (name,available,restaurantId,sales,price,createTime,images,foodtypes,foods,tags) values (\'" + name + "\',\'" + available + "\',\'" + restId + "\',\'" + sales + "\',\'" + price + "\','" + time + "','" + img + "','此字段不使用','此字段不使用','此字段不使用') Select @@IDENTITY";
 
             for (int i = 0; i < imgs.Length; i++)
             {
-                imgs[i] = path+"\\" + imgs[i].Substring(1).Replace("//","\\");
+                imgs[i] = path + "\\" + imgs[i].Substring(1).Replace("//", "\\");
             }
             string[] oImgs = Request["oImgs"].Split('|');
             for (int i = 0; i < oImgs.Length; i++)
             {
-                oImgs[i] = path+"\\" + oImgs[i].Replace("//", "\\");
+                oImgs[i] = path + "\\" + oImgs[i].Replace("//", "\\");
             }
             //return;
             Tool.ImgUpdate(oImgs, imgs);
@@ -233,7 +233,7 @@ namespace WebApplication1.Webs
             SqlCommand sqlCom3 = new SqlCommand(insertFood, conn);
             sqlCom3.ExecuteScalar();
             conn.Close();
-            
+
             //Tool.UpdateCache<DbOpertion.Models.Recipe>("Recipe", "List_Recipe");
             //var MyCache = MemCacheHelper.GetMyConfigInstance();
             //var list = MyCache.GetModel<List<DbOpertion.Models.Recipe>>("List_Recipe");
@@ -285,7 +285,6 @@ namespace WebApplication1.Webs
             {
                 oImgs[i] = path + "\\" + oImgs[i].Replace("//", "\\");
             }
-            //return;
             Tool.ImgUpdate(oImgs, imgs);
 
 
@@ -320,10 +319,11 @@ namespace WebApplication1.Webs
             conn.Close();
         }
 
-        public static void UpdateRecipeCache() {
-            Tool.UpdateCache<DbOpertion.Models.Recipe>("Recipe", "List_Recipe",true);
-            Tool.UpdateCache<DbOpertion.Models.Tag_Relation>("Tag_Relation", "List_Tag_Relation",false);
-            Tool.UpdateCache<DbOpertion.Models.Recipe_foods>("Recipe_foods", "List_Recipe_Foods",false);
+        public static void UpdateRecipeCache()
+        {
+            Tool.UpdateCache<DbOpertion.Models.Recipe>("Recipe", "List_Recipe", true);
+            Tool.UpdateCache<DbOpertion.Models.Tag_Relation>("Tag_Relation", "List_Tag_Relation", false);
+            Tool.UpdateCache<DbOpertion.Models.Recipe_foods>("Recipe_foods", "List_Recipe_Foods", false);
             var MyCache = MemCacheHelper.GetMyConfigInstance();
             var list = MyCache.GetModel<List<DbOpertion.Models.Tag_Relation>>("List_Tag_Relation");
             //var list2 = MyCache.GetModel<List<DbOpertion.Models.Recipe_foods>>("List_Recipe_Foods");

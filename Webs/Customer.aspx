@@ -208,7 +208,7 @@
 </div>
 <div class="info">
 	<font class="fl">电话:</font>
-	<input type="text" id="info-phone" class="fr"/>
+	<input type="text" id="info-phone" class="fr" maxlength="11"/>
 	<div class="fc"></div>
 </div>
 <div class="info">
@@ -222,13 +222,13 @@
 	<div class="fc"></div>
 </div>
 <div class="info">
-	<font class="fl">身高:</font>
-	<input type="text" id="info-height" class="fr"/>
+	<font class="fl">身高(cm):</font>
+	<input type="text" id="info-height" class="fr" maxlength="3"/>
 	<div class="fc"></div>
 </div>
 <div class="info">
-	<font class="fl">体重:</font>
-	<input type="text" id="info-weight" class="fr"/>
+	<font class="fl">体重(kg):</font>
+	<input type="text" id="info-weight" class="fr" maxlength="3"/>
 	<div class="fc"></div>
 </div>
 <div class="info">
@@ -241,7 +241,7 @@
 	<div class="fc"></div>
 </div>
 <div class="info">
-	<font class="fl">年龄:</font>
+	<font class="fl">生日:</font>
 	<input type="text" id="info-age" class="fr"/>
 	<div class="fc"></div>
 </div>
@@ -252,7 +252,18 @@
 </div>
 <div class="info">
 	<font class="fl">体质:</font>
-	<input type="text" id="info-constitution" class="fr"/>
+	<%--<input type="text" id="info-constitution" class="fr"/>--%>
+    <select id="info-constitution" class="fr">
+<option value="平和质">平和质</option>
+<option value="气郁质">气郁质</option>
+<option value="阴虚质">阴虚质</option>
+<option value="痰湿质">痰湿质</option>
+<option value="阳虚质">阳虚质</option>
+<option value="特禀质">特禀质</option>
+<option value="湿热质">湿热质</option>
+<option value="气虚质">气虚质</option>
+<option value="血瘀质">血瘀质</option>
+</select>
 	<div class="fc"></div>
 </div>
 

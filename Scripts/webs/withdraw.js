@@ -1,26 +1,30 @@
-﻿$(document).ready(function () {
-    $('body').delegate('.btn-do', 'click', function () {
-        $(this).attr('class', 'btn-done');
-        $(this).text('已处理')
-        var withdrawId = $(this).parent().parent().children('td:first').html();
-        var data = {
-            method: 'doWithdraw',
-            withdrawId:withdrawId
-        }
-        $.ajax({
-            type: 'post',
-            data: data,
-            url: 'Withdraw.aspx',
-            cache: false,
-            success: function (data) {
-                alert('已处理！')
-                location.reload();
-            },
-            error: function (err) {
-                alert('cuole');
-            }
-        })
+﻿var isClicked = false;
 
+$(document).ready(function () {
+    $('body').delegate('.btn-do', 'click', function () {
+        if (!isClicked) {
+            $(this).attr('class', 'btn-done');
+            $(this).text('已处理')
+            var withdrawId = $(this).parent().parent().children('td:first').html();
+            var data = {
+                method: 'doWithdraw',
+                withdrawId: withdrawId
+            }
+            isClicked = true;
+            $.ajax({
+                type: 'post',
+                data: data,
+                url: 'Withdraw.aspx',
+                cache: false,
+                success: function (data) {
+                    alert('已处理！')
+                    location.reload();
+                },
+                error: function (err) {
+                    alert('cuole');
+                }
+            })
+        }
     })
     //$('body').delegate('.btn-done', 'click', function () {
     //    $(this).attr('class', 'btn-do');

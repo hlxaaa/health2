@@ -16,17 +16,6 @@ namespace WebApplication1.Webs
         protected string jsonStr = "";
         protected string name = "";
 
-        //protected string name = "";
-
-        //protected int[] id = { };
-        //protected int[] sTime = { };
-        //protected string[] sDate = { };
-        //protected int[] distance = { };
-        //protected int[] steps = { };
-
-        //protected int countDistance = 0;
-        //protected int countSteps = 0;
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["restId"] == null || (Session["restId"] != null && Session["restId"].ToString() != "0"))
@@ -36,8 +25,6 @@ namespace WebApplication1.Webs
                 return;
             }      
             cid = Convert.ToInt32(Request["id"]);
-            //name = Request["name"];
-            //cid = 2;
 
             switch (Request["method"])
             {
@@ -187,24 +174,6 @@ namespace WebApplication1.Webs
             conn.Close();
 
             GetEveryDay(year, month, cid);
-            //string str2 = "select steps,sDate from Sport where cid =2 and sDate >='2017-08-01' order by sDate ";
-            //SqlDataAdapter da = new SqlDataAdapter(str2, conn);
-            //da.Fill(ds);
-            //ds = Tool.DsToString(ds);
-            //int l = ds.Tables[0].Rows.Count;
-            //for (int i = 0; i < l; i++)
-            //{
-            //    string temp = ds.Tables[0].Rows[i]["sDate"].ToString();
-            //    DateTime dt2 = Convert.ToDateTime(temp);
-            //    ds.Tables[0].Rows[i]["sDate"] = dt2.Day.ToString();
-            //}
-            //jsonStr = Tool.GetJsonByDataset(ds);
-            //string yearJson = ",\"year\":" + year + "";
-            //string monthJson = ",\"month\":" + month + "";
-            ////string dayJson = ",\"day\":" + day + "";
-            //jsonStr = jsonStr.Substring(0, jsonStr.Length - 1) + yearJson + monthJson + "}";
-
-            //conn.Close();
         }
     }
 }

@@ -1,54 +1,61 @@
-﻿$(document).ready(function () {
+﻿var isClicked = false;
+
+$(document).ready(function () {
     $('.btn-withdraw').click(function () {
         $('#modal1').modal();
     })
 
+    $('#number').keydown(function (e) {
+        if (e.keyCode == 13)
+            $('.btn-save').click();
+    })
 
     getDetailTable(jsonDetail);
     getWithdrawTable(jsonWithdraw);
 
     $('.btn-save').click(function () {
-        var number = $('#number').val()
-        if (number == '')
-        {
-            alert('不能为空');
-            return;
-        }
-        number = parseFloat(number).toFixed(2);
-        if (number == 0)
-        {
-            alert('不能取0')
-            return;
-        }
-        var r = confirm('确定提取' + number + '元?')
-        if(r){
-            //alert(n);
-            //return;
-            var data = {
-                number: number,
-                sellerId: sellerId,
-                method:'withdraw'
+        if (!isClicked) {
+            var number = $('#number').val()
+            if (number == '') {
+                alert('不能为空');
+                return;
             }
-
-            $.ajax({
-                type: 'post',
-                data: data,
-                url: 'BalanceSeller.aspx',
-                cache: false,
-                success: function (data) {
-                    //getTable(data);
-                    if (data == 'no-money') {
-                        alert('余额不足')
-                    }
-                    else {
-                        alert('成功')
-                        location.reload();
-                    }
-                },
-                error: function (err) {
-                    alert('cuole');
+            number = parseFloat(number).toFixed(2);
+            if (number == 0) {
+                alert('不能取0')
+                return;
+            }
+            var r = confirm('确定提取' + number + '元?')
+            if (r) {
+                //alert(n);
+                //return;
+                var data = {
+                    number: number,
+                    sellerId: sellerId,
+                    method: 'withdraw'
                 }
-            })
+                isClicked = true;
+                $.ajax({
+                    type: 'post',
+                    data: data,
+                    url: 'BalanceSeller.aspx',
+                    cache: false,
+                    success: function (data) {
+                        //getTable(data);
+                        if (data == 'no-money') {
+                            alert('余额不足')
+                            isClicked = false;
+                        }
+                        else {
+                            alert('成功')
+                            location.reload();
+                        }
+                    },
+                    error: function (err) {
+                        alert('cuole');
+                    }
+                })
+            }
         }
         })
        

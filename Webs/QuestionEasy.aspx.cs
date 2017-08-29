@@ -42,8 +42,6 @@ namespace WebApplication1.Webs
                     GetQues();
                     break;
             }
-           
-
         }
 
         protected void GetQues() { 
@@ -95,8 +93,6 @@ namespace WebApplication1.Webs
             conn.Open();
             SqlCommand comInsertQues = new SqlCommand(sqlInsertQues, conn);
             var relationId = comInsertQues.ExecuteScalar();
-            //conn.Close();
-            //conn.Open();
             string sqlUpdateRelationId = "update Questionnaire set RelationId = '" + relationId + "' where id = " + relationId;
             SqlCommand comUpdateRelationId = new SqlCommand(sqlUpdateRelationId, conn);
             comUpdateRelationId.ExecuteScalar();

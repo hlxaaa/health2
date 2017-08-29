@@ -16,10 +16,6 @@
     <link href="../Scripts/dist/css/wangEditor.min.css" rel="stylesheet" />
 
 
-
-
-
-
     <link href="/Content/base.css" rel="stylesheet" />
     <link href="/Content/webs/article.css" rel="stylesheet" />
 </head>

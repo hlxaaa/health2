@@ -15,25 +15,6 @@ namespace WebApplication1.Webs
     public partial class Customer : System.Web.UI.Page
     {
         protected SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["HealthConnection"].ConnectionString);
-
-        //protected int[] id = { };
-        //protected string[] name = { };
-        //protected string[] phone = { };
-        //protected string[] wechat = { };
-        //protected string[] password = { };
-        //protected string[] height = { };
-        //protected string[] weight = { };
-        //protected string[] sex = { };
-        //protected int[] age = { };
-        //protected string[] labour = { };
-        //protected string[] constitution = { };
-        //protected string[] score = { };
-
-        //protected string[] sTime = { };//分钟
-        //protected string[] sDate = { };
-        //protected string[] distance = { };//米
-        //protected string[] steps = { };
-
         protected int ran = new Random().Next();
         protected DataSet ds = new DataSet();
         protected string jsonStr = "";
@@ -45,11 +26,12 @@ namespace WebApplication1.Webs
                 Response.Redirect("/error.aspx", false);
                 Response.End();
                 return;
-            }      
-            GetCustomer();
+            }
+            //GetCustomer();
             switch (Request["method"])
             {
                 case "search":
+                    GetCustomer();
                     ResJsonStr();
                     break;
                 case "updateCustomer":
@@ -57,18 +39,18 @@ namespace WebApplication1.Webs
                     UpdateCustomer(userId);
                     UpdateCustomerCacheById(userId);
                     break;
+                default:
+                    GetCustomer();
+                    break;
             }
         }
 
         protected void UpdateCustomer(string userId) {
-            
             string name = Request["name"];
             string phone = Request["phone"];
             string wechat = Request["wechat"];
 
             string str = "update Customer set phone='" + phone + "'";
-
-         
 
             if (!string.IsNullOrEmpty(name))
                 str += ",name='" + name + "'";
@@ -169,7 +151,6 @@ namespace WebApplication1.Webs
                 {
                     ds.Tables[0].Rows[i]["birthday"] = "未填写";
                 }
-
             }
 
             jsonStr = Tool.GetJsonByDataset(ds);

@@ -1,5 +1,13 @@
 ﻿var isAdd = false;
+var isClicked = false;
 $(document).ready(function () {
+    $('body').delegate('.ques', 'keydown', function (e) {
+        if (e.keyCode == 13)
+            $(this).find('#aRightBorder').click();
+    })
+     
+    
+
     $('#modalAdd').keydown(function (e) {
         if (e.keyCode == 13) {
             if (isAdd)
@@ -133,16 +141,7 @@ $(document).ready(function () {
         if ($(this).parent().siblings().length > 1)
             $(this).parent().remove();
     })
-    //$('#icon-add').click(function () {
-    //    var h = '<div class="col-md-5 ">'
-    //                        + '<font>选项：</font><input />'
-    //                        + ' <font>体质：</font> <select>'
-    //                        + '<option>平和质</option><option>气郁质</option><option>阴虚质</option><option>痰湿质</option><option>阳虚质</option><option>特禀质</option><option>湿热质</option><option>气虚质</option><option>血瘀质</option>'
-    //                        +'</select> <img src="../Images/base/icon-trash.png" />'
-    //                  + '</div>';
-    //  $(this).parent().parent().children('.col-md-5:last').after(h);
-        
-    //})
+   
 
 })
 
@@ -156,91 +155,96 @@ function addTemplate() {
 }
 
 function addQues() {
-    var title = $('.ques-title-content:eq(0) input').val();
-    if (title.trim() == '') {
-        clearBorder();
-        $('.ques-title-content:eq(0) input').css('border-color', 'red');
-        alert('题目不能为空！');
-        return;
-    }
-    var options = new Array();
-    var constitutions = new Array();
-    var l = $('.ques-options:eq(0) .col-md-5').length;
-    for (var i = 0; i < l; i++) {
-        options[i] = $('.ques-options:eq(0) .col-md-5:eq(' + i + ') input').val();
-        if (options[i].trim() == '') {
+    if (!isClicked) {
+        var title = $('.ques-title-content:eq(0) input').val();
+        if (title.trim() == '') {
             clearBorder();
-            $('.ques-options:eq(0) .col-md-5:eq(' + i + ') input').css('border-color', 'red');
-            alert('选项不能为空！');
+            $('.ques-title-content:eq(0) input').css('border-color', 'red');
+            alert('题目不能为空！');
             return;
         }
-        constitutions[i] = $('.ques-options:eq(0) .col-md-5:eq(' + i + ') select').val();
-    }
-    
-    var data = {
-        method:'addQues',
-        title: title,
-        options: options,
-        constitutions:constitutions
-    }
-    $.ajax({
-        type: 'post',
-        data: data,
-        url: 'QuestionEasy.aspx',
-        cache: false,
-        success: function (res) {
-            alert('添加成功');
-            location.reload();
-        },
-        error: function (res) {
-            alert(2);
+        var options = new Array();
+        var constitutions = new Array();
+        var l = $('.ques-options:eq(0) .col-md-5').length;
+        for (var i = 0; i < l; i++) {
+            options[i] = $('.ques-options:eq(0) .col-md-5:eq(' + i + ') input').val();
+            if (options[i].trim() == '') {
+                clearBorder();
+                $('.ques-options:eq(0) .col-md-5:eq(' + i + ') input').css('border-color', 'red');
+                alert('选项不能为空！');
+                return;
+            }
+            constitutions[i] = $('.ques-options:eq(0) .col-md-5:eq(' + i + ') select').val();
         }
-    })
+
+        isClicked = true;
+        var data = {
+            method: 'addQues',
+            title: title,
+            options: options,
+            constitutions: constitutions
+        }
+        $.ajax({
+            type: 'post',
+            data: data,
+            url: 'QuestionEasy.aspx',
+            cache: false,
+            success: function (res) {
+                alert('添加成功');
+                location.reload();
+            },
+            error: function (res) {
+                alert(2);
+            }
+        })
+    }
 }
 
 function updateQues(id) {
-    var title = $('#ques' + id + ' .ques-title-content input').val();
-    if (title.trim() == '') {
-        clearBorder();
-        $('#ques' + id + ' .ques-title-content input').css('border-color', 'red');
-        alert('题目不能为空！');
-        return;
+    if (!isClicked) {
+        var title = $('#ques' + id + ' .ques-title-content input').val();
+        if (title.trim() == '') {
+            clearBorder();
+            $('#ques' + id + ' .ques-title-content input').css('border-color', 'red');
+            alert('题目不能为空！');
+            return;
+        }
+        var options = new Array();
+        var constitutions = new Array();
+        var l = $('#ques' + id + ' .ques-options .col-md-5').length;
+        for (var i = 0; i < l; i++) {
+            options[i] = $('#ques' + id + ' .ques-options .col-md-5:eq(' + i + ') input').val();
+            if (options[i].trim() == '') {
+                clearBorder();
+                $('#ques' + id + ' .ques-options .col-md-5:eq(' + i + ') input').css('border-color', 'red');
+                alert('选项不能为空！');
+                return;
+            }
+            constitutions[i] = $('#ques' + id + ' .ques-options .col-md-5:eq(' + i + ') select').val();
+        }
+
+        isClicked = true;
+        var data = {
+            id: id,
+            method: 'updateQues',
+            title: title,
+            options: options,
+            constitutions: constitutions
+        }
+        $.ajax({
+            type: 'post',
+            data: data,
+            url: 'QuestionEasy.aspx',
+            cache: false,
+            success: function (res) {
+                alert('保存成功')
+                location.reload();
+            },
+            error: function (res) {
+                alert(2);
+            }
+        })
     }
-    var options = new Array();
-    var constitutions = new Array();
-   var l = $('#ques' + id + ' .ques-options .col-md-5').length;
-   for (var i = 0; i < l; i++) {
-       options[i] = $('#ques' + id + ' .ques-options .col-md-5:eq(' + i + ') input').val();
-       if (options[i].trim() == '') {
-           clearBorder();
-           $('#ques' + id + ' .ques-options .col-md-5:eq(' + i + ') input').css('border-color', 'red');
-           alert('选项不能为空！');
-           return;
-       }
-       constitutions[i] = $('#ques' + id + ' .ques-options .col-md-5:eq(' + i + ') select').val();
-   }
-
-
-   var data = {
-       id:id,
-       method: 'updateQues',
-       title: title,
-       options: options,
-       constitutions: constitutions
-   }
-   $.ajax({
-       type: 'post',
-       data: data,
-       url: 'QuestionEasy.aspx',
-       cache: false,
-       success: function (res) {
-           alert('保存成功')
-           location.reload();
-       },
-       error: function (res) {
-           alert(2);
-       }
-   })
 }
 
 

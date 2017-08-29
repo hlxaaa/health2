@@ -1,26 +1,21 @@
 ﻿var isAdd = true;
 var isHasResult = true;
+var isClicked = false;
 
 $(document).ready(function () {
+    $('#inputSearch').keydown(function (e) {
+        if (e.keyCode == 13)
+            $('.btnSearch').click();
+    })
+
+    //$('.control-group').keydown(function (e) {
+    //    if(e.keyCode==13)
+    //        $('#btn-addArticle').click();
+    //})
+
     getTable(jsonStr);
 
     allselectToggle();
-
-    //$.ajax({
-    //    //要用post方式      
-    //    type: "Post",
-    //    //方法所在页面和方法名      
-    //    url: "Article.aspx/SayHello",
-    //    contentType: "application/json; charset=utf-8",
-    //    dataType: "json",
-    //    success: function (data) {
-    //        //返回的数据用data.d获取内容      
-    //        alert(data.d);
-    //    },
-    //    error: function (err) {
-    //        alert(err);
-    //    }
-    //});
 
     //图片拉伸
     $('#modal1').keyup(function () {
@@ -66,6 +61,7 @@ $(document).ready(function () {
         $('#divTitle').val('')
         $('#divEditor').html('');
         isAdd = true;
+        isClicked = false;
         $('#divTitle').css('border-color', '#8c83a3');
     })
 
@@ -122,97 +118,102 @@ $(document).ready(function () {
 
     //添加或更新
     $('#btn-addArticle').click(function () {
-        $('#divTitle').css('border-color', '#8c83a3');
-        if ($('#divEditor img').length < 1) {
-            alert('请至少添加一张图片');
-            return;
-        }
-        var title = $('#divTitle').val().trim();
-        if (title == '') {
-            $('#divTitle').css('border-color', 'red');
-            return;
-        }
-        var tags = new Array();
-        $('#divTags span font').each(function () {
-            tags.push($(this).text());
-        })
-        if (tags == '') {
-            alert('请选择标签')
-            return;
-        }
-        var imgs = $('#divEditor img');
-        var name = new Array(imgs.length);
-        var img = new Array(imgs.length);
-        var imgTemp = new Array(imgs.length);
-        var arr = new Array(imgs.length);
+        if (!isClicked) {
+            $('#divTitle').css('border-color', '#8c83a3');
+            if ($('#divEditor img').length < 1) {
+                alert('请至少添加一张图片');
+                return;
+            }
+            var title = $('#divTitle').val().trim();
+            if (title == '') {
+                $('#divTitle').css('border-color', 'red');
+                return;
+            }
+            var tags = new Array();
+            $('#divTags span font').each(function () {
+                tags.push($(this).text());
+            })
+            if (tags == '') {
+                alert('请选择标签')
+                return;
+            }
+            var imgs = $('#divEditor img');
+            var name = new Array(imgs.length);
+            var img = new Array(imgs.length);
+            var imgTemp = new Array(imgs.length);
+            var arr = new Array(imgs.length);
 
-        for (var i = 0; i < imgs.length; i++) {
-            arr[i] = $('#divEditor img:eq(' + i + ')').attr("src");
-            imgTemp[i] = arr[i].substring(2).replace(/\//g, '\\');
-            name[i] = arr[i].substring(arr[i].lastIndexOf('/') + 1);
-            img[i] = '\\img\\article\\' + name[i];
-            $('#divEditor img:eq(' + i + ')').attr("src", "../img/article/" + name[i]);
-            $('#divEditor img:eq(' + i + ')').attr("width", "100%");
-        }
-
-        var thumbnail = "img/article/" + name[0];
-        var content = $('#divEditor').html();
-        content = encode(content);
-        if (isAdd) {
-            var data = {
-                method: 'addArticle',
-                title: title,
-                content: content,
-                tags: tags,
-                img: img,
-                imgTemp: imgTemp,
-                thumbnail: thumbnail
+            for (var i = 0; i < imgs.length; i++) {
+                arr[i] = $('#divEditor img:eq(' + i + ')').attr("src");
+                imgTemp[i] = arr[i].substring(2).replace(/\//g, '\\');
+                name[i] = arr[i].substring(arr[i].lastIndexOf('/') + 1);
+                img[i] = '\\img\\article\\' + name[i];
+                $('#divEditor img:eq(' + i + ')').attr("src", "../img/article/" + name[i]);
+                $('#divEditor img:eq(' + i + ')').attr("width", "100%");
             }
 
-            $.ajax({
-                type: "post",
-                data: data,
-                url: "Article.aspx",
-                cache: false,
-                success: function (data) {
-                    var page = $('.pagination li[class="active"] a').text();
-                    changePage(page);
-                    $('#modal1').modal('hide')
-                },
-                error: function (err) {
-                    alert('出问题了');
+            var thumbnail = "img/article/" + name[0];
+            var content = $('#divEditor').html();
+            content = encode(content);
+            isClicked = true;
+            if (isAdd) {
+                var data = {
+                    method: 'addArticle',
+                    title: title,
+                    content: content,
+                    tags: tags,
+                    img: img,
+                    imgTemp: imgTemp,
+                    thumbnail: thumbnail
                 }
-            });
-        }
-        else {
-            var id = $('#inputId').val();
-            var oriImg = $('#originalImg').val();
-            var data = {
-                id: id,
-                method: 'updateArticle',
-                title: title,
-                content: content,
-                tags: tags,
-                img: img,
-                imgTemp: imgTemp,
-                oriImg: oriImg,
-                thumbnail: thumbnail
-            }
 
-            $.ajax({
-                type: "post",
-                data: data,
-                url: "Article.aspx",
-                cache: false,
-                success: function (data) {
-                    var page = $('.pagination li[class="active"] a').text();
-                    changePage(page);
-                    $('#modal1').modal('hide')
-                },
-                error: function (err) {
-                    alert('出问题了');
+                $.ajax({
+                    type: "post",
+                    data: data,
+                    url: "Article.aspx",
+                    cache: false,
+                    success: function (data) {
+                        alert('添加成功')
+                        var page = $('.pagination li[class="active"] a').text();
+                        changePage(page);
+                        $('#modal1').modal('hide')
+                    },
+                    error: function (err) {
+                        alert('出问题了');
+                    }
+                });
+            }
+            else {
+                var id = $('#inputId').val();
+                var oriImg = $('#originalImg').val();
+                var data = {
+                    id: id,
+                    method: 'updateArticle',
+                    title: title,
+                    content: content,
+                    tags: tags,
+                    img: img,
+                    imgTemp: imgTemp,
+                    oriImg: oriImg,
+                    thumbnail: thumbnail
                 }
-            });
+
+                $.ajax({
+                    type: "post",
+                    data: data,
+                    url: "Article.aspx",
+                    cache: false,
+                    success: function (data) {
+                        alert('更新成功')
+                        var page = $('.pagination li[class="active"] a').text();
+                        changePage(page);
+                        $('#modal1').modal('hide')
+                    },
+                    error: function (err) {
+                        alert('出问题了');
+                    }
+                });
+            }
         }
     })
 
@@ -247,9 +248,10 @@ $(document).ready(function () {
     $('body').delegate('.btn-editArticle', 'click', function () {
         $('#divTitle').css('border-color', '#8c83a3');
         isAdd = false;
+        isClicked = false;
         var title = $(this).parent().parent().children('td:eq(1)').html();
         var tags = new Array();
-        var tag = $(this).parent().parent().children('td:eq(2)').html();
+        var tag = $(this).parent().parent().children('td:eq(2)').children('input').val();
         tags = tag.split(' ');
         //return;
         var id = $(this).next().children('input').val();
@@ -297,6 +299,8 @@ $(document).ready(function () {
     $('#divTitle').change(function () {
         inputTip();
     })
+
+    changeWangEditor();
 })
 
 function inputTip() {
@@ -320,7 +324,7 @@ function getTable(data) {
     if (json == null) {
         //alert('没有结果');
         isHasResult = false;
-        $('#divMain3 table').remove();
+        $('#divMain3 table tbody').remove();
         $('#divMain3 nav').remove();
         return;
     }
@@ -343,7 +347,8 @@ function getTable(data) {
         + '<td>'
         + '<input type="checkbox"></td>'
         + '<td>' + json[i].title + '</td>'
-        + '<td>' + json[i].tags + '</td>'
+        var tags = omit(json[i].tags,8)
+        h += '<td>' + tags + '<input type="hidden" class="input-tags" value="' + json[i].tags + '"/></td>'
         + '<td>' + json[i].aTime + '</td>'
         + '<td>' + json[i].cilckCount + '</td>'
         + '<td>' + json[i].loveCount + '</td>'
@@ -421,8 +426,8 @@ function changePage(page) {
             //});
             //$('a').css('text-decoration', 'none');
             //allselectToggle();
-            if(!isHasResult)
-                alert('没有结果')
+            //if(!isHasResult)
+            //    alert('没有结果')
         },
         error: function (err) {
             alert('cuole');
@@ -451,6 +456,18 @@ editor.config.uploadImgUrl = 'Article.ashx';
 editor.config.hideLinkImg = true;
 editor.create();
 
+function changeWangEditor() {
+    $('.menu-group:last').remove();
+    $('.menu-group:first').remove();
+    $('.menu-group:eq(1) .menu-item:eq(0)').remove();
+    $('.menu-group:eq(1) .menu-item:eq(2)').remove();
+    $('.menu-group:eq(1) .menu-item:eq(2)').remove();
+    $('.menu-group:eq(1) .menu-item:eq(2)').remove();
+    $('.menu-group:eq(2)').remove();
+    $('.menu-group:eq(2) .menu-item:eq(1)').remove();
+    $('.menu-group:eq(2) .menu-item:eq(1)').remove();
+    $('.menu-group:eq(2) .menu-item:eq(1)').remove();
+}
 
 function encode(str) {
     str = str.trim();

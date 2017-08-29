@@ -213,7 +213,7 @@
                 </div>--%>
                 <div class="modal-body">
                  <font>提现金额:</font>
-                    <input type="text" id="number" placeholder="还可提取<%=availableCash %>元" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')"/>
+                    <input type="text" id="number" placeholder="还可提取<%=availableCash %>元" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')" maxlength="8"/>
                      <button type="button" class="btn btn-save">
                         确定
                     </button>
