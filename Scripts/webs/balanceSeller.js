@@ -10,8 +10,10 @@ $(document).ready(function () {
             $('.btn-save').click();
     })
 
-    getDetailTable(jsonDetail);
-    getWithdrawTable(jsonWithdraw);
+    //getDetailTable(jsonDetail);
+    //getWithdrawTable(jsonWithdraw);
+    changePage(1);
+    changePage2(1);
 
     $('.btn-save').click(function () {
         if (!isClicked) {
@@ -57,8 +59,8 @@ $(document).ready(function () {
                 })
             }
         }
-        })
-       
+    })
+
 })
 
 function getDetailTable(data) {
@@ -66,7 +68,7 @@ function getDetailTable(data) {
 
     if (json == null) {
         //alert('暂无收入记录');
-        
+
         return;
     }
 
@@ -74,7 +76,7 @@ function getDetailTable(data) {
     var l = json.length;
     for (var i = 0; i < l; i++) {
         var h = '<tr style="background-color: white;">'
-    + '<td>'+json[i].CreateTime+'</td>'
+    + '<td>' + json[i].CreateTime + '</td>'
     + '<td class="money-color">+' + json[i].Pay + '</td>'
     + '<td>' + json[i].recipe + '</td>'
     + '<td>' + json[i].customer + '</td></tr>'
@@ -122,10 +124,10 @@ function getWithdrawTable(data) {
     var l = json.length;
     for (var i = 0; i < l; i++) {
         var h = '<tr style="background-color: white;">'
-+ '<td>'+json[i].applyTime+'</td>'
++ '<td>' + json[i].applyTime + '</td>'
 + '<td class="money-color">+' + json[i].applyMoney + '</td>'
         var state = json[i].applyState == 'True' ? '提现成功' : '审核中'
-h+= '<td>' + state+ '</td></tr>'
+        h += '<td>' + state + '</td></tr>'
         $('.cash-withdraw tbody').append(h);
     }
 
@@ -163,7 +165,7 @@ function changePage(page) {
         thePage: page,
         sellerId: sellerId,
     }
-    
+
     $.ajax({
         type: 'post',
         data: data,
@@ -171,10 +173,9 @@ function changePage(page) {
         cache: false,
         success: function (data) {
             getDetailTable(data);
-        
         },
         error: function (err) {
-            alert('cuole');
+            alert('search-cuole');
         }
     })
 }
@@ -197,7 +198,7 @@ function changePage2(page) {
 
         },
         error: function (err) {
-            alert('cuole');
+            alert('search2-cuole');
         }
     })
 }

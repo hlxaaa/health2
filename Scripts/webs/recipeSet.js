@@ -7,8 +7,9 @@ $(document).ready(function () {
     })
 
     $('#selectRest').val(restaurantId);
-    if (jsonStr != '')
-        getTable(jsonStr);
+    //if (jsonStr != '')
+    //    getTable(jsonStr);
+    changePage(1)
     $('.row1-mid select').change(function () {
         restId = $(this).val();
         location.href = 'RecipeSet.aspx?id=' + restId;
@@ -140,13 +141,13 @@ function getTable(data) {
     //                    h += '<li onclick="getPage(this)"><a >' + i + '</a></li>'
     //            }
     //        }
-           
+
     //        if (pages == thePage) {
-               
+
     //            h += '<li class="disabled" ><a >&raquo;</a></li>'
     //        }
     //        else {
-                
+
     //            h += '<li onclick="getNextPage()" ><a>&raquo;</a></li>'
     //        }
     //        h += '</ul></nav>'

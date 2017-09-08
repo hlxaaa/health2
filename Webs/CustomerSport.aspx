@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>运动统计</title>
     <script type="text/javascript">
         var jsonStr = '<%=jsonStr%>'
@@ -22,8 +22,8 @@
 
     <script src="../Scripts/ichart/ichart.1.2.min.js"></script>
 
-    <script src="/Scripts/base.js?ver=<%=ran %>"></script>
-    <script src="/Scripts/webs/customerSport.js?ver=<%=ran %>"></script>
+    <script src="/Scripts/base.js"></script>
+    <script src="/Scripts/webs/customerSport.js"></script>
     <link href="/Content/base.css" rel="stylesheet" />
     <link href="/Content/webs/customerSport.css" rel="stylesheet" />
 
@@ -113,23 +113,23 @@
                     </a>
                 </div>
             </div>
-         
+
 
             <div class="row" id="divMain3">
                 <div class="main3-div1">
                     <div class="div1-left fl">
-                        <font class="fl div1-font1" >会员:</font><font class="fl div1-font2"><%=name %></font>
+                        <font class="fl div1-font1 bold">会员:</font><font class="fl div1-font2"><%=name %></font>
                         <div class="fc"></div>
                     </div>
                     <div class="div1-right fr">
-                        <a class="datetime dtDay fl" style="color:#49425b"><font>日</font>
+                        <a class="datetime dtDay fl bold" style="color: #49425b"><font>日</font>
                             <img class="icon-uptriangle" src="/Images/base/icon-up-triangle.svg" alt="Alternate Text" />
                         </a>
-                        <a class="datetime dtMonth fl" ><font>月</font>
-                               <img class="icon-uptriangle" src="/Images/base/icon-up-triangle.svg" alt="Alternate Text" style="display:none"/>
+                        <a class="datetime dtMonth fl bold"><font>月</font>
+                            <img class="icon-uptriangle" src="/Images/base/icon-up-triangle.svg" alt="Alternate Text" style="display: none" />
                         </a>
-                        <a class="datetime dtYear fl" ><font>年</font>
-                               <img class="icon-uptriangle" src="/Images/base/icon-up-triangle.svg" alt="Alternate Text" style="display:none" />
+                        <a class="datetime dtYear fl bold"><font>年</font>
+                            <img class="icon-uptriangle" src="/Images/base/icon-up-triangle.svg" alt="Alternate Text" style="display: none" />
                         </a>
                         <div class="fc"></div>
                     </div>
@@ -137,38 +137,38 @@
                 </div>
                 <div class="main3-div2">
                     <div class="div-year fl">
-                    <font>时间:</font>
-                    <select class="select-year">
-                        <%--<option value="value">2017</option>--%>
-                    </select>
-                    <font>年</font>
-                        </div>
+                        <font class="bold">时间:</font>
+                        <select class="select-year">
+                            <%--<option value="value">2017</option>--%>
+                        </select>
+                        <font>年</font>
+                    </div>
                     <div class="div-month fl">
-                    <select class="select-month">
-                        <option value="1">1</option>
-                         <option value="2">2</option>
-                         <option value="3">3</option>
-                         <option value="4">4</option>
-                         <option value="5">5</option>
-                         <option value="6">6</option>
-                         <option value="7">7</option>
-                         <option value="8">8</option>
-                         <option value="9">9</option>
-                         <option value="10">10</option>
-                         <option value="11">11</option>
-                         <option value="12">12</option>
-                    </select>
-                    <font>月</font>
-                        </div>
+                        <select class="select-month">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                        <font>月</font>
+                    </div>
                     <div class="fc"></div>
                 </div>
-                <div  class="main3-div3">
-                     <div id="canvasDiv"></div>
+                <div class="main3-div3">
+                    <div id="canvasDiv"></div>
                 </div>
-               
+
             </div>
 
-    
+
         </div>
         <div style="clear: both"></div>
     </div>

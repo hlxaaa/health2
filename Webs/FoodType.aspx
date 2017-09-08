@@ -19,8 +19,8 @@
     <link href="../Scripts/checkboxStyle/skins/minimal/minimal.css" rel="stylesheet" />
     <script src="../Scripts/checkboxStyle/icheck.js"></script>
 
-    <script src="/Scripts/base.js?ver=<%=ran %>"></script>
-    <script src="/Scripts/webs/foodType.js?ver=<%=ran %>"></script>
+    <script src="/Scripts/base.js"></script>
+    <script src="/Scripts/webs/foodType.js"></script>
     <link href="/Content/base.css" rel="stylesheet" />
     <link href="/Content/webs/foodType.css" rel="stylesheet" />
 </head>
@@ -141,7 +141,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                   <%--     <tr style="background-color: white;">
+                        <%--     <tr style="background-color: white;">
                             <td>
                                 <input type="checkbox">
                             </td>

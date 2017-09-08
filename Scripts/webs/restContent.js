@@ -1,6 +1,7 @@
 ﻿var isClicked = false;
 $(document).ready(function () {
     $('.div-upImg').click(function () {
+        $('#upImg').val('');
         $('#upImg').click();
     })
 
@@ -30,7 +31,7 @@ $(document).ready(function () {
     ////百度地图相关
     //$('body').delegate('#suggestId', 'keydown', function () {
     //    local.search($(this).val());
-      
+
     //})
 
     //点击 删除
@@ -63,26 +64,13 @@ $(document).ready(function () {
     })
 
     $('#startTime').datetimepicker({
-        //format: 'hh:ii',
-        //startView: 1,
-        //minView: (0, 'hour'),
-        //minuteStep: 10,
 
-        //language: 'zh-CN',//显示中文
         format: 'hh:ii',//显示格式
         minView: (0, 'hour'),
         startView: 1,
         initialDate: new Date('2017-08-29 ' + dt1),
         minuteStep: 10,
-        //minView: "hour",//设置只显示到月份
-        //initialDate: new Date(),//初始化当前日期
-        //autoclose: true,//选中自动关闭
-        //todayBtn: true//显示今日按钮
 
-        //format: 'yyyy-mm-dd hh:ii:ss',
-        //autoclose: true,
-        //minView: (0,'hour'),
-        //minuteStep: 1
     });
 
     $('#endTime').datetimepicker({
@@ -92,7 +80,7 @@ $(document).ready(function () {
         initialDate: new Date('2017-08-29 ' + dt2),
         minuteStep: 10,
     });
-    
+
     //var t = (new Date().getTime('08:22'))
     //alert(t);
     $('#startTime').val(dt1)
@@ -102,7 +90,7 @@ $(document).ready(function () {
     $('.add-discount').click(function () {
         var text = $(this).prev().val()
         var h = '<span class="discount fl">'
-+ '<input type="text" class="fl discount-input discount-input2" value="'+text+'">'
++ '<input type="text" class="fl discount-input discount-input2" value="' + text + '">'
 + '<img src="/Images/base/icon-deleteX.svg" alt="Alternate Text" class="fl img-base discount-del">'
 + '</span>'
         $('.info3 font:eq(0)').after(h);
@@ -115,7 +103,7 @@ $(document).ready(function () {
 
     $('.btn-getMap').click(function () {
         var address = $('#suggestId').val();
-        var coord = $('#coord-x').val() +','+ $('#coord-y').val();
+        var coord = $('#coord-x').val() + ',' + $('#coord-y').val();
         $('#address').text(address);
         $('#coordinate').text(coord);
         $('#div1').modal('hide');
@@ -196,7 +184,24 @@ $(document).ready(function () {
                 if ($('.div-imgs:eq(' + i + ') .thumb div').hasClass('checked'))
                     imgIndex = i;
             }
-            var oImgs = $('#oImg').val();
+            var oImgs = $('#oImg').val().split('|');
+            var imgNames = new Array();
+            var oImgNames = new Array();
+            //var imgTemps = new Array();
+            for (var i = 0; i < imgs.length; i++) {
+                imgNames[i] = imgs[i].substring(imgs[i].lastIndexOf('/') + 1);
+                //imgs[i] = '\\img\\restaurant\\' + imgNames[i];
+                imgs[i] = imgNames[i];
+                //imgTemps[i] = '\\img\\restaurant\\temp\\'+imgNames[i];
+            }
+            for (var i = 0; i < oImgs.length; i++) {
+                oImgNames[i] = oImgs[i].substring(oImgs[i].lastIndexOf('/') + 1);
+            }
+
+            //alert(imgNames);
+            //alert(oImgNames);
+            //return;
+
             isClicked = true;
             if (id == '') {
                 var data = {
@@ -212,8 +217,8 @@ $(document).ready(function () {
                     startTime: startTime,
                     endTime: endTime,
                     discounts: discounts,
-                    imgs: imgs,
-                    oImgs: oImgs
+                    imgNames: imgNames,
+                    oImgNames: oImgNames
                 }
                 $.ajax({
                     type: 'post',
@@ -230,6 +235,11 @@ $(document).ready(function () {
                 })
             }
             else {
+
+                //alert(imgs);
+                //alert(oImgs);
+                //alert(imgTemps)
+                //return;
                 var data = {
                     method: 'updateRest',
                     id: id,
@@ -244,8 +254,11 @@ $(document).ready(function () {
                     startTime: startTime,
                     endTime: endTime,
                     discounts: discounts,
-                    imgs: imgs,
-                    oImgs: oImgs
+                    //imgs: imgs,
+                    //oImgs: oImgs,
+                    //imgTemps:imgTemps
+                    imgNames: imgNames,
+                    oImgNames: oImgNames
                 }
                 $.ajax({
                     type: 'post',
@@ -269,13 +282,36 @@ $(document).ready(function () {
 
 
 function filechange(event) {
+    var obj = document.getElementById("upImg");
+    var length = obj.files.length;
+    var isPic = true;
+    for (var i = 0; i < obj.files.length; i++) {
+        var temp = obj.files[i].name;
+        var fileTarr = temp.split('.');
+        var filetype = fileTarr[fileTarr.length - 1];
+        if (filetype != 'png' && filetype != 'jpg' && filetype != 'jpeg') {
+            alert('上传文件必须为图片(后缀名为png,jpg,jpeg)');
+            isPic = false;
+        } else {
+            var size = obj.files[i].size / 1024;
+            if (parseInt(size) > 2048) {
+                alert("图片大小不能超过2MB");
+                isPic = false;
+            }
+        }
+        if (!isPic)
+            break;
+    }
+    if (!isPic)
+        return;
+
     $("#formid").ajaxSubmit(function (res) {
         var a = res.split('|');
         var oImg = $('#oImg').val();
         for (var i in a) {
             var h = '<div class="div-imgs fl">'
 + '<img src="/Images/recipe/icon-deleteSome.svg" class="img-del" />'
-+ '<img class="img-show" src="/'+a[i]+'" alt="img" />'
++ '<img class="img-show" src="/' + a[i] + '" alt="img" />'
 + '<div class="thumb">'
             if ($('.div-imgs').length > 0) {
                 h += '<input type="radio" name="name" value=" "/><font>封面图</font>'
@@ -295,13 +331,13 @@ function filechange(event) {
         }
         $('#oImg').val(oImg);
         getInputStyle();
-        setAvailable();
+        //setAvailable();
     });
 }
 
 //百度地图js
-    // 百度地图API功能
-   
+// 百度地图API功能
+
 
 
 function getPoint(adds) {

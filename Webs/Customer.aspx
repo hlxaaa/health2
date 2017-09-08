@@ -4,10 +4,9 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>会员管理</title>
     <script type="text/javascript">
-        var jsonStr = '<%=jsonStr%>'
     </script>
     <script src="../Scripts/jquery-2.0.0.min.js"></script>
     <script src="../Scripts/bootstrap.min.js"></script>
@@ -19,8 +18,8 @@
     <link href="../Scripts/checkboxStyle/skins/minimal/minimal.css" rel="stylesheet" />
     <script src="../Scripts/checkboxStyle/icheck.js"></script>
 
-    <script src="/Scripts/base.js?ver=<%=ran %>"></script>
-    <script src="/Scripts/webs/customer.js?ver=<%=ran %>"></script>
+    <script src="/Scripts/base.js"></script>
+    <script src="/Scripts/webs/customer.js"></script>
     <link href="/Content/base.css" rel="stylesheet" />
     <link href="/Content/webs/customer.css" rel="stylesheet" />
 </head>
@@ -76,11 +75,11 @@
                 <li class="li-allbacks">
                     <img src="/Images/base/icon-triangle-right.svg" /><a>商家后台</a>
                 </li>
-                 <li class="li-back">
+                <li class="li-back">
                     <img src="/Images/base/icon-order.svg" /><a href="Order.aspx">用户订单</a></li>
-                 <li class="li-back">
+                <li class="li-back">
                     <img src="/Images/base/icon-balance.svg" /><a href="Balance.aspx">钱包余额</a></li>
-                 <li class="li-back">
+                <li class="li-back">
                     <img src="/Images/base/icon-recipeSet.svg" /><a href="RecipeSet.aspx">食谱缺货设置</a></li>
                 <li class="">
                     <img src="/Images/base/icon-account.svg" /><a href="Seller.aspx">商家账号设置</a>
@@ -102,8 +101,8 @@
                 </div>
                 <div id="main1-right">
                     <font class="fl">用户名:</font>
-                    <div  class="fl">
-                        <input type="text" value="" class="input-search fl"/>
+                    <div class="fl">
+                        <input type="text" value="" class="input-search fl" />
                         <div class="btn-search fl">
                             <img class="img-search" src="/Images/recipe/icon-search.svg">
                         </div>
@@ -132,59 +131,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                           
-                            <tr style="background-color: white;">
-                                <td >
-                                    1
-                                </td>
-                                <td>
-                                   老王
-                                </td>
-                                <td>
-                                  18857120152
-                                </td>
-                                <td>
-                                    tongxiaoyi
-                                </td>
-                                <td>
-                                    32
-                                </td>
-                                <td>
-                                        32
-                                </td>
-                                <td>
-                                 男
-                                </td>
-                                <td>
-                                   18
-                                </td>
-                                <td>
-                                    强度
-                                </td>
-                                <td>
-                                平和质
-                                </td>
-                                <td>
-                                  100
-                                </td>
-                                <td class="td-sport">
-                                    <img class="icon-sport" src="/Images/base/icon-sport.png" alt="运动图片" />
-                                </td>
-                                <td class="td-edit">
-                                    <a style="text-decoration: none;">
-                                        <img class="btn-edit" src="/Images/recipe/icon-edit.svg"><font>编辑</font></a>
-                                    <input type="hidden" value="" />
-                                </td>
-                            </tr>
+
+                     
                         </tbody>
-                        </table>
-                    <nav style="text-align:center;display:block"><ul class="pagination"><li class="disabled"><a href="#" style="text-decoration: none;">«</a></li><li class="active"><a href="#" style="text-decoration: none;">1</a></li><li onclick="getPage(this)"><a style="text-decoration: none;">2</a></li><li onclick="getNextPage()"><a style="text-decoration: none;">»</a></li></ul></nav>
-                </div>
+                    </table>
+                    </div>
+                    <nav style="text-align: center; display: block">
+                        <ul class="pagination">
+                            <li class="disabled"><a href="#" style="text-decoration: none;">«</a></li>
+                            <li class="active"><a href="#" style="text-decoration: none;">1</a></li>
+                            <li onclick="getPage(this)"><a style="text-decoration: none;">2</a></li>
+                            <li onclick="getNextPage()"><a style="text-decoration: none;">»</a></li>
+                        </ul>
+                    </nav>
+
             </div>
         </div>
     </div>
 
-     <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bold">
@@ -197,81 +162,81 @@
                 </div>
                 <div class="modal-body">
                     <div class="info">
-	<font class="fl">编号:</font>
-	<font class="fl font-icon">#</font><font id="info-id" class="fl">1</font>
-	<div class="fc"></div>
-</div>
-<div class="info">
-	<font class="fl">用户名:</font>
-	<input type="text" id="info-name" class="fr"/>
-	<div class="fc"></div>
-</div>
-<div class="info">
-	<font class="fl">电话:</font>
-	<input type="text" id="info-phone" class="fr" maxlength="11"/>
-	<div class="fc"></div>
-</div>
-<div class="info">
-	<font class="fl">微信号:</font>
-	<input type="text" id="info-wechat" class="fr"/>
-	<div class="fc"></div>
-</div>
-<div class="info">
-	<font class="fl">密码:</font>
-	<input type="text" id="info-password" class="fr"/>
-	<div class="fc"></div>
-</div>
-<div class="info">
-	<font class="fl">身高(cm):</font>
-	<input type="text" id="info-height" class="fr" maxlength="3"/>
-	<div class="fc"></div>
-</div>
-<div class="info">
-	<font class="fl">体重(kg):</font>
-	<input type="text" id="info-weight" class="fr" maxlength="3"/>
-	<div class="fc"></div>
-</div>
-<div class="info">
-	<font class="fl">性别:</font>
-	<select id="info-sex" class="fr">
-        <option value=""></option> 
-        <option value="True">男</option>  
-        <option value="False">女</option>  
-	</select>
-	<div class="fc"></div>
-</div>
-<div class="info">
-	<font class="fl">生日:</font>
-	<input type="text" id="info-age" class="fr"/>
-	<div class="fc"></div>
-</div>
-<div class="info">
-	<font class="fl">劳动强度:</font>
-	<input type="text" id="info-labour" class="fr"/>
-	<div class="fc"></div>
-</div>
-<div class="info">
-	<font class="fl">体质:</font>
-	<%--<input type="text" id="info-constitution" class="fr"/>--%>
-    <select id="info-constitution" class="fr">
-<option value="平和质">平和质</option>
-<option value="气郁质">气郁质</option>
-<option value="阴虚质">阴虚质</option>
-<option value="痰湿质">痰湿质</option>
-<option value="阳虚质">阳虚质</option>
-<option value="特禀质">特禀质</option>
-<option value="湿热质">湿热质</option>
-<option value="气虚质">气虚质</option>
-<option value="血瘀质">血瘀质</option>
-</select>
-	<div class="fc"></div>
-</div>
+                        <font class="fl">编号:</font>
+                        <font class="fl font-icon">#</font><font id="info-id" class="fl">1</font>
+                        <div class="fc"></div>
+                    </div>
+                    <div class="info">
+                        <font class="fl">用户名:</font>
+                        <input type="text" id="info-name" class="fr" maxlength="12" />
+                        <div class="fc"></div>
+                    </div>
+                    <div class="info">
+                        <font class="fl">电话:</font>
+                        <input type="text" id="info-phone" class="fr" maxlength="11" />
+                        <div class="fc"></div>
+                    </div>
+                    <div class="info">
+                        <font class="fl">微信号:</font>
+                        <input type="text" id="info-wechat" class="fr" maxlength="20" />
+                        <div class="fc"></div>
+                    </div>
+                    <div class="info">
+                        <font class="fl">密码:</font>
+                        <input type="text" id="info-password" class="fr" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="16" />
+                        <div class="fc"></div>
+                    </div>
+                    <div class="info">
+                        <font class="fl">身高(cm):</font>
+                        <input type="text" id="info-height" class="fr" maxlength="3" />
+                        <div class="fc"></div>
+                    </div>
+                    <div class="info">
+                        <font class="fl">体重(kg):</font>
+                        <input type="text" id="info-weight" class="fr" maxlength="3" />
+                        <div class="fc"></div>
+                    </div>
+                    <div class="info">
+                        <font class="fl">性别:</font>
+                        <select id="info-sex" class="fr">
+                            <option value=""></option>
+                            <option value="True">男</option>
+                            <option value="False">女</option>
+                        </select>
+                        <div class="fc"></div>
+                    </div>
+                    <div class="info">
+                        <font class="fl">生日:</font>
+                        <input type="text" id="info-age" class="fr" />
+                        <div class="fc"></div>
+                    </div>
+                    <div class="info">
+                        <font class="fl">劳动强度:</font>
+                        <input type="text" id="info-labour" class="fr" />
+                        <div class="fc"></div>
+                    </div>
+                    <div class="info">
+                        <font class="fl">体质:</font>
+                        <%--<input type="text" id="info-constitution" class="fr"/>--%>
+                        <select id="info-constitution" class="fr">
+                            <option value="平和质">平和质</option>
+                            <option value="气郁质">气郁质</option>
+                            <option value="阴虚质">阴虚质</option>
+                            <option value="痰湿质">痰湿质</option>
+                            <option value="阳虚质">阳虚质</option>
+                            <option value="特禀质">特禀质</option>
+                            <option value="湿热质">湿热质</option>
+                            <option value="气虚质">气虚质</option>
+                            <option value="血瘀质">血瘀质</option>
+                        </select>
+                        <div class="fc"></div>
+                    </div>
 
-<div class="info">
-	<font class="fl">健康分数:</font>
-	<input type="text" id="info-score" class="fr"/>
-	<div class="fc"></div>
-</div>
+                    <div class="info">
+                        <font class="fl">健康分数:</font>
+                        <input type="text" id="info-score" class="fr" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')" maxlength="9" />
+                        <div class="fc"></div>
+                    </div>
                     <div class="fc"></div>
                 </div>
                 <div class="footer">

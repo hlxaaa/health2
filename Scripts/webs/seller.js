@@ -17,7 +17,8 @@ $(document).ready(function () {
         $(this).addClass('changed')
     })
 
-    getTable(jsonStr);
+    //getTable(jsonStr);
+    changePage(1)
 
     $('.btn-add').click(function () {
         isAdd = true;
@@ -26,7 +27,7 @@ $(document).ready(function () {
         $('#info-account').val('')
         $('#info-password').val('')
         var data = {
-            method:'getRest',
+            method: 'getRest',
         }
         $.ajax({
             type: 'post',
@@ -57,15 +58,15 @@ $(document).ready(function () {
         isClicked = false;
         var id = $(this).parent().parent().children('td:eq(1)').html()
         var name = $(this).parent().parent().children('td:eq(2)').html()
-        var loginname=$(this).parent().parent().children('td:eq(3)').html()
-        var password=$(this).parent().parent().children('td:eq(4)').html()
+        var loginname = $(this).parent().parent().children('td:eq(3)').html()
+        var password = $(this).parent().parent().children('td:eq(4)').html()
         $('#sellerId').val(id)
         $('#info-account').val(loginname)
         $('#info-password').val(password)
 
         $('#modal1').modal();
         $('.info:eq(0) font').next().remove();
-        $('.info:eq(0) font').after('<font>'+name+'</font>');
+        $('.info:eq(0) font').after('<font>' + name + '</font>');
     })
 
     //更新或增加
@@ -169,7 +170,7 @@ $(document).ready(function () {
             var id = $(this).parent().parent().children('td:eq(1)').html()
             var data = {
                 id: id,
-                method:'deleteSeller'
+                method: 'deleteSeller'
             }
             $.ajax({
                 type: 'post',
@@ -243,10 +244,10 @@ function getTable(data) {
         var h = '<tr style="background-color: white;"><td><input type="checkbox"></td>'
     + '<td class="sellerId">' + json[i].id + '</td>'
         var name = omit(json[i].name, 13);
-    h+= '<td>' + name + '<input type="hidden" class="input-name" value="'+json[i].name+'"/></td>'
-    + '<td>' + json[i].loginname + '</td>'
-    + '<td>' + json[i].password + '</td>'
-    + '<td></td><td></td><td></td><td class="edit"><a class="btn-edit-left" style="text-decoration: none;"><img class="btn-edit" src="/Images/recipe/icon-edit.svg"><font>编辑</font></a><a style="text-decoration: none;" class="btn-delete"><img class="btn-edit" src="/Images/recipe/icon-delete.svg"><font>删除</font></a></td></tr>'
+        h += '<td>' + name + '<input type="hidden" class="input-name" value="' + json[i].name + '"/></td>'
+        + '<td>' + json[i].loginname + '</td>'
+        + '<td>' + json[i].password + '</td>'
+        + '<td></td><td></td><td></td><td class="edit"><a class="btn-edit-left" style="text-decoration: none;"><img class="btn-edit" src="/Images/recipe/icon-edit.svg"><font>编辑</font></a><a style="text-decoration: none;" class="btn-delete"><img class="btn-edit" src="/Images/recipe/icon-delete.svg"><font>删除</font></a></td></tr>'
         $('tbody').append(h);
     }
 
@@ -275,7 +276,7 @@ function getTable(data) {
     //h += '</ul>'
     //+ '</nav>'
     var h = getPageHtml(pages, thePage);
-    $('#divMain3').after(h);
+    $('.table-wrap').after(h);
     getInputStyle();
     allSelectToggle();
 }
@@ -285,7 +286,7 @@ function changePage(page) {
     var data = {
         thePage: page,
         method: 'search',
-        search:search
+        search: search
     }
     $.ajax({
         type: 'post',

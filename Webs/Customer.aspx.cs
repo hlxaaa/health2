@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Common.Helper;
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Common.Helper;
+using System.Text.RegularExpressions;
 
 
 namespace WebApplication1.Webs
 {
     public partial class Customer : System.Web.UI.Page
     {
-        protected SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["HealthConnection"].ConnectionString);
-        protected int ran = new Random().Next();
-        protected DataSet ds = new DataSet();
         protected string jsonStr = "";
 
         protected void Page_Load(object sender, EventArgs e)
@@ -27,7 +21,6 @@ namespace WebApplication1.Webs
                 Response.End();
                 return;
             }
-            //GetCustomer();
             switch (Request["method"])
             {
                 case "search":
@@ -39,13 +32,11 @@ namespace WebApplication1.Webs
                     UpdateCustomer(userId);
                     UpdateCustomerCacheById(userId);
                     break;
-                default:
-                    GetCustomer();
-                    break;
             }
         }
 
-        protected void UpdateCustomer(string userId) {
+        protected void UpdateCustomer(string userId)
+        {
             string name = Request["name"];
             string phone = Request["phone"];
             string wechat = Request["wechat"];
@@ -55,16 +46,36 @@ namespace WebApplication1.Webs
             if (!string.IsNullOrEmpty(name))
                 str += ",name='" + name + "'";
 
-            if(!string.IsNullOrEmpty(wechat))
-                str+=",wechat='" + wechat + "'";
+            if (!string.IsNullOrEmpty(wechat))
+            {
+                var regexStr = "^[a-zA-Z]{1}[-_a-zA-Z0-9]{5,19}$";
+                Regex regex = new Regex(regexStr);
+                if (!regex.IsMatch(wechat))
+                {
+                    Response.Write("wechat-format-error");
+                    Response.End();
+                    return;
+                }
+                str += ",wechat='" + wechat + "'";
 
+            }
             string password = Request["password"];
             if (!string.IsNullOrEmpty(password))
-                str += ",password='"+password+"'";
+            {
+                var RegexStr = @"^(?![^A-Za-z]+$)(?![^0-9]+$)[\x21-x7e]{6,12}$";
+                Regex regex = new Regex(RegexStr);
+                if (!regex.IsMatch(password))
+                {
+                    Response.Write("password-format-error");
+                    Response.End();
+                    return;
+                }
+                str += ",password='" + password + "'";
+            }
 
             string height = Request["height"];
             if (!string.IsNullOrEmpty(height))
-                str += ",height='"+height+"'";
+                str += ",height='" + height + "'";
 
             string weight = Request["weight"];
             if (!string.IsNullOrEmpty(weight))
@@ -72,31 +83,26 @@ namespace WebApplication1.Webs
 
             string sex = Request["sex"];
             if (!string.IsNullOrEmpty(sex))
-                str+=",sex='"+sex+"'";
+                str += ",sex='" + sex + "'";
 
             string age = Request["age"];
             if (!string.IsNullOrEmpty(age))
-                str += ",birthday='"+age+"'";
+                str += ",birthday='" + age + "'";
 
             string labour = Request["labour"];
             if (!string.IsNullOrEmpty(labour))
-                str += ",labourIntensity='"+labour+"'";
+                str += ",labourIntensity='" + labour + "'";
 
             string constitution = Request["constitution"];
             if (!string.IsNullOrEmpty(constitution))
-                str += ",constitution='"+constitution+"'";
+                str += ",constitution='" + constitution + "'";
 
             string score = Request["score"];
             if (!string.IsNullOrEmpty(score))
-                str += ",UserScore='"+score+"'";
+                str += ",UserScore='" + score + "'";
 
-            str += " where id ="+userId;
-            //return;
-            conn.Open();
-            SqlCommand sqlCom = new SqlCommand(str, conn);
-            sqlCom.ExecuteScalar();
-
-            conn.Close();
+            str += " where id =" + userId;
+            Tool.ExecuteNon(str);
         }
 
         protected void ResJsonStr()
@@ -105,11 +111,10 @@ namespace WebApplication1.Webs
             Response.End();
         }
 
-
         protected void GetCustomer()
         {
             int pageIndex = 1;
-            int pageSize = 3;
+            int pageSize = 16;
             if (!string.IsNullOrEmpty(Request["thePage"]))
                 pageIndex = Convert.ToInt32(Request["thePage"]);
             string sqlSelect = "select * from Customer where 1=1";
@@ -118,27 +123,21 @@ namespace WebApplication1.Webs
                 string search = Request["search"].Trim();
                 sqlSelect += " and name like '%" + search + "%'";
             }
-
-            conn.Open();
             int x = (pageIndex - 1) * pageSize;
             string sqlPaging = "select top " + pageSize + " * from (" + sqlSelect + ") r where id not in (select top " + x + " id from (" + sqlSelect + ") r order by id desc) order by id desc";
-
-            SqlDataAdapter da2 = new SqlDataAdapter(sqlSelect, conn);
-            da2.Fill(ds);
+            DataSet ds = Tool.ExecuteGetDs(sqlSelect);
             int allCount = ds.Tables[0].Rows.Count;
             int pages = allCount / pageSize;
             pages = pages * pageSize == allCount ? pages : pages + 1;
             ds.Clear();
-
-            SqlDataAdapter da = new SqlDataAdapter(sqlPaging, conn);
-            da.Fill(ds);
+            ds = Tool.ExecuteGetDs(sqlPaging);
             ds = Tool.DsToString(ds);
 
             int count = ds.Tables[0].Rows.Count;
-            for (int i = 0; i < count; i++) {
+            for (int i = 0; i < count; i++)
+            {
                 var sex = ds.Tables[0].Rows[i]["sex"].ToString();
-                ds.Tables[0].Rows[i]["sex"] = sex==""?"未填写":sex == "True" ? "男" : "女";
-
+                ds.Tables[0].Rows[i]["sex"] = sex == "" ? "未填写" : sex == "True" ? "男" : "女";
                 try
                 {
                     var birthday = Convert.ToDateTime(ds.Tables[0].Rows[i]["birthday"].ToString());
@@ -157,21 +156,20 @@ namespace WebApplication1.Webs
             string pagesStr = ",\"pages\":" + pages + "";
             string thePageStr = ",\"thePage\":" + pageIndex + "";
             jsonStr = jsonStr.Substring(0, jsonStr.Length - 1) + pagesStr + thePageStr + "}";
-            conn.Close();
         }
 
-        protected void UpdateCustomerCacheById(string userId) {
-            conn.Open();
+        protected void UpdateCustomerCacheById(string userId)
+        {
             string selectAll = "select * from Customer where id = " + userId;
-            
-            SqlDataAdapter da = new SqlDataAdapter(selectAll, conn);
+
+            SqlDataAdapter da = new SqlDataAdapter(selectAll, ConfigurationManager.ConnectionStrings["HealthConnection"].ConnectionString);
             DataTable table = new DataTable();
             da.Fill(table);
-            var list = table.ConvertToList<DbOpertion.Models.Customer>();
-
-            conn.Close();
+            var list = table.ConvertToList<DbOpertion.Models.Customer>().FirstOrDefault();
+            UpdateCache.Tool.lockCache("User");
             var MyCache = MemCacheHelper.GetMyConfigInstance();
             MyCache.Set("UserInfoModel_" + userId, list);
+            UpdateCache.Tool.ReleaseLock("User");
         }
     }
 }

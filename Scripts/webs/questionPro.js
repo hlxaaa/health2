@@ -135,7 +135,7 @@ $(document).ready(function () {
             } else {
                 var data = {
                     method: 'batchDelete',
-                    ids:ids
+                    ids: ids
                 }
                 $.ajax({
                     type: 'post',
@@ -173,7 +173,7 @@ function addTemplate() {
 }
 
 function clearBorder() {
-    $('input').css('border-color','rgb(153,153,153)');
+    $('input').css('border-color', 'rgb(153,153,153)');
 }
 
 

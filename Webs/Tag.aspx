@@ -19,8 +19,8 @@
     <link href="../Scripts/checkboxStyle/skins/minimal/minimal.css" rel="stylesheet" />
     <script src="../Scripts/checkboxStyle/icheck.js"></script>
 
-    <script src="/Scripts/base.js?ver=<%=ran %>"></script>
-    <script src="/Scripts/webs/tag.js?ver=<%=ran %>"></script>
+    <script src="/Scripts/base.js"></script>
+    <script src="/Scripts/webs/tag.js"></script>
     <link href="/Content/base.css" rel="stylesheet" />
     <link href="/Content/webs/tag.css" rel="stylesheet" />
 </head>
@@ -66,7 +66,7 @@
                 <li class="">
                     <img src="/Images/recipe/icon-article.svg" /><a href="Article.aspx">文章管理</a>
                 </li>
-           
+
                 <li class="li-allques">
                     <img src="/Images/base/icon-triangle-right.svg" /><a>问卷管理</a>
                 </li>
@@ -74,14 +74,14 @@
                     <img src="/Images/base/icon-easyQues.svg" /><a href="QuestionEasy.aspx">简易版</a></li>
                 <li class="li-ques">
                     <img src="/Images/base/icon-proQues.svg" /><a href="QuestionPro.aspx">专业版</a></li>
-<li class="li-allbacks">
+                <li class="li-allbacks">
                     <img src="/Images/base/icon-triangle-right.svg" /><a>商家后台</a>
                 </li>
-                 <li class="li-back">
+                <li class="li-back">
                     <img src="/Images/base/icon-order.svg" /><a href="Order.aspx">用户订单</a></li>
-                 <li class="li-back">
+                <li class="li-back">
                     <img src="/Images/base/icon-balance.svg" /><a href="Balance.aspx">钱包余额</a></li>
-                 <li class="li-back">
+                <li class="li-back">
                     <img src="/Images/base/icon-recipeSet.svg" /><a href="RecipeSet.aspx">食谱缺货设置</a></li>
                 <li class="">
                     <img src="/Images/base/icon-account.svg" /><a href="Seller.aspx">商家账号设置</a>

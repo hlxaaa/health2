@@ -1,59 +1,79 @@
 ﻿body {
 }
+
 .row1-mid .btnSearch {
     height: 32px;
 }
+
 #inputSearch {
-    height:32px;
+    height: 32px;
 }
+
 #divMain2 {
-    background:initial;
-   
+    background: initial;
 }
+
+    #divMain2 div:first-child {
+        overflow-y: hidden;
+    }
 
 .row1-right {
     float: right;
-    /*width: 369px;*/
-     width: 245px;
-    /*margin-top: 2px;*/
-    
+    width: 207px;
 }
 
     .row1-right a {
-        height:32px;
-        width:100px;
-        line-height:25px;
-        color:white;
-        padding-top:0;
-        padding-left:0;
-        font-weight:bold;
-        font-size:12px;
+        height: 32px;
+        width: 100px;
+        line-height: 25px;
+        color: white;
+        padding-top: 0;
+        padding-left: 0;
+        font-weight: bold;
+        font-size: 12px;
     }
+
+    .row1-right .btn-add {
+        width: 66px;
+    }
+
     .row1-right a img {
-    width: 16px;
-    margin-left: 10px;
-    margin-top: -1px;
-}
+        width: 16px;
+        margin-left: 10px;
+        margin-top: -1px;
+    }
+
+    .row1-right a font {
+        margin-left: 5px;
+    }
+
 .allselect .icheckbox_minimal {
-    margin-top:6px;
+    margin-top: 6px;
 }
+
 .td-edit font {
-    color:#8c83a3;
-    font-weight:bold;
+    color: #8c83a3;
+    font-weight: bold;
+}
+
+.td-edit a img {
+    margin-left: 0;
 }
 
 .td-edit a:first-child {
-    margin-left:0;
-    border-right:1px solid #8c83a3;
-    padding-right:20px;
-  
+    margin-left: 0;
+    border-right: 1px solid rgb(204,204,204);
+    padding-right: 20px;
 }
+
 .td-edit a:hover {
-    cursor:pointer
+    cursor: pointer;
 }
+
 .btn-delete img {
-    margin-left:0;
+    margin-left: 0;
 }
+
 .modal-body button {
     background-color: #8c83a3;
     border-color: #8c83a3;
@@ -63,19 +83,58 @@
     line-height: 12px;
     font-size: 16px;
 }
+
 #modal1 {
-    margin-left:0;
+    margin-left: 0;
 }
+
 .modal-dialog {
-    margin-top:400px;
+    margin-top: 400px;
 }
 
 .modal-body input {
     height: 28px;
     width: 280px;
     border-radius: 5px;
-     border: 1px solid rgb(153,153,153); 
+    border: 1px solid rgb(153,153,153);
 }
 
 /*body{ overflow: auto !important;} #modal1{ overflow: auto !important;}*/
-                                  
+
+
+.row1-left {
+    margin-left: 0;
+    margin-top: 2px;
+}
+
+    .row1-left font {
+        margin-left: 7.5px;
+    }
+
+#divMain3 {
+    margin-top: -20px;
+
+
+}
+
+.thead1 tr {
+    /*height: 50px;*/
+}
+
+    .thead1 tr th {
+        /*padding-top: 3px!important;*/
+        line-height: 56px
+        /*padding-bottom: 0px!important;*/
+    }
+
+
+    .td-edit a {
+        height: 30px;
+        line-height:30px;
+        display: inline-block;
+        width: auto;
+    }
+table {
+    line-height:44px;
+    margin-right:15px;
+}

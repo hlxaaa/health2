@@ -1,13 +1,13 @@
-﻿var maxMonth = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
-var normalMonth = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
-var leapMonth = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]
-var normalFeb = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]
-var months = [1,2,3,4,5,6,7,8,9,10,11,12]
+﻿var maxMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+var normalMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+var leapMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29]
+var normalFeb = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28]
+var months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
 
 $(document).ready(function () {
-    
-    setChart(jsonStr,'day');
+
+    setChart(jsonStr, 'day');
 
     $('.datetime').click(function () {
         $('.datetime').css('color', 'rgb(137,149,199)')
@@ -72,7 +72,7 @@ function getEveryYear() {
 }
 
 function getEveryMonth() {
-    
+
     var year = $('.select-year').val();
     var data = {
         cid: cid,
@@ -111,7 +111,7 @@ function getEveryDay() {
         cache: false,
         success: function (data) {
             //getTable(data);
-            setChart(data,'day');
+            setChart(data, 'day');
         },
         error: function (err) {
             alert('cuole');
@@ -141,7 +141,7 @@ function setChart(data, dtType) {
     //var labels = getX(day);
     var labels = new Array();
     if (dtType == 'day') {
-        if(month==1|month==3|month==5|month==7|month==8|month==10|month==12)
+        if (month == 1 | month == 3 | month == 5 | month == 7 | month == 8 | month == 10 | month == 12)
             labels = maxMonth;
         if (month == 4 | month == 6 | month == 9 | month == 11)
             labels = normalMonth;
@@ -153,7 +153,7 @@ function setChart(data, dtType) {
         }
     } else if (dtType == 'month') {
         labels = months;
-    } 
+    }
     //alert(labels);
     //return;
     if (json == null) {
@@ -195,12 +195,12 @@ function setChart(data, dtType) {
             labels.push(json[i].sDate)
             value.push(json[i].steps)
         }
-        labels.push(parseInt(json[l-1].sDate)+1)
+        labels.push(parseInt(json[l - 1].sDate) + 1)
         value.push(0)
     }
     //alert(value);
     //alert(labels);
-    
+
     var data1 = [
                 {
                     value: value,
@@ -215,6 +215,9 @@ function setChart(data, dtType) {
         //title: '北京2012年平均温度情况',
         width: 1600,
         height: 450,
+        //pointDot: false,
+        //bezierCurve: true,
+        //scaleShowLabels: true,
         coordinate: { height: '90%', background_color: '#f6f9fa' },
         sub_option: {
             hollow_inside: true,//设置一个点的亮色在外环的效果
@@ -227,7 +230,7 @@ function setChart(data, dtType) {
 
 function getX(day) {
     var r = new Array();
-    for (var i = 1; i < day+1; i++) {
+    for (var i = 1; i < day + 1; i++) {
         r.push(i);
     }
     return r;

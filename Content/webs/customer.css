@@ -40,7 +40,7 @@
 }
 
 .td-sport {
-    padding: 4px!important;
+    /*padding: 4px!important;*/
 }
 
 .icon-sport {
@@ -68,11 +68,13 @@ a:hover {
 .modal-dialog {
     width: 498px;
     height: 630px;
+    margin-top: 200px;
 }
 
 .modal-content {
     margin-left: 0px;
     height: 630px;
+    border-radius: 15px;
 }
 
 .modal-header {
@@ -157,4 +159,17 @@ a:hover {
 
 .pagination .disabled a {
     background-color: white;
+}
+
+table {
+    line-height:44px;
+    margin-right:15px;
+}
+thead {
+    line-height:58px;
+}
+.table-wrap {
+    height:779px;
+    margin:0;
+    padding:0;
 }

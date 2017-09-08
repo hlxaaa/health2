@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 
 namespace WebApplication1.Webs
@@ -22,7 +20,7 @@ namespace WebApplication1.Webs
                 return;
             }
 
-        
+
 
 
             //System.Threading.Thread.Sleep(200);
@@ -52,10 +50,10 @@ namespace WebApplication1.Webs
                 context.Response.Headers.Add("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
                 //返回图片url地址
                 context.Response.Write("../img/article/temp/" + currentFileName);
-            
-                 return;
+
+                return;
             }
-            
+
         }
 
         public bool IsReusable

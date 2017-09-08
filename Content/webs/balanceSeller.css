@@ -2,99 +2,110 @@
 }
 
 #divMain2 {
-    background-color:initial;
-    margin-top:42px;
+    background-color: initial;
+    margin-top: 42px;
 }
+
 .main2-div1 font {
-    font-size:18px;
-    margin-left:0;
+    font-size: 18px;
+    margin-left: 0;
 }
+
 .v-line {
-    width:23px;
-    margin-top:1px;
-    margin-right:-3px;
+    width: 23px;
+    margin-top: 1px;
+    margin-right: -3px;
 }
 
 .main2-balance font {
-    color:rgb(219,82,40);
-    font-size:32px;
-    margin-left:0;
+    color: rgb(219,82,40);
+    font-size: 32px;
+    margin-left: 0;
 }
 
 .btn-withdraw {
-    display:block;
-    width:70px;
-    height:32px;
-    border-color:#49425b;
-    background-color:#49425b;
-    color:white;
-    padding-top:5px;
+    display: block;
+    width: 70px;
+    height: 32px;
+    border-color: #49425b;
+    background-color: #49425b;
+    color: white;
+    padding-top: 5px;
 }
 
 .main2-div1 {
-    margin-top:13px;
+    margin-top: 13px;
+}
 
-}
 .main2-btn {
-    margin-top:3px;
+    margin-top: 3px;
 }
+
 #divMain3 {
-    background-color:initial;
-    margin-top:48px;
+    background-color: initial;
+    margin-top: 48px;
 }
+
 .cash-detail, .cash-withdraw {
- 
 }
 
 .cash-detail {
-    width:57%;
-    background-color:white;
-    border-radius:5px;
+    width: 57%;
+    background-color: white;
+    border-radius: 5px;
 }
+
 .cash-withdraw {
-    margin-left:1.5%;
-    width:38.5%;
-     background-color:white;
-     border-radius:5px;
+    margin-left: 1.5%;
+    width: 38.5%;
+    background-color: white;
+    border-radius: 5px;
 }
 
 .detail-title {
-    height:60px;
-    border-bottom:1px solid rgb(153,153,153);
-    margin-right:15px;
+    height: 60px;
+    border-bottom: 1px solid rgb(153,153,153);
+    margin-right: 15px;
 }
+
 table {
-    margin-right:15px;
+    margin-right: 15px;
 }
+
     table tr {
-        height:48px;
+        height: 48px;
         /*border:none;*/
     }
-td ,th{
-    border:none!important;
+
+td, th {
+    border: none!important;
 }
+
 table tbody tr:nth-child(odd) {
-    background:rgb(241,239,240)!important;
+    background: rgb(241,239,240)!important;
 }
 
 .money-color {
-    color:rgb(219,82,40);
+    color: rgb(219,82,40);
 }
+
 .icon-title {
-    width:29px;
-    margin-top:16px;
+    width: 29px;
+    margin-top: 16px;
 }
+
 .detail-title font {
-    margin-left:10px;
-    font-size:15px;
-    color:#49425b
+    margin-left: 10px;
+    font-size: 15px;
+    color: #49425b;
 }
+
 .detail-title {
-    line-height:60px;
+    line-height: 60px;
 }
 
 .btn-save {
-        display: inline-block;
+    display: inline-block;
     width: 63px;
     height: 30px;
     background-color: #8c83a3;
@@ -102,7 +113,6 @@ table tbody tr:nth-child(odd) {
     color: white;
     text-align: center;
     padding-top: 4px;
-
 }
 
 #number {
@@ -113,18 +123,21 @@ table tbody tr:nth-child(odd) {
 }
 
 .modal-dialog {
-    margin-top:400px;
+    margin-top: 400px;
 }
 
 /*分页栏在白色背景中*/
 .pagination li a {
-     background-color:white;
+    background-color: white;
 }
 
-.pagination .disabled a:hover{
-    background-color:white;
+.pagination .disabled a:hover {
+    background-color: white;
 }
 
 .pagination .disabled a {
-    background-color:white;
+    background-color: white;
+}
+.table-wrap {
+    height:528px;
 }

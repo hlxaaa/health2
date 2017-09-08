@@ -5,8 +5,8 @@ $(document).ready(function () {
         if (e.keyCode == 13)
             $(this).find('#aRightBorder').click();
     })
-     
-    
+
+
 
     $('#modalAdd').keydown(function (e) {
         if (e.keyCode == 13) {
@@ -141,8 +141,6 @@ $(document).ready(function () {
         if ($(this).parent().siblings().length > 1)
             $(this).parent().remove();
     })
-   
-
 })
 
 function clearBorder() {
@@ -255,11 +253,11 @@ function deleteQues(id) {
         //div.parentNode.removeChild(div);
         var data = {
             method: 'deleteQues',
-            id:id
+            id: id
         }
         $.ajax({
             type: "post",
-            data:data,
+            data: data,
             url: "QuestionEasy.aspx",
             cache: false,
             success: function (data) {

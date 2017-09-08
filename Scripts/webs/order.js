@@ -11,7 +11,7 @@
             var id = $(this).children('td:eq(1)').html();
             var data = {
                 method: 'clickOrder',
-                id:id
+                id: id
             }
             $.ajax({
                 type: 'post',
@@ -19,7 +19,7 @@
                 url: 'Order.aspx',
                 cache: false,
                 success: function (data) {
-                    
+
                 },
                 error: function (err) {
                     alert('cuole');
@@ -29,7 +29,8 @@
         $(this).children('td:eq(0)').html('');
         $(this).removeClass('bold');
     })
-    getTable(jsonStr);
+    //getTable(jsonStr);
+    changePage(1)
 
     $('.selector-rest').change(function () {
         changePage(1);
@@ -41,6 +42,7 @@
     $('#inputDate2').change(function () {
         changePage(1);
     })
+
 })
 
 function getTable(data) {
@@ -82,14 +84,14 @@ function getTable(data) {
         }
         else {
             h += '<tr style="background-color: white;">'
-            +'<td></td>'
+            + '<td></td>'
         }
         //h+= '<td><img src="/Images/base/icon-new.svg" class="icon-new" /></td>'
         h += '<td>' + json[i].id + '</td>'
         rest = json[i].rest;
         if (rest.length > 10)
-            rest=json[i].rest.substring(0, 10) + '...';
-        h+='<td>' + rest + '</td>'
+            rest = json[i].rest.substring(0, 10) + '...';
+        h += '<td>' + rest + '</td>'
         + '<td>' + json[i].recipe + '</td>'
         + '<td>' + json[i].Pay + '</td>'
         + '<td>' + json[i].customer + '</td>'
@@ -100,8 +102,8 @@ function getTable(data) {
     }
 
     h += '</tr></tbody></table>'
-    $('#divMain3 table').remove();
-    $('#divMain3').prepend(h)
+    $('.table-wrap table').remove();
+    $('.table-wrap').prepend(h)
 
     var pages = JSON.parse(data).pages;
     var thePage = JSON.parse(data).thePage;
@@ -128,7 +130,7 @@ function getTable(data) {
     //+ '</nav>'
     var h = getPageHtml(pages, thePage);
     $('#divMain3 nav').remove();
-    $('#divMain3 table').after(h);
+    $('#divMain3').append(h);
 }
 
 function changePage(page) {
@@ -140,7 +142,7 @@ function changePage(page) {
         endTime: endTime,
         id: restId,
         thePage: page,
-        method:"search"
+        method: "search"
     }
     $.ajax({
         type: 'post',

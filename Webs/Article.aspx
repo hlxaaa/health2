@@ -120,11 +120,12 @@
                 </div>
             </div>
             <div class="row" id="divMain3">
+                <div class="table-wrap">
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
                             <th width="2%">
-                                <input type="checkbox"></th>
+                                <input type="checkbox"/></th>
                             <th width="2%">标题</th>
                             <th width="5%">标签</th>
                             <th width="5%">发表时间</th>
@@ -135,24 +136,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style="background-color: white;">
-                            <td>
-                                <input type="checkbox"></td>
-                            <td>标题</td>
-                            <td>标签</td>
-                            <td>发表时间</td>
-                            <td>浏览量</td>
-                            <td>点赞量</td>
-                            <td>主要内容</td>
-                            <td id="editDelete">
-                                <a id="aRightBorder">
-                                    <img class="btn-edit" src="/Images/recipe/icon-edit.svg" /><font>编辑</font></a>
-                                <a>
-                                    <img class="btn-edit" src="/Images/recipe/icon-delete.svg" /><font>删除</font></a>
-                            </td>
-                        </tr>
+                     
                     </tbody>
                 </table>
+                    </div>
             </div>
 
         </div>
@@ -192,7 +179,7 @@
                                 <button type="button" class="close">&times;</button>
                             </span>
                             <div class="add-selector">
-                                <img src="/Images/base/icon-add.png" class="icon-add">
+                                <img src="/Images/base/icon-add.png" class="icon-add"/>
                                 <div class="tag-selector">
                                     <div class="row selector-head">
                                         <img class="btn-edit" src="/Images/recipe/icon-edit.svg" alt="Alternate Text" />
@@ -248,10 +235,10 @@
     <script src="../Scripts/checkboxStyle/icheck.js"></script>
 
     <script src="../Scripts/dist/js/wangEditor.min.js"></script>
-    <script src="/Scripts/base.js?ver=<%=ran %>"></script>
-    <script src="/Scripts/webs/article.js?ver=<%=ran %>"></script>
+    <script src="/Scripts/base.js"></script>
+    <script src="/Scripts/webs/article.js"></script>
     <script type="text/javascript">
-        var jsonStr = '<%=jsonStr%>'
+     
        
     </script>
 </body>

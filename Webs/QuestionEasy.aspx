@@ -4,8 +4,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-     <title>问卷管理-简易版</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>问卷管理-简易版</title>
     <script type="text/javascript">
 
     </script>
@@ -19,8 +19,8 @@
     <link href="../Scripts/checkboxStyle/skins/minimal/minimal.css" rel="stylesheet" />
     <script src="../Scripts/checkboxStyle/icheck.js"></script>
 
-    <script src="/Scripts/base.js?ver=<%=ran %>"></script>
-    <script src="/Scripts/webs/questionEasy.js?ver=<%=ran %>"></script>
+    <script src="/Scripts/base.js"></script>
+    <script src="/Scripts/webs/questionEasy.js"></script>
     <link href="/Content/base.css" rel="stylesheet" />
     <link href="/Content/webs/questionEasy.css" rel="stylesheet" />
 </head>
@@ -67,20 +67,22 @@
                 <li class="">
                     <img src="/Images/recipe/icon-article.svg" /><a href="Article.aspx">文章管理</a>
                 </li>
-               
+
                 <li class="li-allques">
                     <img src="/Images/base/icon-triangle-down.svg" /><a>问卷管理</a>
                 </li>
-               <li class="li-ques li-ques-open active "><img src="/Images/base/icon-easyQues.svg" /><a href="QuestionEasy.aspx">简易版</a></li>
-                <li class="li-ques li-ques-open"><img src="/Images/base/icon-proQues.svg" /><a href="QuestionPro.aspx">专业版</a></li>
-               <li class="li-allbacks">
+                <li class="li-ques li-ques-open active ">
+                    <img src="/Images/base/icon-easyQues.svg" /><a href="QuestionEasy.aspx">简易版</a></li>
+                <li class="li-ques li-ques-open">
+                    <img src="/Images/base/icon-proQues.svg" /><a href="QuestionPro.aspx">专业版</a></li>
+                <li class="li-allbacks">
                     <img src="/Images/base/icon-triangle-right.svg" /><a>商家后台</a>
                 </li>
-                 <li class="li-back">
+                <li class="li-back">
                     <img src="/Images/base/icon-order.svg" /><a href="Order.aspx">用户订单</a></li>
-                 <li class="li-back">
+                <li class="li-back">
                     <img src="/Images/base/icon-balance.svg" /><a href="Balance.aspx">钱包余额</a></li>
-                 <li class="li-back">
+                <li class="li-back">
                     <img src="/Images/base/icon-recipeSet.svg" /><a href="RecipeSet.aspx">食谱缺货设置</a></li>
                 <li class="">
                     <img src="/Images/base/icon-account.svg" /><a href="Seller.aspx">商家账号设置</a>
@@ -101,7 +103,7 @@
                     <h4>问卷管理-简易版</h4>
                 </div>
                 <div id="main1-right">
-          
+
                     <a onclick="addTemplate()" class="btn btn-this">
                         <img src="/Images/recipe/icon-add.png" /><font>增加</font>
                     </a>
@@ -110,51 +112,53 @@
             <div class="main2">
 
                 <%for (var i = 0; i < question.Length; i++)
-           { %>
+                  { %>
                 <div class="ques" id="ques<%=idQuestion[i] %>">
                     <div class="ques-title">
                         <div class="ques-title-content">
                             <font>题目：</font>
-                            <input values="test" value="<%=question[i] %>"/>
+                            <input values="test" value="<%=question[i] %>" />
                         </div>
                         <div class="ques-edit">
                             <a id="aRightBorder" onclick="updateQues(<%=idQuestion[i] %>)">
                                 <img class="btn-edit" src="/Images/base/icon-save.svg" /><font>保存</font></a>
                             <a onclick="deleteQues(<%=idQuestion[i] %>)">
-                                <img  class="btn-edit" src="/Images/base/icon-delete.svg" /><font>删除</font></a>
+                                <img class="btn-edit" src="/Images/base/icon-delete.svg" /><font>删除</font></a>
                         </div>
                     </div>
                     <hr />
                     <div class="ques-options">
-                          <%for (var j = 0; j < option[i].Length; j++)
-              { %>
-                        <div class="col-md-5 " >
-                            <font>选项：</font><input value="<%=option[i][j] %>"/> 
-                             <font>体质：</font>
+                        <%for (var j = 0; j < option[i].Length; j++)
+                          { %>
+                        <div class="col-md-5 ">
+                            <font>选项：</font>
+                            <input value="<%=option[i][j] %>" />
+                            <font>体质：</font>
                             <select>
                                 <%for (int k = 0; k < constitutions.Length; k++)
-                                  { 
-                                      if(constitution[i][j]==constitutions[k]){
-                                      %>
+                                  {
+                                      if (constitution[i][j] == constitutions[k])
+                                      {
+                                %>
                                 <option selected="selected"><%=constitution[i][j] %></option>
-                                <%}else{ %>
+                                <%}
+                                      else
+                                      { %>
                                 <option><%=constitutions[k] %></option>
-                                <%}} %>
+                                <%}
+                                  } %>
                             </select>
-                            <img src="../Images/base/icon-trash.png" id="icon-trash"/>
+                            <img src="../Images/base/icon-trash.png" id="icon-trash" />
                         </div>
-                         <%} %>
-                     <div class="col-md-1 ">
-                             <img src="/Images/base/icon-add.png" id="icon-add" />
+                        <%} %>
+                        <div class="col-md-1 ">
+                            <img src="/Images/base/icon-add.png" id="icon-add" />
                         </div>
                     </div>
-                       <div class="col-md-12" style="height:30px"></div>
-                    <div style="clear:both"></div>  
+                    <div class="col-md-12" style="height: 30px"></div>
+                    <div style="clear: both"></div>
                 </div>
                 <%} %>
-
-
-              
             </div>
 
         </div>

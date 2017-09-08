@@ -1,67 +1,72 @@
 ﻿body {
 }
-.panel-heading h6, .panel-heading img,.panel-heading font {
+
+.panel-heading h6, .panel-heading img, .panel-heading font {
     /*float:left;*/
 }
+
 #divQues h6, #divQues input, #divQues select {
-    float:left;
+    float: left;
 }
+
 #divQues input {
-    width:400px;
+    width: 400px;
 }
 
-#main1-right a{
-    padding:6px 6px 6px 0;
-
+#main1-right a {
+    padding: 6px 6px 6px 0;
 }
 
 #main1-right font {
-    margin-left:8px;
+    margin-left: 8px;
 }
 
 #divMain {
-  background-color: rgb(74,66,90);
+    background-color: rgb(74,66,90);
 }
+
 .main2 {
-    font-size:12px;
-    margin-top:15px;
+    font-size: 12px;
+    margin-top: 15px;
 }
+
 .table-wrap {
-    background-color:white;
-    border-radius:12px;
-    margin-top:10px;
+    background-color: white;
+    border-radius: 12px;
+    margin-top: 10px;
 }
 
-thead tr{
-    height:74px;
+thead tr {
+    height: 74px;
 }
 
-    thead tr th{
-        text-align: center;  
-        line-height:57px!important;
+    thead tr th {
+        text-align: center;
+        line-height: 57px!important;
     }
 
 tbody tr td {
-    height:67px;
-    line-height:47px!important;
+    height: 67px;
+    line-height: 47px!important;
 }
 
 
 .orderNo {
-    display:block;
-    width:25px;
-    margin-top:3px;
+    display: block;
+    width: 25px;
+    margin-top: 3px;
 }
-.orderNo,.ques-title {
-    float:left;
+
+.orderNo, .ques-title {
+    float: left;
 }
 
 .ques-title {
-    width:440px;
-    text-align:initial;
-    padding-left:5px;
-    height:36px;
-    margin-top:7px;
+    width: 440px;
+    text-align: initial;
+    padding-left: 5px;
+    height: 36px;
+    margin-top: 7px;
 }
 
 .td-border-right {
@@ -69,116 +74,122 @@ tbody tr td {
 }
 
 .icheckbox_minimal {
-      /*margin-left:5px!important;*/
+    /*margin-left:5px!important;*/
 }
+
 .ques-select .icheckbox_minimal {
-  margin-left:23px!important;
+    margin-left: 23px!important;
 }
 
-.vertical-line1,.vertical-line2,.vertical-line3,.vertical-line4 {
-  height:32px;
-     margin-top:10px;
-     border-left:1px solid rgb(204,204,204);
-     float:right;
-
+.vertical-line1, .vertical-line2, .vertical-line3, .vertical-line4 {
+    height: 32px;
+    margin-top: 10px;
+    border-left: 1px solid rgb(204,204,204);
+    float: right;
 }
 
 .vertical-line1 {
-     margin-right:-29px;
-     height:32px;
-     margin-top:10px;
+    margin-right: -29px;
+    height: 32px;
+    margin-top: 10px;
 }
+
 .vertical-line2 {
-     margin-right:0px;
+    margin-right: 0px;
 }
+
 .vertical-line3 {
-     margin-right:0px;
+    margin-right: 0px;
 }
+
 .vertical-line4 {
-     margin-right:0px;
+    margin-right: 0px;
 }
 
 .ques-options {
-    text-align:center;
+    text-align: center;
 }
 
-.ques-options input {
-    height:36px;
-    width:90px;
-}
+    .ques-options input {
+        height: 36px;
+        width: 90px;
+    }
 
 .ques-constitution {
-     text-align:center;
+    text-align: center;
 }
 
-.ques-constitution select {
-    width:70px;
-    height:36px;
-}
+    .ques-constitution select {
+        width: 70px;
+        height: 36px;
+    }
 
 .ques-sex {
-     text-align:center;
+    text-align: center;
 }
 
-.ques-sex select {
-    width:80px;
-     height:36px;
-     padding-left:8px;
-}
+    .ques-sex select {
+        width: 80px;
+        height: 36px;
+        padding-left: 8px;
+    }
 
 .ques-delete {
-    text-align:center;
+    text-align: center;
 }
 
-.ques-delete a{
-    color:rgb(121,112,143);
-    font-weight:bold;
-}
+    .ques-delete a {
+        color: rgb(121,112,143);
+        font-weight: bold;
+    }
 
 
 table {
-    background-color:white;
+    background-color: white;
+    margin-right:15px;
 }
 
 .main3 {
-    text-align:center;
+    text-align: center;
+    margin-top:30px;
+    margin-bottom:30px;
 }
+
 .btn-update {
-    color:white;
-    background-color:rgb(121,112,143);
-    border-color:rgb(121,112,143);
-    width:250px;
-    height:68px;
-    vertical-align:middle;
-    text-align:center;
-    font-size:25px;
-    line-height:50px;
+    color: white;
+    background-color: rgb(121,112,143);
+    border-color: rgb(121,112,143);
+    width: 250px;
+    height: 68px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 25px;
+    line-height: 50px;
 }
 
 input {
-    border-width:1px;
-    border-color:rgb(153,153,153);
+    border-width: 1px;
+    border-color: rgb(153,153,153);
 }
 
-a:hover,img:hover {
-    cursor:pointer;
+a:hover, img:hover {
+    cursor: pointer;
 }
 
 input {
-    border:0.5px solid #8c83a3 ;
-        /*border-radius:5px;*/
+    border: 0.5px solid #8c83a3;
+    /*border-radius:5px;*/
     /*height:33px;
     width:440px;*/
-
     /*text-align:initial;
     padding-left:10px;*/
 }
 
 
 tbody tr td {
-   margin-top:10px;
+    margin-top: 10px;
 }
 
 a {
-    text-decoration:none;
+    text-decoration: none;
 }

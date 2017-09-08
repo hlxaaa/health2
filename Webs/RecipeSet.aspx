@@ -4,10 +4,10 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>食谱缺货设置</title>
     <script type="text/javascript">
-        var jsonStr = '<%=jsonStr%>'
+        var isAdmin = '<%=isAdmin%>'
     </script>
     <script src="../Scripts/jquery-2.0.0.min.js"></script>
     <script src="../Scripts/bootstrap.min.js"></script>
@@ -19,8 +19,9 @@
     <link href="../Scripts/checkboxStyle/skins/minimal/minimal.css" rel="stylesheet" />
     <script src="../Scripts/checkboxStyle/icheck.js"></script>
 
-    <script src="/Scripts/base.js?ver=<%=ran %>"></script>
-    <script src="/Scripts/webs/recipeSet.js?ver=<%=ran %>"></script>
+    <script src="/Scripts/base.js"></script>
+    <script src="/Scripts/webs/recipeSet.js"></script>
+    <script src="/Scripts/remind.js"></script>
     <link href="/Content/base.css" rel="stylesheet" />
     <link href="/Content/webs/recipeSet.css" rel="stylesheet" />
 
@@ -50,7 +51,8 @@
         <div class="" id="divNav">
 
             <ul class="list-group">
-                  <%if(isAdmin==true){ %>
+                <%if (isAdmin == true)
+                  { %>
                 <li class="">
                     <img src="/Images/recipe/icon-food.svg" /><a href="Food.aspx">菜品管理</a>
                 </li>
@@ -83,16 +85,20 @@
                 </li>
                 <li class="li-back li-back-open">
                     <img src="/Images/base/icon-order.svg" /><a href="Order.aspx">用户订单</a></li>
-              <%if(isAdmin==true){ %>
-                 <li class="li-back li-back-open ">
+                <%if (isAdmin == true)
+                  { %>
+                <li class="li-back li-back-open ">
                     <img src="/Images/base/icon-balance.svg" /><a href="Balance.aspx">钱包余额</a></li>
-                <%}else{ %>
-                 <li class="li-back li-back-open ">
-                    <img src="/Images/base/icon-balance.svg" /><a href="BalanceSeller.aspx?sellerId=<%=id %>">钱包余额</a></li>
+                <%}
+                  else
+                  { %>
+                <li class="li-back li-back-open ">
+                    <img src="/Images/base/icon-balance.svg" /><a href="BalanceSeller.aspx">钱包余额</a></li>
                 <%} %>
                 <li class="li-back li-back-open active">
                     <img src="/Images/base/icon-recipeSet.svg" /><a href="RecipeSet.aspx">食谱缺货设置</a></li>
-                  <%if(isAdmin==true){ %>
+                <%if (isAdmin == true)
+                  { %>
                 <li class="">
                     <img src="/Images/base/icon-account.svg" /><a href="Seller.aspx">商家账号设置</a>
                 </li>
@@ -116,21 +122,27 @@
             <div class="row row-min" id="divMain2">
                 <%--改这里 --%>
                 <div class="row">
-                    <%if(isAdmin==true){ %>
+                    <%if (isAdmin == true)
+                      { %>
                     <div class="row1-left">
                         <font>选择餐厅:</font>
                     </div>
-                    
+
                     <div class="row1-mid">
                         <select>
-                            <option value="" >全部</option>
-                            <%foreach(var k in dictRest.Keys){ 
-                                  if(k==id){
-                                  %>
+                            <option value="">全部</option>
+                            <%foreach (var k in dictRest.Keys)
+                              {
+                                  if (k == id)
+                                  {
+                            %>
                             <option value="<%=k %>" selected="selected"><%=dictRest[k] %></option>
-                            <%}else{ %>
-                            <option value="<%=k %>" ><%=dictRest[k] %></option>
-                            <%} }%>
+                            <%}
+                                  else
+                                  { %>
+                            <option value="<%=k %>"><%=dictRest[k] %></option>
+                            <%}
+                              }%>
                         </select>
                     </div>
                     <%} %>
@@ -147,10 +159,10 @@
 
             <div class="row" id="divMain3">
                 <div class="partline line1"></div>
-                 <div class="partline line2"></div>
-                 <div class="partline line3"></div>
-                
-<%--                <div class="recipe fl">
+                <div class="partline line2"></div>
+                <div class="partline line3"></div>
+
+                <%--                <div class="recipe fl">
                     <input type="hidden"/>
                     <font class="fl bold">食谱1</font>
                     <div class="fr">
@@ -160,11 +172,11 @@
                         <input type="radio" name="recipe" />
                     </div>
                 </div>--%>
-       
+
                 <div class="fc"></div>
             </div>
 
-        <%--    <nav style="text-align: center; display: block"><ul class="pagination"><li class="disabled"><a style="text-decoration: none;">«</a></li><li class="active"><a style="text-decoration: none;">1</a></li><li onclick="getPage(this)"><a style="text-decoration: none;">2</a></li><li onclick="getNextPage()"><a style="text-decoration: none;">»</a></li></ul></nav>--%>
+            <%--    <nav style="text-align: center; display: block"><ul class="pagination"><li class="disabled"><a style="text-decoration: none;">«</a></li><li class="active"><a style="text-decoration: none;">1</a></li><li onclick="getPage(this)"><a style="text-decoration: none;">2</a></li><li onclick="getNextPage()"><a style="text-decoration: none;">»</a></li></ul></nav>--%>
         </div>
         <div style="clear: both"></div>
     </div>

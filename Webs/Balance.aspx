@@ -5,9 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>钱包余额</title>
+    <title>商家后台-钱包余额</title>
     <script type="text/javascript">
-        var jsonStr = '<%=jsonStr%>'
     </script>
     <script src="../Scripts/jquery-2.0.0.min.js"></script>
     <script src="../Scripts/bootstrap.min.js"></script>
@@ -20,8 +19,8 @@
     <script src="../Scripts/checkboxStyle/icheck.js"></script>
 
 
-    <script src="/Scripts/base.js?ver=<%=ran %>"></script>
-    <script src="/Scripts/webs/balance.js?ver=<%=ran %>"></script>
+    <script src="/Scripts/base.js"></script>
+    <script src="/Scripts/webs/balance.js"></script>
     <link href="/Content/base.css" rel="stylesheet" />
     <link href="/Content/webs/balance.css" rel="stylesheet" />
 </head>
@@ -99,7 +98,7 @@
         <div class="" id="divMains">
             <div class="row" id="divMain1">
                 <div id="main1-left">
-                    <h4>钱包余额</h4>
+                    <h4>商家后台-钱包余额</h4>
                 </div>
                 <div id="main1-right">
                     <font class="fl">商家:</font>
@@ -113,6 +112,7 @@
             </div>
 
             <div class="row" id="divMain3">
+                <div class="table-bigWrap">
                 <div class="fl table-wrap wrap1">
                     <table class="table table-striped table-hover">
                         <thead class="thead1">
@@ -123,39 +123,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr style="background-color: white;">
-                                <td >
-                                    1
-                                </td>
-                                <td>
-                                   老王
-                                </td>
-                                <td>
-                                  999.00元
-                                </td>
-                            </tr>
-                             <tr style="background-color: white;">
-                                <td >
-                                    1
-                                </td>
-                                <td>
-                                   老王
-                                </td>
-                                <td>
-                                  999.00元
-                                </td>
-                            </tr>
-                             <tr style="background-color: white;">
-                                <td >
-                                    1
-                                </td>
-                                <td>
-                                   老王
-                                </td>
-                                <td>
-                                  999.00元
-                                </td>
-                            </tr>
+        
                         </tbody>
                         </table>
                 </div>
@@ -169,39 +137,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr style="background-color: white;">
-                                <td >
-                                    1
-                                </td>
-                                <td>
-                                   老王
-                                </td>
-                                <td>
-                                  999.00元
-                                </td>
-                            </tr>
-                             <tr style="background-color: white;">
-                                <td >
-                                    1
-                                </td>
-                                <td>
-                                   老王
-                                </td>
-                                <td>
-                                  999.00元
-                                </td>
-                            </tr>
-                             <tr style="background-color: white;">
-                                <td >
-                                    1
-                                </td>
-                                <td>
-                                   老王
-                                </td>
-                                <td>
-                                  999.00元
-                                </td>
-                            </tr>
+                       
                         </tbody>
                         </table>
                 </div>
@@ -215,43 +151,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr style="background-color: white;">
-                                <td >
-                                    1
-                                </td>
-                                <td>
-                                   老王
-                                </td>
-                                <td>
-                                  999.00元
-                                </td>
-                            </tr>
-                             <tr style="background-color: white;">
-                                <td >
-                                    1
-                                </td>
-                                <td>
-                                   老王
-                                </td>
-                                <td>
-                                  999.00元
-                                </td>
-                            </tr>
-                             <tr style="background-color: white;">
-                                <td >
-                                    1
-                                </td>
-                                <td>
-                                   老王
-                                </td>
-                                <td>
-                                  999.00元
-                                </td>
-                            </tr>
+                 
                         </tbody>
                         </table>
                 </div>
                 <div class="fc"></div>
+                    </div>
             </div>
             <nav style="text-align: center; display: block"><ul class="pagination"><li class="disabled"><a style="text-decoration: none;">«</a></li><li class="active"><a style="text-decoration: none;">1</a></li><li onclick="getPage(this)"><a style="text-decoration: none;">2</a></li><li onclick="getNextPage()"><a style="text-decoration: none;">»</a></li></ul></nav>
         </div>

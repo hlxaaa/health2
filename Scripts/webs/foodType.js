@@ -32,7 +32,7 @@ $(document).ready(function () {
             })
             var data = {
                 method: 'batchDelete',
-                ids:ids
+                ids: ids
             }
             $.ajax({
                 type: 'post',
@@ -139,7 +139,7 @@ $(document).ready(function () {
         if (r == true) {
             var data = {
                 id: id,
-                method:'deleteType'
+                method: 'deleteType'
             }
             $.ajax({
                 type: 'post',
@@ -180,20 +180,20 @@ function getTable(jsonStr) {
         $('#divMain3 tbody tr').remove();
         return;
     }
-    var h = '<table class="table table-striped table-hover"><thead class="thead1"><tr><th width="1%"><input type="checkbox"></th><th width="6%">菜品分类</th><th width="6%">操作</th><th width="6%"></th><th width="6%"></th><th width="6%"></th><th width="6%"></th></tr></thead><tbody>'
+    var h = '<table class="table table-striped table-hover"><thead class="thead1"><tr><th width="1%"><input type="checkbox"></th><th width="6%">菜品分类</th><th width="12%">操作</th><th width="6%"></th><th width="6%"></th><th width="6%"></th><th width="6%"></th></tr></thead><tbody>'
     for (var i = 0; i < json.length; i++) {
         var name = json[i].name
-        h+='<tr style="background-color: white;"><td><input type="checkbox"></td>'
-        +'<td>' + name + '</td>'
-        +'<td class="td-edit"><a class="btn-edit" style="text-decoration: none;"><img class="btn-edit" src="/Images/recipe/icon-edit.svg"><font>编辑</font></a><a style="text-decoration: none;" class="btn-delete"><img class="btn-edit" src="/Images/recipe/icon-delete.svg"><font>删除</font></a><input type="hidden" class="typeId" value="'+json[i].id+'"></td><td></td><td></td><td></td><td></td></tr>'
+        h += '<tr style="background-color: white;"><td><input type="checkbox"></td>'
+        + '<td>' + name + '</td>'
+        + '<td class="td-edit"><a class="btn-edit" style="text-decoration: none;"><img class="btn-edit" src="/Images/recipe/icon-edit.svg"><font>编辑</font></a><a style="text-decoration: none;" class="btn-delete"><img class="btn-edit" src="/Images/recipe/icon-delete.svg"><font>删除</font></a><input type="hidden" class="typeId" value="' + json[i].id + '"></td><td></td><td></td><td></td><td></td></tr>'
     }
     h += '</tbody></table>';
 
-    
+
     //var pages = 2;
     //var thePage = 1;
 
- 
+
     $('#divMain3 table').remove();
     $('#divMain3 nav').remove();
     $('#divMain3').append(h);
@@ -205,7 +205,7 @@ function getTable(jsonStr) {
     });
     $('a').css('text-decoration', 'none');
 
-   
+
     allSelect();
 }
 

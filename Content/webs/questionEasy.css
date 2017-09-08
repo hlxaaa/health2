@@ -1,100 +1,103 @@
 ﻿#divMain {
-  background-color: rgb(74,66,90);
+    background-color: rgb(74,66,90);
 }
 
 .main2 {
-    margin-top:-6px;
-}
-.col-md-5 {
-    width:755px;
+    margin-top: -6px;
 }
 
-#main1-right .btn-this{
-    padding:6px 6px 6px 0;
+.col-md-5 {
+    width: 755px;
+}
+
+#main1-right .btn-this {
+    padding: 6px 6px 6px 0;
 }
 
 #main1-right font {
-    margin-left:6px;
+    margin-left: 6px;
     /*line-height:36px;*/
-    margin-top:5px;
+    margin-top: 5px;
 }
 
 .ques {
-    background-color:white;
-    border-radius:20px;
-    height:100%;
-    margin-top:20px;
+    background-color: white;
+    border-radius: 20px;
+    height: 100%;
+    margin-top: 20px;
 }
+
 .ques-options div {
     /*float:left;*/
-    margin-top:14px;
+    margin-top: 14px;
 }
-.ques-title font,.ques-title input {
+
+.ques-title font, .ques-title input {
     /*height:30px;
     line-height:30px;*/
 }
 
 .ques-title {
-    height:56px;
+    height: 56px;
 }
 
 .ques-title-content {
-    float:left;    
-    margin-top:-2px;
+    float: left;
+    margin-top: -2px;
 }
 
-.ques-title-content font{
-    height:50px;
-    line-height:80px;
-    font-weight:bold;
-}
+    .ques-title-content font {
+        height: 50px;
+        line-height: 80px;
+        font-weight: bold;
+    }
 
-.ques-title-content input {
-        width:627px;
+    .ques-title-content input {
+        width: 627px;
     }
 
 .ques-edit {
-    float:right;
-    margin-top:27px;
-    margin-right:40px;
+    float: right;
+    margin-top: 27px;
+    margin-right: 40px;
 }
 
     .ques-edit a {
-        float:left;
-        color:#8c83a3;
-        font-weight:bold;
+        float: left;
+        color: #8c83a3;
+        font-weight: bold;
     }
 
 .btn-edit {
-    width:40px;
+    width: 40px;
 }
 
 .ques-options {
-    margin-top:-10px;
-}
-.ques-options .col-md-5 img {
-    /*color:red;
-    filter: drop-shadow(#000 20px 0);*/
-    width:20px;
+    margin-top: -10px;
 }
 
-    .ques-options .col-md-1 img {
-        width:20px;
-        /*filter: drop-shadow(#000 20px 0);*/
-        color:red;
-        /*height:30px;*/
-       margin-top:10px;
-       
+    .ques-options .col-md-5 img {
+        /*color:red;
+    filter: drop-shadow(#000 20px 0);*/
+        width: 20px;
     }
 
-.ques-options select {
-    width:74px;
-    height:26px;
-    border-color:#49425b;
-}
+    .ques-options .col-md-1 img {
+        width: 20px;
+        /*filter: drop-shadow(#000 20px 0);*/
+        color: red;
+        /*height:30px;*/
+        margin-top: 10px;
+    }
+
+    .ques-options select {
+        width: 74px;
+        height: 26px;
+        border-color: #49425b;
+    }
 
 .ques-edit a:hover, img:hover {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 #aRightBorder {
@@ -102,20 +105,20 @@
 }
 
 .btn-noborder {
-    border:none!important;
+    border: none!important;
 }
 
 select {
-    border-radius:5px;
+    border-radius: 5px;
 }
 
 input {
-    border:0.5px solid #49425b ;
-    height:33px;
-    width:440px;
-    border-radius:5px;
-    text-align:initial;
-    padding-left:10px;
+    border: 0.5px solid #49425b;
+    height: 33px;
+    width: 440px;
+    border-radius: 5px;
+    text-align: initial;
+    padding-left: 10px;
 }
 
 
@@ -132,24 +135,32 @@ input {
 
 body {
 }
-#modalAdd h6, #modalAdd input,#modalAdd h5 {
-    float:left;
+
+#modalAdd h6, #modalAdd input, #modalAdd h5 {
+    float: left;
 }
+
 #modalAdd .inputOption {
-    width:350px;
+    width: 350px;
 }
+
 #modalAdd .inputConstitution {
-    width:100px;
+    width: 100px;
 }
 /*#divQues h6, #divQues img {
     float:left;
 }*/
-.panel-heading h6, .panel-heading img,.panel-heading font {
-    float:left;
+.panel-heading h6, .panel-heading img, .panel-heading font {
+    float: left;
 }
+
 .panel-heading > a {
-   /*float:right;*/
+    /*float:right;*/
 }
+
 #inputQues {
-    width:400px;
+    width: 400px;
+}
+#divMains {
+    padding-bottom:30px;
 }

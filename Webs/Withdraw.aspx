@@ -6,21 +6,20 @@
 <head runat="server">
     <title>提现申请</title>
     <script type="text/javascript">
-        var jsonStr = '<%=jsonStr%>'
-        var id ='<%=sellerId%>'
+
     </script>
     <script src="../Scripts/jquery-2.0.0.min.js"></script>
     <script src="../Scripts/bootstrap.min.js"></script>
     <link href="../Content/bootstrap.css" rel="stylesheet" />
 
-     <script src="../Scripts/datetimepicker/bootstrap-datetimepicker.js"></script>
+    <script src="../Scripts/datetimepicker/bootstrap-datetimepicker.js"></script>
     <link href="../Scripts/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 
     <link href="../Scripts/checkboxStyle/skins/minimal/minimal.css" rel="stylesheet" />
     <script src="../Scripts/checkboxStyle/icheck.js"></script>
 
-    <script src="/Scripts/base.js?ver=<%=ran %>"></script>
-    <script src="/Scripts/webs/withdraw.js?ver=<%=ran %>"></script>
+    <script src="/Scripts/base.js"></script>
+    <script src="/Scripts/webs/withdraw.js"></script>
     <link href="/Content/base.css" rel="stylesheet" />
     <link href="/Content/webs/withdraw.css" rel="stylesheet" />
 </head>
@@ -118,32 +117,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr style="background-color: white;">
-                                <td>3216542
-                                </td>
-                                <td>商家
-                                </td>
-                                <td>食谱啊
-                                </td>
-                                <td class="td-money">
-                                    2500.00
-                                </td>
-                                <td>2016-10-01 21:02:59
-                                </td>
-                                <td>
-                                    <span class="btn-do">处理</span>
-                                </td>
-                                <td></td>
-                            </tr>
-                                
                         </tbody>
                     </table>
                 </div>
             </div>
-            <nav style="text-align:center;display:block">
-                        <ul class="pagination"><li class="disabled"><a href="#" style="text-decoration: none;">«</a></li><li class="active"><a style="text-decoration: none;">1</a></li><li onclick="getPage(this)"><a style="text-decoration: none;">2</a></li><li onclick="getPage(this)"><a style="text-decoration: none;">3</a></li><li onclick="getNextPage()"><a style="text-decoration: none;">»</a></li></ul>
+            <nav style="text-align: center; display: block">
+                <ul class="pagination">
+                    <li class="disabled"><a href="#" style="text-decoration: none;">«</a></li>
+                    <li class="active"><a style="text-decoration: none;">1</a></li>
+                    <li onclick="getPage(this)"><a style="text-decoration: none;">2</a></li>
+                    <li onclick="getPage(this)"><a style="text-decoration: none;">3</a></li>
+                    <li onclick="getNextPage()"><a style="text-decoration: none;">»</a></li>
+                </ul>
 
-                    </nav>
+            </nav>
         </div>
     </div>
 

@@ -2,57 +2,76 @@
 }
 
 .recipe {
-    width:23%;
-    height:54px;
-    line-height:54px;
-    border-bottom:1px solid rgb(204,204,204);
-    margin-right:1%;
-}
-#divMain2 {
-    background-color:initial;
-}
-.row1-left {
-    width:80px;
-}
-.row1-mid select {
-    width:209px;
-    height:32px;
-    border-radius:5px;
-    border:1px solid black;
-}
-.row1-right {
-    width:420px;
+    width: 23%;
+    height: 54px;
+    line-height: 54px;
+    border-bottom: 1px solid rgb(204,204,204);
+    margin-right: 1%;
 }
 
-#inputSearch {
-    height:32px;
-    width:270px;
-    border:1px solid #8c83a3;
-    border-bottom-left-radius:60px;
-    border-top-left-radius:60px;
+#divMain2 {
+    background-color: initial;
+    margin-top: 15px;
+    height: auto;
 }
+
+.row1-left {
+    width: 80px;
+    margin-left: 0;
+}
+
+.row1-mid select {
+    width: 209px;
+    height: 32px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.row1-right {
+    width: 420px;
+}
+
+    .row1-right font {
+        font-size: 14px;
+    }
+
+#inputSearch {
+    margin-left: 15px;
+    height: 32px;
+    width: 270px;
+    border: 1px solid #8c83a3;
+    border-bottom-left-radius: 60px;
+    border-top-left-radius: 60px;
+}
+
 .btnSearch {
-    margin-left:0;
-    height:32px;
-    overflow-y:hidden;
+    margin-left: 0;
+    height: 32px;
+    overflow-y: hidden;
 }
 
 .partline {
     margin-top: 20px;
     position: absolute;
-    height: 560px;
-    border: 0.1px solid rgb(204,204,204);
+    height: 630px;
+    border-right: 0.1px solid rgb(204,204,204);
 }
+
 .line1 {
-    margin-left:22.2%;
+    margin-left: 22.2%;
 }
+
 .line2 {
-    margin-left:44.4%;
+    margin-left: 44.4%;
 }
+
 .line3 {
-    margin-left:66.6%;
+    margin-left: 66.6%;
 }
 
 #divMain3 {
-    height:600px;
+    /*height:600px;*/
+    min-height: 668px;
+    height: auto;
+    padding-bottom: 20px;
 }

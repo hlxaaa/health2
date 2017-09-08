@@ -1,9 +1,9 @@
 ﻿body {
-    overflow-x:hidden;
+    overflow-x: hidden;
 }
 
 #divMain3 {
-    margin-top:-20px;
+    margin-top: -20px;
 }
 
 #divMains {
@@ -11,271 +11,282 @@
 }
 
 .allselect {
-    height:36px;
-    line-height:18px;
-    width:73px;
-    padding-left:0px;
-    font-weight:bold;
+    height: 36px;
+    line-height: 18px;
+    width: 73px;
+    padding-left: 0px;
+    font-weight: bold;
 }
+
 .batchDelete {
-    width:101px;
-    padding-left:0px;
+    width: 101px;
+    padding-left: 0px;
 }
+
 .btn-add {
-    width:74px;
-    padding-left:0px;
+    width: 74px;
+    padding-left: 0px;
 }
 
 
-    .allselect .icheckbox_minimal {
-        margin:0;
-        background-color:white;
-        margin-left:10px;
-        margin-top: -1px;
-    }
+.allselect .icheckbox_minimal {
+    margin: 0;
+    background-color: white;
+    margin-left: 10px;
+    margin-top: -1px;
+}
 
-.row1-left, .row1-mid{
-    float:left;
+.row1-left, .row1-mid {
+    float: left;
 }
 
 .row1-left {
-    margin-left:0px;
+    margin-left: 0px;
+    margin-top: 2px;
 }
 
+    .row1-left font {
+        margin-left: 7.5px;
+    }
+
 .row1-mid input {
-    height:32px;
+    height: 32px;
 }
 
 .btn-search {
-    width:30px;
-    margin-top:-6px;
-    margin-left:15px;
+    width: 30px;
+    margin-top: -6px;
+    margin-left: 15px;
 }
 
 .row1-mid .btnSearch {
-    height:32px;
+    height: 32px;
 }
 
 .row1-right {
-    float:right;
-    width:306px;    
-    margin-top:2px;
-    
-}
-    .row1-right font
-    {
-        margin-left:8px;
-    }
-
-.row1-right  a{
-    float:left;
-    color:white;
-    height:32px;
-    line-height:15px;
-    font-size:14px;
+    float: right;
+    width: 306px;
+    margin-top: 2px;
 }
 
-    .row1-right a  img{
-        width:16px;
-        margin-left:10px;
-        margin-top:-1px;
+    .row1-right font {
+        margin-left: 8px;
     }
+
+    .row1-right a {
+        float: left;
+        color: white;
+        height: 32px;
+        line-height: 15px;
+        font-size: 14px;
+    }
+
+        .row1-right a img {
+            width: 16px;
+            margin-left: 10px;
+            margin-top: -1px;
+        }
 
 #aRightBorder {
-    margin-left:0px;
-    border:initial;
-    padding-right:2px;
-    
+    margin-left: 0px;
+    border: initial;
+    padding-right: 2px;
 }
 
 .btn-delete {
-    margin-left:0;
+    margin-left: 0;
 }
 
 .partline3 {
-    margin-top:24px;
-    margin-left:20px;
-    height:28px;
-    border-left:0.1px solid rgb(204,204,204);
-    width:0px;
+    margin-top: 24px;
+    margin-left: 20px;
+    height: 28px;
+    border-left: 0.1px solid rgb(204,204,204);
+    width: 0px;
 }
 
 #divMain2 {
-    background-color:initial
+    background-color: initial;
 }
 
-#divMain2 .row{
-    overflow-y:hidden;
-}
+    #divMain2 .row {
+        overflow-y: hidden;
+    }
 
 .partline1, .partline2 {
-    margin-top:20px;
-    
-    position:absolute;
-    height:630px;
-    border:0.1px solid rgb(204,204,204);
+    margin-top: 20px;
+    position: absolute;
+    height: 630px;
+    border: 0.1px solid rgb(204,204,204);
 }
-.partline1{
+
+.partline1 {
     /*margin-left:563px;*/
-    margin-left:29.7%;
+    margin-left: 29.7%;
 }
 
 .partline2 {
-    margin-left:59.4%;
+    margin-left: 59.4%;
 }
 
 .div-food {
-    float:left;
-    width:32%;
-    
-    height:72px;
-    line-height:72px;
-    margin-left:20px;
+    float: left;
+    width: 32%;
+    height: 72px;
+    line-height: 72px;
+    margin-left: 20px;
     /*border-bottom:1px solid rgb(204,204,204);*/
 }
 
 .name-wrap {
-    height:72px;
-    border-bottom:1px solid rgb(204,204,204);
-    margin-right:30px;
+    height: 72px;
+    border-bottom: 1px solid rgb(204,204,204);
+    margin-right: 30px;
 }
 
-.div-name,.partline3 {
-    float:left;
+.div-name, .partline3 {
+    float: left;
     /*border-bottom:1px solid rgb(204,204,204) ;*/
 }
-.div-name {
-       width:250px;
-}
-.div-name font {
 
+.div-name {
+    width: 250px;
 }
- .div-edit{
-    float:right;
+
+    .div-name font {
+    }
+
+.div-edit {
+    float: right;
     /*border-bottom:1px solid rgb(204,204,204) ;*/
 }
 
 
 .div-edit {
-     margin-left:0;
-     padding-right:10px;
+    margin-left: 0;
+    padding-right: 10px;
 }
 
-.div-edit a{
-    float:left;
-   font-weight:bold;
-   color:rgb(121,112,143);
-   font-size:12px;
-}
-
-    .div-edit a:hover {
-        cursor:pointer;
+    .div-edit a {
+        float: left;
+        font-weight: bold;
+        color: rgb(121,112,143);
+        font-size: 12px;
     }
 
+        .div-edit a:hover {
+            cursor: pointer;
+        }
+
 #divMain3 {
-    height:670px;
+    height: 670px;
 }
 
 
 /*分页*/
-.pagination .disabled a{
-        background-color:rgb(234,237,242);
+.pagination .disabled a {
+    background-color: rgb(234,237,242);
 }
 
-.pagination .disabled a:hover{
-    background-color:rgb(234,237,242);
-}
+    .pagination .disabled a:hover {
+        background-color: rgb(234,237,242);
+    }
 
 .pagination li {
     /*display:inline-block;*/
-        background-color:rgb(234,237,242);
+    background-color: rgb(234,237,242);
 }
 
-.pagination li a {
-    display:block;
-    border: none;
-    font-size:12px;
-     background-color:rgb(234,237,242);
-   border-bottom-left-radius: 100%!important;
-    border-top-left-radius: 100%!important;
-    border-bottom-right-radius: 100%!important;
-    border-top-right-radius: 100%!important;
+    .pagination li a {
+        display: block;
+        border: none;
+        font-size: 12px;
+        background-color: rgb(234,237,242);
+        border-bottom-left-radius: 100%!important;
+        border-top-left-radius: 100%!important;
+        border-bottom-right-radius: 100%!important;
+        border-top-right-radius: 100%!important;
+    }
+
+.pagination .active a {
+    background-color: rgb(72,66,92);
 }
 
-.pagination .active a{
-    background-color:rgb(72,66,92);
-}
+    .pagination .active a:hover {
+        background-color: rgb(72,66,92);
+    }
 
-.pagination .active a:hover{
-    background-color:rgb(72,66,92);
-}
-
-.pagination li a:hover{
-    background-color:rgb(72,66,92);
+.pagination li a:hover {
+    background-color: rgb(72,66,92);
 }
 
 
 /*模态框*/
 .modal-body select {
-    margin-left:13px;
-    width:120px;
-    
+    margin-left: 13px;
+    width: 120px;
 }
 
 
 .modal-content {
-    height:155px;
+    height: 155px;
 }
 
 .modal-header {
-    height:56px;
+    height: 56px;
+    margin-right: 15px;
 }
 
     .modal-header h4, .modal-header img {
-        float:left;
+        float: left;
     }
+
     .modal-header h4 {
-        margin-left:10px;
-        color:rgb(121,112,143);
+        margin-left: 10px;
+        color: rgb(121,112,143);
     }
+
 .footer {
-    text-align:center;
+    text-align: center;
 }
 
-    .modal-body button {
-        background-color:#8c83a3;
-        border-color:#8c83a3;
-        height:28px;
-        margin-top:-4px;
-        margin-left:20px;
-        line-height:12px;
-        font-size:16px;
-    }
-.modal-body input {
-    height:28px;
-    width:280px;
-    border-radius:5px;
-    border:1px solid rgb(153,153,153);
-    text-align:left;
-    padding-left:10px;
+.modal-body button {
+    background-color: #8c83a3;
+    border-color: #8c83a3;
+    height: 28px;
+    margin-top: -4px;
+    margin-left: 20px;
+    line-height: 12px;
+    font-size: 16px;
 }
+
+.modal-body input {
+    height: 28px;
+    width: 280px;
+    border-radius: 5px;
+    border: 1px solid rgb(153,153,153);
+    text-align: left;
+    padding-left: 10px;
+}
+
 #modal1 {
-    top:300px;
+    top: 300px;
 }
 
 img:hover {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 
 /*input*/
 .icheckbox_minimal {
-    background-color:rgb(234,237,242);
-    border-radius:2px;
+    background-color: rgb(234,237,242);
+    border-radius: 2px;
 }
+
 .allselect .icheckbox_minimal {
-    background-color:white;
-    border-radius:2px;
+    background-color: white;
+    border-radius: 2px;
 }
 
 /*防止模态框移动页面*/

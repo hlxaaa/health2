@@ -1,8 +1,9 @@
-﻿//document.ready
-//document.ready
-//document.ready
-var isAdd = false;
+﻿var isAdd = false;
+var restId;
 $(document).ready(function () {
+    //每隔10秒查询新订单
+    //window.setInterval(remind, 10000);
+    //remind()
 
     $('#inputDate1').datetimepicker({
         format: 'yyyy-mm-dd',
@@ -31,8 +32,8 @@ $(document).ready(function () {
 
     var li = $('.list-group li');
     for (var i = 0; i < li.length; i++) {
-        if($('.list-group li:eq('+i+')').hasClass('active')){
-        //if (li[i].className == 'active') {
+        if ($('.list-group li:eq(' + i + ')').hasClass('active')) {
+            //if (li[i].className == 'active') {
             $('.list-group li:eq(' + i + ')').css('background', 'rgb(138,148,199)');
             $('.list-group li:eq(' + i + ')').append('<span><img id="icon-triangle" src="/Images/recipe/icon-triangle.png" /></span>');
             //$('#divNav').attr('overflow-x', 'hidden')
@@ -60,10 +61,6 @@ $(document).ready(function () {
 
     //getTable(jsonStr);
 
-   
-
-
-
     $('a').css('text-decoration', 'none');
 
     $('input').iCheck({
@@ -77,10 +74,15 @@ $(document).ready(function () {
         //    alert('请输入关键词');
         //}
         //else
-            changePage(1);
+        changePage(1);
     })
 
+    //点击右上角跳转到订单
     $('body').delegate('#ulTop li:eq(1)', 'click', function () {
+        location.href = '/Webs/Order.aspx';
+    })
+
+    $('body').delegate('.remind', 'click', function () {
         location.href = '/Webs/Order.aspx';
     })
 
@@ -134,8 +136,45 @@ $(document).ready(function () {
         }
     })
 
-    pushTips(8)
+    //提示有多少个新订单
+
 })
+
+//主要是remind.js里，这里先放着
+function remind() {
+    //if (restId!=null&&restId != 0) {
+    var data = {
+        method: 'getNewOrder',
+        //restId: restId
+    }
+    $.ajax({
+        type: 'post',
+        data: data,
+        url: 'Order.aspx',
+        cache: false,
+        success: function (data) {
+            if (parseInt(data) > 0) {
+                pushTips(data)
+                var h = '<div class="remind">'
+                        + '您有新的订单'
+                        + '</div>'
+                $('.remind').remove();
+                $('body').append(h);
+                var t = setTimeout("$('.remind').addClass('add-animation')", 5000)
+
+            }
+        },
+        error: function (err) {
+            alert('cuole');
+        }
+    })
+    //}
+
+}
+
+function sayHello() {
+    alert(1);
+}
 
 function getPrePage() {
     $('.pagination li').each(function () {
@@ -413,12 +452,14 @@ function getPageHtml2(pages, thePage) {//一个页面多个表的情况
 }
 
 function pushTips(num) {
-    $('.tipsNumber').remove();
-    $('.iconTop2:first').after('<font class="tipsNumber">'+num+'</font>');
+    if (num != 0) {
+        $('.tipsNumber').remove();
+        $('.iconTop2:first').after('<font class="tipsNumber">' + num + '</font>');
+    }
 }
 
 function omit(str, length) {
     if (str.length > length)
-        str = str.substring(0, length)+'...';
+        str = str.substring(0, length) + '...';
     return str;
 }

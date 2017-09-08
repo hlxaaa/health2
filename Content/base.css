@@ -6,17 +6,16 @@
 }
 
 body {
-     margin: 0;
+    margin: 0;
     padding: 0;
     margin-left: -15px;
     /*overflow-x:hidden;*/
-    overflow-x:hidden;
+    overflow-x: hidden;
 }
 
 #divTop {
     height: 3.4em;
     background-color: rgb(51,47,62);
-    
 }
 
     #divTop > div {
@@ -28,7 +27,7 @@ body {
     line-height: 3.4em;
     overflow-y: hidden;
     float: right;
-    padding-right:20px;
+    padding-right: 20px;
 }
 
 #divTopLeft {
@@ -55,7 +54,6 @@ body {
     }
 
         #ulTop li img, #ulTop li font {
-          
         }
 
 
@@ -66,7 +64,7 @@ body {
     /*overflow-x:hidden;*/
     /*width:auto;*/
     /*white-space: nowrap;*/
-    background-color:rgb(234,237,242);
+    background-color: rgb(234,237,242);
 }
 
 #divNav {
@@ -77,7 +75,7 @@ body {
 
 #divMains {
     display: inline-block;
-    font-size:12px;
+    font-size: 12px;
 }
 
 #divNav, #divMains {
@@ -97,7 +95,7 @@ body {
 #divMain1 #main1-left {
     float: left;
     overflow-y: hidden;
-    margin-left:-0.7em;
+    margin-left: -0.7em;
 }
 
 #main1-left h4 {
@@ -111,24 +109,22 @@ body {
 
 #main1-right {
     /*zoom:80%*/
-
 }
 
-#main1-right a {
-    /*height:2vw;*/
-     font-size:12px;
-    font-weight:bold;
-}
+    #main1-right a {
+        /*height:2vw;*/
+        font-size: 12px;
+        font-weight: bold;
+    }
 
-#main1-right img {
-    width:12px;
-}
+    #main1-right img {
+        width: 16px;
+    }
 
 .btn-this {
     color: white;
     border-color: rgb(121,112,143);
     background-color: rgb(121,112,143);
-   
 }
 
 #divTop, #divMain {
@@ -145,27 +141,29 @@ body {
     display: inline-block;
     width: 100%;
     margin: 0;
-    font-size:14px
+    font-size: 14px;
 }
 
     .list-group img, .list-group a {
         float: left;
-        line-height: 3.6em;
+        line-height: 49px;
         color: white;
-     
-        text-decoration:none;
+        text-decoration: none;
     }
+
     .list-group a {
-        margin-left:21px;
+        margin-left: 21px;
     }
+
         .list-group a:hover {
-            cursor:pointer
+            cursor: pointer;
         }
 
     .list-group img {
         width: 25px;
-        height: 3.6em;
-           margin-left: 17px;
+        /*height: 3.6em;*/
+        height: 49px;
+        margin-left: 17px;
     }
 
     .list-group li {
@@ -173,19 +171,20 @@ body {
         margin: 0;
         /*margin-left:-0.5vw;*/
         width: 100%;
-        height:52px;
+        height: 52px;
     }
 
 #divMains {
     margin: 0;
     background-color: rgb(234,237,242);
     /*width: 89.5%;*/
-    width:calc(100% - 205px);
+    width: calc(100% - 205px);
     /*overflow-x:scroll;*/
 }
 
 #divMain1 {
-    height: 3.6em;
+    /*height: 3.6em;*/
+    height: 43px;
 }
 
 #inputSearch {
@@ -195,8 +194,8 @@ body {
     /*height: 100px;*/
     /*border: 1px solid red;*/
     background: white;
-    border-radius: 0.3125em;
-    font-size: 0.9em;
+    border-radius: 4px;
+    /*font-size: 0.9em;*/
 }
 
     #divMain2 .row {
@@ -280,7 +279,6 @@ body {
     }
 
         .row2-left label input {
-
         }
 
 .row2-mid {
@@ -391,11 +389,10 @@ body {
     margin: 0;
     margin-top: 1em;
     line-height: 2.7em;
-    
 }
 
 #divMain2 div {
-    overflow-x:hidden
+    overflow-x: hidden;
 }
 
 .row5-left, .row5-right {
@@ -458,8 +455,8 @@ body {
 
     #divMain3 td {
         text-align: center;
-        height: 1.875em;
-        line-height: 2.125em;
+        /*height: 1.875em;
+        line-height: 2.125em;*/
     }
 
     #divMain3 table tbody tr input {
@@ -484,11 +481,11 @@ body {
 .pagination {
     /*display:inline-block;*/
     /*margin-left:43em;*/
-    
 }
+
     .pagination li a {
-        border:none;
-        border-radius:100%;
+        border: none;
+        border-radius: 100%;
     }
 
     .pagination a:hover {
@@ -499,12 +496,12 @@ body {
     margin: 0.7em;
     overflow-y: hidden;
     overflow-x: hidden;
-    margin-left:1.7em
+    margin-left: 1.7em;
     /*text-align:center;*/
 }
 
 #divMain2 {
-    margin-top:-1em;
+    margin-top: -1em;
 }
 
 
@@ -539,7 +536,7 @@ input {
 
 li, ul {
     list-style: none;
-    overflow-x:hidden;
+    overflow-x: hidden;
 }
 
 ul {
@@ -571,13 +568,12 @@ h4 {
     width: 2.2em;
     height: 3.5em;
     line-height: 3.5em;
-    
 }
 
 
 .tag-selected {
-    background-color:#49425b;
-    color:white;
+    background-color: #49425b;
+    color: white;
 }
 
 .iconTop2 {
@@ -601,8 +597,8 @@ h4 {
 }
 
 .btn-search {
-    width: 2.7em;
-    margin-top: -0.6em;
+    width: 30px;
+    margin-top: -6px;
 }
 
 /*第三方控件调整*/
@@ -632,160 +628,231 @@ h4 {
 }
 
 .li-ques {
-    display:none;
+    display: none;
 }
 
-.li-ques img{
-    margin-left:38px;
-}
-.li-ques a {
-    margin-left:5px;
-}
+    .li-ques img {
+        margin-left: 38px;
+    }
 
-.li-ques-open,li-back-open {
-    display:block;
+    .li-ques a {
+        margin-left: 5px;
+    }
+
+.li-ques-open, li-back-open {
+    display: block;
 }
 
 .li-back {
-    display:none;
+    display: none;
 }
 
-.li-back img{
-    margin-left:38px;
-}
-.li-back a {
-    margin-left:5px;
-}
+    .li-back img {
+        margin-left: 38px;
+    }
+
+    .li-back a {
+        margin-left: 5px;
+    }
 
 .li-back-open {
-    display:block;
+    display: block;
 }
 
 img {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 /*input*/
 .icheckbox_minimal {
-    background-color:rgb(234,237,242);
-    border-radius:2px;
+    background-color: rgb(234,237,242);
+    border-radius: 2px;
 }
+
 .allselect .icheckbox_minimal {
-    background-color:white;
-    border-radius:2px;
+    background-color: white;
+    border-radius: 2px;
 }
 
 /*分页*/
 .pagination {
-    margin-top:15px;
-}
-.pagination .disabled a{
-        background-color:rgb(234,237,242);
+    margin-top: 15px;
 }
 
-.pagination .disabled a:hover{
-    background-color:rgb(234,237,242);
-}
+    .pagination .disabled a {
+        background-color: rgb(234,237,242);
+    }
 
-.pagination li {
-    /*display:inline-block;*/
-        background-color:rgb(234,237,242);
-       /*border-bottom-left-radius: 100%!important;
+        .pagination .disabled a:hover {
+            background-color: rgb(234,237,242);
+        }
+
+    .pagination li {
+        /*display:inline-block;*/
+        background-color: rgb(234,237,242);
+        /*border-bottom-left-radius: 100%!important;
     border-top-left-radius: 100%!important;
     border-bottom-right-radius: 100%!important;
     border-top-right-radius: 100%!important;*/
-    text-align:center;
-}
+        text-align: center;
+    }
 
-.pagination li a {
-    padding:1px;
-    display:block;
-    border: none;
-    font-size:12px;
-    width:19px;
-     background-color:rgb(234,237,242);
-   border-bottom-left-radius: 100%!important;
-    border-top-left-radius: 100%!important;
-    border-bottom-right-radius: 100%!important;
-    border-top-right-radius: 100%!important;
-     margin-left:3px;
-     
-}
+        .pagination li a {
+            padding: 1px;
+            display: block;
+            border: none;
+            font-size: 12px;
+            width: 19px;
+            background-color: rgb(234,237,242);
+            border-bottom-left-radius: 100%!important;
+            border-top-left-radius: 100%!important;
+            border-bottom-right-radius: 100%!important;
+            border-top-right-radius: 100%!important;
+            margin-left: 3px;
+        }
 
-.pagination .active a{
-    background-color:rgb(72,66,92);
-}
+    .pagination .active a {
+        background-color: rgb(72,66,92);
+    }
 
-.pagination .active a:hover{
-    background-color:rgb(72,66,92);
-}
+        .pagination .active a:hover {
+            background-color: rgb(72,66,92);
+        }
 
-.pagination li a:hover{
-    background-color:rgb(72,66,92);
-}
+    .pagination li a:hover {
+        background-color: rgb(72,66,92);
+    }
 
 
 
 /*8.16*/
 .fl {
-    float:left;
+    float: left;
 }
 
 .fr {
-    float:right;
+    float: right;
 }
 
 .fc {
-    clear:both;
+    clear: both;
 }
 
 .bold {
-    font-weight:bold;
+    font-weight: bold;
 }
 
 .btn-base {
     background-color: #8c83a3;
     border-color: #8c83a3;
-    color:white;
+    color: white;
 }
 
 .img-base {
-    width:25px;
+    width: 25px;
 }
 
 .font-base {
-    color:rgb(121,112,143);
-    font-size:12px;
+    color: rgb(121,112,143);
+    font-size: 12px;
 }
 
 select {
-    outline:none;
+    outline: none;
 }
 
 /*防止模态框移动页面*/
 /*body{ overflow: auto !important;overflow-x:hidden;} #modal1{ overflow: auto !important;}*/
 
 .tipsNumber {
-    position:absolute;
-    display:block;
-    background:red;
-    height:20px;
-    width:20px;
-    line-height:20px;
-    border-radius:50%;
-    text-align:center;
-    font-size:8px;
-    margin-top:-46px;
-    margin-left:25px;
+    position: absolute;
+    display: block;
+    background: red;
+    height: 20px;
+    width: 20px;
+    line-height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 8px;
+    margin-top: -46px;
+    margin-left: 25px;
 }
+
     .tipsNumber:hover {
-            cursor:pointer
+        cursor: pointer;
     }
 
 .modal-backdrop {
-    margin-left:0;
+    margin-left: 0;
 }
 
 .modal-open {
-    overflow-y:auto;
+    overflow-y: auto;
+}
+
+.remind {
+    position: absolute;
+    top: 80%;
+    right: 0;
+    width: 200px;
+    height: 80px;
+    color: red;
+    /*border:1px solid red;*/
+    background: white;
+    border-radius: 5px;
+    text-align: center;
+    padding-top: 27px;
+    white-space: nowrap;
+    box-shadow: 3px 3px 3px #888888;
+    animation: remind-appear 2s;
+    -moz-animation: remind-appear 2s; /* Firefox */
+    -webkit-animation: remind-appear 2s; /* Safari and Chrome */
+    -o-animation: remind-appear 2s; /* Opera */
+    animation-fill-mode: forwards;
+}
+
+    .remind:hover {
+        cursor: pointer;
+        animation-play-state: paused;
+    }
+
+.add-animation {
+    animation: remind 2s;
+    -moz-animation: remind 2s; /* Firefox */
+    -webkit-animation: remind 2s; /* Safari and Chrome */
+    -o-animation: remind 2s; /* Opera */
+    animation-fill-mode: forwards;
+}
+
+@keyframes remind {
+    from {
+        width: 200px;
+    }
+
+    to {
+        width: 0px;
+    }
+}
+
+@keyframes remind-appear {
+    from {
+        width: 0px;
+    }
+
+    to {
+        width: 200px;
+    }
+}
+
+/*select兼容火狐*/
+select {
+    /*appearance:none;*/
+    -moz-appearance: none;
+    /*background:url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center 
+        transparent;*/
+    /*-webkit-appearance:none;*/
+}
+
+option {
+    margin-left: 5px;
 }

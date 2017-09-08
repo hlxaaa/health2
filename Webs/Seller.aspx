@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>商家账号设置</title>
     <script type="text/javascript">
-        var jsonStr = '<%=jsonStr%>'
+
     </script>
     <script src="../Scripts/jquery-2.0.0.min.js"></script>
     <script src="../Scripts/bootstrap.min.js"></script>
@@ -19,8 +19,8 @@
     <link href="../Scripts/checkboxStyle/skins/minimal/minimal.css" rel="stylesheet" />
     <script src="../Scripts/checkboxStyle/icheck.js"></script>
 
-    <script src="/Scripts/base.js?ver=<%=ran %>"></script>
-    <script src="/Scripts/webs/seller.js?ver=<%=ran %>"></script>
+    <script src="/Scripts/base.js"></script>
+    <script src="/Scripts/webs/seller.js"></script>
     <link href="/Content/base.css" rel="stylesheet" />
     <link href="/Content/webs/seller.css" rel="stylesheet" />
 
@@ -126,6 +126,7 @@
                 </div>
             </div>
             <div class="row" id="divMain3">
+                <div class="table-wrap">
                 <table class="table table-striped table-hover">
                     <thead class="thead1">
                         <tr>
@@ -138,38 +139,24 @@
                             <th width="3%"></th>
                             <th width="3%"></th>
                             <th width="3%"></th>
-                            <th width="4%">操作</th>
+                            <th width="4%"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style="background-color: white;">
-                            <td>
-                                <input type="checkbox">
-                            </td>
-                            <td>1
-                            </td>
-                            <td>江浙1
-                            </td>
-                            <td>shangjia1
-                            </td>
-                            <td>12123123
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td class="edit">
-                                <a class="btn-edit-left" style="text-decoration: none;">
-                                    <img class="btn-edit" src="/Images/recipe/icon-edit.svg"><font>编辑</font></a>
-                                <a style="text-decoration: none;" class="btn-delete">
-                                    <img class="btn-edit" src="/Images/recipe/icon-delete.svg"><font>删除</font>
-                                </a>
-                                <input type="hidden" value="">
-                            </td>
-                        </tr>
+                   
                     </tbody>
                 </table>
+                    </div>
+                <nav style="text-align: center; display: block">
+                    <ul class="pagination">
+                        <li class="disabled"><a style="text-decoration: none;">«</a></li>
+                        <li class="active"><a style="text-decoration: none;">1</a></li>
+                        <li onclick="getPage(this)"><a style="text-decoration: none;">2</a></li>
+                        <li onclick="getNextPage()"><a style="text-decoration: none;">»</a></li>
+                    </ul>
+                </nav>
             </div>
-            <nav style="text-align: center; display: block"><ul class="pagination"><li class="disabled"><a style="text-decoration: none;">«</a></li><li class="active"><a style="text-decoration: none;">1</a></li><li onclick="getPage(this)"><a style="text-decoration: none;">2</a></li><li onclick="getNextPage()"><a style="text-decoration: none;">»</a></li></ul></nav>
+
         </div>
         <div style="clear: both"></div>
     </div>
@@ -182,23 +169,23 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         &times;
                     </button>
-                    <img class="btn-edit" src="/Images/recipe/icon-edit.png" /><font class="modal-title" id="myModalLabel">菜品编辑
+                    <img class="btn-edit" src="/Images/recipe/icon-edit.png" /><font class="modal-title" id="myModalLabel">商家账号编辑
                     </font>
                 </div>
                 <div class="modal-body">
                     <div class="info">
-                        <font>商家:</font>
+                        <font class="modal-font-color">商家:</font>
                         <select>
                             <option value="value">text</option>
                         </select>
                     </div>
                     <div class="info">
-                        <font>账号:</font>
-                        <input id="info-account" type="text" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="16"/>
+                        <font class="modal-font-color">账号:</font>
+                        <input id="info-account" type="text" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="16" />
                     </div>
                     <div class="info">
-                        <font>密码:</font>
-                        <input id="info-password" type="text" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="16"/>
+                        <font class="modal-font-color">密码:</font>
+                        <input id="info-password" type="text" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength="16" />
                     </div>
 
                 </div>

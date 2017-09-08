@@ -1,70 +1,51 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace WebApplication1.Webs
 {
     public partial class Withdraw : System.Web.UI.Page
     {
-        protected SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["HealthConnection"].ConnectionString);
-        protected string sellerId = "";
         protected string jsonStr = "";
-        protected DataSet ds = new DataSet();
-
-        protected int ran = new Random().Next();
-
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["restId"] == null || (Session["restId"] != null && Session["restId"].ToString()!="0"))
+            if (Session["restId"] == null || (Session["restId"] != null && Session["restId"].ToString() != "0"))
             {
                 Response.Redirect("/error.aspx", false);
                 Response.End();
                 return;
-            }      
+            }
 
-            sellerId = Request["id"];
-            sellerId = "1";
-            GetWithdraw(sellerId);
-            switch (Request["method"]) { 
-                case"search":
+            switch (Request["method"])
+            {
+                case "search":
+                    GetWithdraw();
                     Response.Write(jsonStr);
                     Response.End();
                     break;
-                case"doWithdraw":
+                case "doWithdraw":
                     DoWithdraw();
                     break;
             }
         }
 
-        protected void DoWithdraw() {
+        protected void DoWithdraw()
+        {//可能需要整体事务
             string withdrawId = Request["withdrawId"];
-            conn.Open();
             string str1 = "update Withdraw set applyState='True' where id=" + withdrawId;
-            SqlCommand sqlCom = new SqlCommand(str1, conn);
-            sqlCom.ExecuteScalar();
+            Tool.ExecuteNon(str1);
             string str2 = "select applyMoney from Withdraw where id = " + withdrawId;
-            sqlCom = new SqlCommand(str2, conn);
-            double withdraw = Convert.ToDouble(sqlCom.ExecuteScalar());
+            double withdraw = Convert.ToDouble(Tool.ExecuteScalar(str2));
             string str3 = "select sellerid from Withdraw where id =" + withdrawId;
-            sqlCom = new SqlCommand(str3, conn);
-            var sellerId = sqlCom.ExecuteScalar();
+            var sellerId = Tool.ExecuteScalar(str3);
             string str4 = "update Seller set balance =(balance-" + withdraw + ") where id = " + sellerId;
-            sqlCom = new SqlCommand(str4, conn);
-            sqlCom.ExecuteScalar();
-
-            conn.Close();
+            Tool.ExecuteNon(str4);
         }
 
-        protected void GetWithdraw(string sellerId) {
+        protected void GetWithdraw()
+        {
             int pageIndex = 1;
-            int pageSize = 3;
+            int pageSize = 13;
             if (!string.IsNullOrEmpty(Request["thePage"]))
                 pageIndex = Convert.ToInt32(Request["thePage"]);
 
@@ -72,26 +53,18 @@ namespace WebApplication1.Webs
 
             int x = (pageIndex - 1) * pageSize;
             string sqlPaging = "select top " + pageSize + " * from (" + sqlSelect + ") r where id not in (select top " + x + " id from (" + sqlSelect + ") r order by applyState,id desc) order by applyState,id desc";
-            conn.Open();
-
-            SqlDataAdapter da = new SqlDataAdapter(sqlSelect, conn);
-
-            DataSet ds2 = new DataSet();
-            da.Fill(ds2);
-            int allCount = ds2.Tables[0].Rows.Count;
+            DataSet ds = Tool.ExecuteGetDs(sqlSelect);
+            int allCount = ds.Tables[0].Rows.Count;
             int pages = allCount / pageSize;
             pages = pages * pageSize == allCount ? pages : pages + 1;
-            ds2.Clear();
+            ds.Clear();
 
-            da = new SqlDataAdapter(sqlPaging, conn);
-            da.Fill(ds2);
-            ds2 = Tool.DsToString(ds2);
-            jsonStr = Tool.GetJsonByDataset(ds2);
+            ds = Tool.ExecuteGetDs(sqlPaging);
+            ds = Tool.DsToString(ds);
+            jsonStr = Tool.GetJsonByDataset(ds);
             string pagesStr = ",\"pages\":" + pages + "";
             string thePageStr = ",\"thePage\":" + pageIndex + "";
             jsonStr = jsonStr.Substring(0, jsonStr.Length - 1) + pagesStr + thePageStr + "}";
-
-            conn.Close();
         }
     }
 }

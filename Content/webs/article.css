@@ -1,72 +1,77 @@
 ﻿body {
 }
+
 .btnSearch {
-    height:32px;
+    height: 32px;
 }
 
 #divMain3 {
-    font-size:12px;
+    font-size: 12px;
 }
 
 #inputSearch {
-    height:32px;
-    width:270px;
+    height: 32px;
+    width: 270px;
 }
 
 .row1-left {
-    margin-left:-7px;
-    margin-top:6px;
+    margin-left: -7px;
+    margin-top: 6px;
 }
 
 
 
 .row1-mid {
-    margin-top:5px;
-    width:336px;
+    margin-top: 5px;
+    width: 336px;
 }
 
 .row-search-rest {
-    overflow-y:hidden;
-    background-color:rgb(234,237,242);
+    overflow-y: hidden;
+    background-color: rgb(234,237,242);
 }
 
-thead tr th {
-    height:20px;
-    line-height:34px!important;
-}
+/*thead tr th {
+    height: 20px;
+    line-height: 34px!important;
+}*/
 
 .row1-right {
-    float:right;
-    width:240px;
-    margin-top:12px;
+    float: right;
+    width: 208px;
+    margin-top: 12px;
 }
+
     .row1-right font {
-        font-size:14px;
-        font-weight:bold;
-       margin-left:8px;
+        font-size: 14px;
+        font-weight: bold;
+        margin-left: 8px;
     }
+
     .row1-right a {
-        float:left;
-        color:white;
-        height:30px;
-         line-height:10px;
+        float: left;
+        color: white;
+        height: 30px;
+        line-height: 10px;
         /*width:70px;*/
     }
+
         .row1-right a:first-child {
-            width:100px;
+            width: 100px;
         }
+
     .row1-right img {
-        width:15px;
-        margin-left:-2px;
+        width: 15px;
+        margin-left: -2px;
         /*margin-top:-10px;*/
     }
 
 #divTitle {
-    width:500px;
+    width: 500px;
 }
 
 input {
-        border: 0.5px solid #8c83a3;
+    border: 0.5px solid #8c83a3;
     height: 33px;
     /*width: 440px;*/
     border-radius: 5px;
@@ -75,143 +80,153 @@ input {
 }
 
 .inputTips {
-    color:rgb(153,153,153);
-    font-size:12px;
-    margin-top:5px;
+    color: rgb(153,153,153);
+    font-size: 12px;
+    margin-top: 5px;
 }
 
 
 /*模态框1*/
 .modal-dialog {
-    width:800px;
-    height:1000px
+    width: 800px;
+    height: 1000px;
 }
 
 .modal-footer {
-    text-align:center;
+    text-align: center;
 }
+
     .modal-footer a {
         background-color: #8c83a3;
-    border-color: #8c83a3;
-    width:114px;
-    height:45px;
-    font-size:20px;
-    margin-left: -40px;
+        border-color: #8c83a3;
+        width: 114px;
+        height: 45px;
+        font-size: 20px;
+        margin-left: -40px;
     }
 
-#divTags .close{
-    float:initial;
-    margin-right:-6px;
-    margin-top:-10px;
+#divTags .close {
+    float: initial;
+    margin-right: -6px;
+    margin-top: -10px;
 }
+
 #divTags {
     /*height:60px;*/
-    padding-bottom:10px;
-    line-height:60px;
+    padding-bottom: 10px;
+    line-height: 60px;
 }
+
     #divTags font, #divTags span {
-        float:left;
+        float: left;
     }
+
     #divTags span {
-        display:block;
-        min-width:60px;
-        width:auto;
-        height:32px;
-        margin-top:14px;
-     
+        display: block;
+        min-width: 60px;
+        width: auto;
+        height: 32px;
+        margin-top: 14px;
     }
-    #divTags span font{
-        margin-top:6px;
-        margin-left:8px;
-        font-size:15px;
-    }
+
+        #divTags span font {
+            margin-top: 6px;
+            margin-left: 8px;
+            font-size: 15px;
+        }
 
 .icon-add {
-    width:20px;
+    width: 20px;
 }
 
-#modal2 .modal-content{
-    height:500px;
-    z-index:1111111111;
+#modal2 .modal-content {
+    height: 500px;
+    z-index: 1111111111;
 }
+
 .add-selector {
-    display:block;
-    
+    display: block;
 }
+
 .tag-selector {
-    position:absolute ;
-    z-index:111111111;
-    min-height:100px;
-    height:auto;
-    width:500px;
+    position: absolute;
+    z-index: 111111111;
+    min-height: 100px;
+    height: auto;
+    width: 500px;
     /*border:1px solid red;*/
-    border-radius:20px;
-   margin-left:100px;
-   background-color:white;
-   box-shadow:0 0 20px #666;
-   display:none;
+    border-radius: 20px;
+    margin-left: 100px;
+    background-color: white;
+    box-shadow: 0 0 20px #666;
+    display: none;
 }
+
     .tag-selector hr {
-        width:459px;
-        margin-left:20px;
-        margin-top:13px;
+        width: 459px;
+        margin-left: 20px;
+        margin-top: 13px;
     }
 
 .selector-head img, .selector-head font {
-    float:left;
-    line-height:30px;
-    margin-top:14px;
-    
+    float: left;
+    line-height: 30px;
+    margin-top: 14px;
 }
 
 
 .selector-head font {
-    font-weight:bold;
-    color:rgb(121,112,143);
-   
-}
-.selector-head img {
-    margin-left:42px;
-}
-.selector-body {
-    padding:0;
-    margin-top:-16px;
-    height:auto;
-    padding-left:20px;
-}
-.selector-body span{
-     /*height:20px;*/
-     display:inline-block;
-     width:30px;
-     line-height:30px;
-     font-size:15px;
-     padding-left:13px;
-     border-radius:5px;
-        padding-right:10px;
+    font-weight: bold;
+    color: rgb(121,112,143);
 }
 
-    .selector-body span:hover {
-        cursor:pointer
+.selector-head img {
+    margin-left: 42px;
+}
+
+.selector-body {
+    padding: 0;
+    margin-top: -16px;
+    height: auto;
+    padding-left: 20px;
+}
+
+    .selector-body span {
+        /*height:20px;*/
+        display: inline-block;
+        width: 30px;
+        line-height: 30px;
+        font-size: 15px;
+        padding-left: 13px;
+        border-radius: 5px;
+        padding-right: 10px;
     }
+
+        .selector-body span:hover {
+            cursor: pointer;
+        }
 
 .selector-foot {
-    text-align:center;
+    text-align: center;
 }
+
     .selector-foot button {
-        margin-top:-25px;
+        margin-top: -25px;
         background-color: #8c83a3;
-    border-color: #8c83a3;
-    width: 114px;
-    height: 45px;
-    font-size: 20px;
+        border-color: #8c83a3;
+        width: 114px;
+        height: 45px;
+        font-size: 20px;
     }
+
 .btn-tag {
-    color:white;
+    color: white;
 }
+
 .selector-head .close {
-    float:right!important;
-    margin-top:8px!important;
-    margin-right:29px!important;
+    float: right!important;
+    margin-top: 8px!important;
+    margin-right: 29px!important;
 }
 
 
@@ -221,29 +236,46 @@ input {
 td {
     /*height:100px!important;*/
 }
+
 tr {
     /*height:40px;*/
 }
 
 /*分页*/
 .pagination li a {
-
-     background-color:white;
-
+    background-color: white;
 }
 
-.pagination .active a{
-    background-color:rgb(72,66,92);
+.pagination .active a {
+    background-color: rgb(72,66,92);
 }
 
 .pagination .disabled a {
-    background-color:white;
+    background-color: white;
 }
 
-.pagination .disabled a:hover{
-    background-color:white;
-}
+    .pagination .disabled a:hover {
+        background-color: white;
+    }
 
 .pagination {
     /*zoom:50%;*/
+}
+
+table {
+    line-height:44px;
+    margin-right:15px;
+    /*min-height:730px;*/
+}
+thead {
+    line-height:54px;
+}
+
+#editDelete {
+    line-height:30px;
+}
+.table-wrap {
+    height:730px;
+    margin:0;
+    padding:0;
 }

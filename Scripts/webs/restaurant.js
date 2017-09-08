@@ -16,7 +16,7 @@ $(document).ready(function () {
         if (r == true) {
             var ids = new Array();
             $('tr div[class="icheckbox_minimal checked"]').each(function () {
-               ids.push($(this).parent().parent().children('#editDelete').children('input').val());
+                ids.push($(this).parent().parent().children('#editDelete').children('input').val());
             })
             var data = {
                 method: 'batchDelete',
@@ -39,7 +39,7 @@ $(document).ready(function () {
 
     $('body').delegate('.btn-editRest', 'click', function () {
         var id = $(this).prev().val();
-        location.href = "RestaurantContent.aspx?id="+id;
+        location.href = "RestaurantContent.aspx?id=" + id;
     })
     $('.btn-add').click(function () {
         location.href = "RestaurantContent.aspx";
@@ -82,9 +82,9 @@ $(document).ready(function () {
 
     $('.rest-category-right span').click(function () {
         //if ($('.rest-category-right span').hasClass('label-select'))
-            
+
         //alert(1);
-            changePage(1);
+        changePage(1);
     })
 })
 
@@ -118,7 +118,7 @@ function getTable(data) {
         + '<tbody>';
     for (var i = 0; i < json.length; i++) {
         var name = omit(json[i].name, 20);
-        var address=omit(json[i].address,20)
+        var address = omit(json[i].address, 20)
         h += '<tr  style="background-color:white;">';
         h += "<td><input type=\"checkbox\"></td>";
         h += "<td>" + name + "</td>";
@@ -132,7 +132,7 @@ function getTable(data) {
         discount.replace(/\|/g, ',')
         h += "<td>" + discount + "</td>";
         h += '<td id="editDelete">'
-            +'<input type="hidden" value="'+json[i].id+'" />'
+            + '<input type="hidden" value="' + json[i].id + '" />'
             + '<a id="aRightBorder" class="btn-editRest"><img class="btn-edit" src="/Images/recipe/icon-edit.svg" /><font>编辑</font></a> '
             + '<a class="btn-delRest"><img class="btn-edit" src="/Images/recipe/icon-delete.svg" /><font>删除</font></a> '
         + '</td>';
@@ -142,9 +142,9 @@ function getTable(data) {
 
 
     h += '</table>';
-    $('#divMain3 table').remove();
+    $('.table-wrap table').remove();
     //$('#divMain3 nav').remove();
-    $('#divMain3').append(h);
+    $('.table-wrap').append(h);
 
     var pages = JSON.parse(data).pages;
     var thePage = JSON.parse(data).thePage;
@@ -180,13 +180,13 @@ function getTable(data) {
 
 function changePage(page) {
     var search = $('#inputSearch').val();
-    var cate =  $('.rest-category-right span[class="label label-select"]').text();
-    
+    var cate = $('.rest-category-right span[class="label label-select"]').text();
+
     var data = {
         method: 'search',
         thePage: page,
         search: search,
-        cate:cate
+        cate: cate
     }
     $.ajax({
         type: 'post',
@@ -225,7 +225,7 @@ function allselectToggle() {
 }
 
 function clickFood(node) {
-    
+
     if (node.className == 'label label-default') {
         $('.rest-category-right span').attr('class', 'label label-default');
         node.className = 'label label-select'
@@ -281,7 +281,7 @@ function updateRest(id) {
     }
 
     var data = {
-        method:'updateRest',
+        method: 'updateRest',
         name: name,
         address: address,
         phone: phone,
@@ -345,7 +345,7 @@ function deleteRest(id) {
         }
         $.ajax({
             type: "post",
-            data:data,
+            data: data,
             url: "Restaurant.aspx",
             cache: false,
             success: function (data) {
@@ -392,7 +392,7 @@ function addRest() {
     }
 
     var data = {
-        method:'addRest',
+        method: 'addRest',
         name: name,
         address: address,
         phone: phone,
@@ -473,11 +473,11 @@ function deleteImg(node, i, id) {
     var data = {
         id: id,
         index: i,
-        method:'deleteImg'
+        method: 'deleteImg'
     }
     $.ajax({
         type: 'post',
-        data:data,
+        data: data,
         url: 'Restaurant.aspx',
         cache: false,
         success: function (data) {

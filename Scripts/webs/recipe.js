@@ -1,14 +1,8 @@
 ﻿var jsonStr;
 var theClickFood;
 var theClickTag;
-var pageSize = 12;
+var pageSize = 14;
 var isHasResult = true;
-//var types = new Array();
-//var keys = new Array();
-//var pageIndex;
-
-//webSocket
-
 
 function moreSelector() {
     $('#divMain2').attr('class', 'row row-max');
@@ -27,9 +21,9 @@ function getPrePage() {
 }
 
 function getPage(node) {
-        var thePage = node.innerText;
-        //alert(thePage);
-        changePage(thePage);
+    var thePage = node.innerText;
+    //alert(thePage);
+    changePage(thePage);
 }
 
 function getNextPage() {
@@ -41,30 +35,26 @@ function getNextPage() {
             break;
         }
     }
-    
+
 }
 
 function clearFoodSelect() {
     var l = $('.row5-right span').length;
-    for(var  i =0;i<l;i++){
-        if ($('.row5-right span:eq(' + i + ')').text() == theClickFood) {
-            $('.row5-right span:eq(' + i + ')').attr('class', 'label label-default');
-            theClickFood = '';
-            break;
-        }
+    for (var i = 0; i < l; i++) {
+        //if ($('.row5-right span:eq(' + i + ')').text() == theClickFood) {
+        $('.row5-right span:eq(' + i + ')').attr('class', 'label label-default');
+        //theClickFood = '';
+        //break;
     }
 }
 
 function clearTagSelect() {
     var l = $('.row3-right div font').length;
-    //alert($('.div-tag:eq(1) font').html())
-    //alert($('.row3-right div:eq(0) div').attr('class'))
     for (var i = 0; i < l; i++) {
-        if ($('.div-tag:eq('+i+') font').text() == theClickTag) {
-            $('.div-tag:eq(' + i + ') div').attr('class', 'icheckbox_minimal');
-            theClickTag = '';
-            break;
-        }
+        //if ($('.div-tag:eq('+i+') font').text() == theClickTag) {
+        $('.div-tag:eq(' + i + ') div').attr('class', 'icheckbox_minimal');
+        //theClickTag = '';
+        //break;
     }
 }
 
@@ -74,8 +64,10 @@ function getTable(data) {
     if (json == null) {
         isHasResult = false;
         //alert('没有结果');
-        clearFoodSelect();
-        clearTagSelect();
+        //clearFoodSelect();
+        //clearTagSelect();
+        $('tbody tr').remove();
+        $('nav').remove();
         return;
     }
     var h = '<table class=\"table table-striped table-hover\">'
@@ -83,12 +75,12 @@ function getTable(data) {
         + '<tr>'
         + '<th width="1%"><input type="checkbox"></th>'
         + '<th width="5%">名称</th>'
-        + '<th width="5%">有没有</th>'
-        + '<th width="20%">菜品</th>'
         + '<th width="5%">餐厅</th>'
-        + '<th width="5%">标签</th>'
-        + '<th width="5%">销售量</th>'
+        + '<th width="5%">有没有</th>'
+          + '<th width="5%">标签</th>'
+             + '<th width="5%">销售量</th>'
         + '<th width="5%">价格</th>'
+        + '<th width="20%">菜品</th>'
         + '<th width="10%">操作</th>'
         + '</tr>'
         + '</thead>'
@@ -98,20 +90,19 @@ function getTable(data) {
         h += "<td><input type=\"checkbox\"></td>";
         var name = omit(json[i].name, 12);
         h += "<td>" + name + "</td>";
-        h += "<td>" + json[i].available + "</td>";
-        var foods = omit(json[i].foods, 20);
-        h += "<td>" + foods + "</td>";
-        var rest =omit(json[i].restaurantId,8);
+        var rest = omit(json[i].restaurantId, 8);
         h += "<td>" + rest + "</td>";
-        var tags = json[i].tags;
-        if (tags.length > 11)
-            tags = json[i].tags.toString().substring(0,11)+ '...';
+        h += "<td>" + json[i].available + "</td>";
+        var tags = omit(json[i].tags, 11);
         h += "<td>" + tags + "</td>";
-        //h += "<td>" + json[i].images + "</td>";
         h += "<td>" + json[i].sales + "</td>";
         h += "<td>" + json[i].price + "元</td>";
+        var foods = omit(json[i].foods, 20);
+        h += "<td>" + foods + "</td>";
+        //h += "<td>" + json[i].images + "</td>";
+
         h += '<td id="editDelete">'
-            +'<input type="hidden" class="recipeId" value="'+json[i].id+'"/>'
+            + '<input type="hidden" class="recipeId" value="' + json[i].id + '"/>'
             + '<a id="aRightBorder"><img class="btn-edit" src="/Images/recipe/icon-edit.svg" /><font>编辑</font></a> '
             + '<a class="btn-delete"><img class="btn-edit" src="/Images/recipe/icon-delete.svg" /><font>删除</font></a> '
         + '</td>';
@@ -119,8 +110,8 @@ function getTable(data) {
     }
     h += '</tbody>';
     h += '</table>';
-    $('#divMain3 table').remove();
-    $('#divMain3').append(h);
+    $('.table-wrap table').remove();
+    $('.table-wrap').append(h);
 
     var pages = JSON.parse(data).pages;
     var thePage = JSON.parse(data).thePage;
@@ -153,11 +144,11 @@ function getTable(data) {
 }
 
 function changePage(page) {
-   
+
     var timeRange = new Array();
     timeRange[0] = $('#inputDate1').val();
     timeRange[1] = $('#inputDate2').val();
-   
+
     var foods = new Array();
     var spans = $('.row5-right span');
     //alert(spans.length);
@@ -174,7 +165,7 @@ function changePage(page) {
     var j = 0;
     for (var i = 0; i < l; i++) {
         //if ($('.row3-right div input:eq(' + i + ')').is(':checked')) {
-        if ($('.div-tag:eq('+i+') div').hasClass('checked')) {
+        if ($('.div-tag:eq(' + i + ') div').hasClass('checked')) {
             tags[j] = $('.row3-right div font:eq(' + i + ')').html();
             j++;
         }
@@ -191,21 +182,30 @@ function changePage(page) {
 
     var available = $('input:radio:checked').val();
     //alert(available);
-  
-    var data = {
-        method: 'search',
-        thePage: page,
-        saleRange: saleRange,
-        priceRange: priceRange,
-        search: search,
-        available: available,
-        tags: tags,
-        foods: foods,
-        timeRange: timeRange,
-        pageSize: pageSize
+    var data;
+    if (pageSize == 14) {
+        data = {
+            method: 'search',
+            thePage: page,
+            search: search,
+            pageSize: pageSize
+        }
+    } else {
+
+        data = {
+            method: 'search',
+            thePage: page,
+            saleRange: saleRange,
+            priceRange: priceRange,
+            search: search,
+            available: available,
+            tags: tags,
+            foods: foods,
+            timeRange: timeRange,
+            pageSize: pageSize
+        }
     }
-    
-  
+
     $.ajax({
         type: 'post',
         data: data,
@@ -221,14 +221,14 @@ function changePage(page) {
             });
             $('a').css('text-decoration', 'none');
             allselectToggle();
-            if(!isHasResult)
-                alert('没有结果')
+            //if(!isHasResult)
+            //    alert('没有结果')
         },
         error: function (err) {
             alert('cuole');
         }
     })
-    
+
 }
 
 function test() {
@@ -253,7 +253,7 @@ $(document).ready(function () {
         autoclose: true,
         minView: (0, 'month'),
     });
-    
+
     $('#inputDate1').css('border-radius', '0.3vw');
     $('#inputDate2').css('border-radius', '0.3vw');
 
@@ -279,6 +279,7 @@ $(document).ready(function () {
     }
 
     $('.batchDelete').click(function () {
+        var page = $('.pagination li[class="active"] a').text();
         var l = $('tr div[class="icheckbox_minimal checked"]').length;
         if (l < 1) {
             alert('请先选择');
@@ -300,7 +301,8 @@ $(document).ready(function () {
                 url: 'Recipe.aspx',
                 cache: false,
                 success: function (res) {
-                    location.reload();
+                    //location.reload();
+                    changePage(page);
                 },
                 error: function (res) {
                     alert(res);
@@ -314,9 +316,11 @@ $(document).ready(function () {
     $('#inputDate2').change(function () {
         var start = $('#inputDate1').val();
         var end = $('#inputDate2').val();
-        if (end < start&&start!=''&&end!='') {
+        if (end < start && start != '' && end != '') {
             alert('结束时间应晚于开始时间');
             $('#inputDate2').val('');
+        } else {
+            changePage(1);
         }
     })
 
@@ -326,15 +330,17 @@ $(document).ready(function () {
         if (end < start && start != '' && end != '') {
             alert('结束时间应晚于开始时间');
             $('#inputDate1').val('');
+        } else {
+            changePage(1);
         }
     })
 
     //getTable(jsonStr);
     changePage(1);
 
-    $('.btnSearch').click(function () {
-        changePage(1);
-    })
+    //$('.btnSearch').click(function () {
+    //    changePage(1);
+    //})
 
     getInputStyle();
 
@@ -356,10 +362,10 @@ $(document).ready(function () {
 
     $('.row3-right ins').click(function () {
         theClickTag = $(this).parent().next().text();
-        
+
         changePage(1);
     })
-    
+
     $('.row5-right span').click(function () {
         theClickFood = $(this).text();
         changePage(1);
@@ -371,45 +377,87 @@ $(document).ready(function () {
             $('#divMain2').attr('class', 'row-max');
             this.innerHTML = '收起<span class="caret">';
             this.className = 'dropup';
-            pageSize = 7;
+            pageSize = 9;
             changePage(1);
             $('.div-selector').attr('class', 'div-selector-h ')
+            $('.table-wrap').css('height', '458px');
         }
         else {
             $('#divMain2').attr('class', 'row-min');
             this.innerHTML = '高级<span class="caret">';
             this.className = 'dropdown';
-            pageSize = 12;
+            pageSize = 14;
+            test();
             changePage(1);
             $('.div-selector-h').attr('class', 'div-selector')
+            $('.table-wrap').css('height', '683px');
         }
     })
 
-    $('.row2-mid input').change(function(){
-        var start =  $('.row2-mid input:eq(0)').val().trim();
+    $('.row2-mid input:eq(0)').change(function () {
+        var start = $('.row2-mid input:eq(0)').val().trim();
         var end = $('.row2-mid input:eq(1)').val().trim();
-        if ((start != '') && (end != '')) {
-            if (start > end)
-                alert('销售量区间错误');
+        if (start == '')
+            start = 0;
+        if (end == '')
+            end = 9999999;
+        if (parseInt(start) > parseInt(end)) {
+            alert('销售量区间错误');
+            $(this).val('')
         }
+        else
+            changePage(1);
     })
 
-    $('.row2-right input').change(function () {
-        //alert(1);
-        var start = parseInt($('.row2-right input:eq(0)').val());
-        var end =  parseInt($('.row2-right input:eq(1)').val());
-        if (start != '' && end != '') {
-            if (start > end)
-                alert('价格区间错误');
+    $('.row2-mid input:eq(1)').change(function () {
+        var start = $('.row2-mid input:eq(0)').val().trim();
+        var end = $('.row2-mid input:eq(1)').val().trim();
+        if (start == '')
+            start = 0;
+        if (end == '')
+            end = 9999999;
+        if (parseInt(start) > parseInt(end)) {
+            alert('销售量区间错误');
+            $(this).val('')
         }
+        else
+            changePage(1);
+    })
+
+    $('.row2-right input:eq(0)').change(function () {
+        var start = parseInt($('.row2-right input:eq(0)').val());
+        var end = parseInt($('.row2-right input:eq(1)').val());
+        if (start == '')
+            start = 0;
+        if (end == '')
+            end = 999999;
+        if (parseInt(start) > parseInt(end)) {
+            alert('价格区间错误');
+            $(this).val('')
+        } else
+            changePage(1);
+    })
+
+    $('.row2-right input:eq(1)').change(function () {
+        var start = parseInt($('.row2-right input:eq(0)').val());
+        var end = parseInt($('.row2-right input:eq(1)').val());
+        if (start == '')
+            start = 0;
+        if (end == '')
+            end = 999999;
+        if (parseInt(start) > parseInt(end)) {
+            alert('价格区间错误');
+            $(this).val('')
+        } else
+            changePage(1);
     })
 
     //全选
     allselectToggle();
 
     $('body').delegate('#aRightBorder', 'click', function () {
-        var id =$(this).prev().val();
-        window.location.href = '/webs/RecipeContent.aspx?id='+id;
+        var id = $(this).prev().val();
+        window.location.href = '/webs/RecipeContent.aspx?id=' + id;
     })
 
     $('body').delegate('.btn-delete', 'click', function () {
@@ -419,7 +467,7 @@ $(document).ready(function () {
         if (r == true) {
             var data = {
                 method: 'deleteRecipe',
-                id:id
+                id: id
             }
             $.ajax({
                 type: 'post',
@@ -454,10 +502,6 @@ function allselectToggle() {
     })
 }
 
-//function search() {
-//    changePage(1);
-//////}
-
 function clickFood(node) {
     if (node.className == 'label label-default')
         node.className = 'label label-select'
@@ -465,395 +509,15 @@ function clickFood(node) {
         node.className = 'label label-default'
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function tipsClear() {
-    $('#divName').css('border-color', '#515151');
-    $('#divPrice').css('border-color', '#515151');
-    $('#selectTags').css('border-color', '#515151');
-
-    var countTr = $('#tbodyFood tr').length;
-    //var foodType = new Array(count);
-    //for (var i = 0; i < countTr; i++) {
-    //    foodType[i] = $('#tbodyFood tr:eq(' + i + ') td select').val();
-    //}
-    //var food = new Array(countTr);
-    var weight = new Array(countTr);
-    for (var i = 0; i < countTr; i++) {
-        var l = $('#tbodyFood tr:eq(' + i + ') #tdFood div').length - 1;
-        //food[i] = new Array(l);
-        weight[i] = new Array(l);
-        for (var j = 0; j < l; j++) {
-            //food[i][j] = $('#tbodyFood tr:eq(' + i + ') #tdFood div:eq(' + j + ') select').val();
-            var wInput = $('#tbodyFood tr:eq(' + i + ') #tdFood div:eq(' + j + ') input');
-            wInput.css('border-color', '#515151');
-        }
-    }
+function test() {
+    $('input:radio:checked').attr('checked', false);
+    $('.row2-left div').removeClass('checked');
+    $('.row2-mid input').val('');
+    $('.row2-right input').val('');
+    clearTagSelect();
+    clearFoodSelect();
+    //clearTagSelect();
+    $('.row4 input').val('')
+    //changePage(1);
 
 }
-
-function addRecipe() {
-    tipsClear();
-    var name = $('#divName').val();
-    if (name == '') {
-        $('#divName').css('border-color', 'red');
-        return;
-    }
-    var available = $('#selectAvailable').val();
-    var rest = $('#selectRest').val();
-    var price = $('#divPrice').val();
-    if (price == '') {
-        $('#divPrice').css('border-color', 'red');
-        return;
-    }
-    var sales = $('#divSales').val();
-    //alert(name+available+rest+price+sales);
-
-    var count = $('#divTags span').length;
-    //alert(count);
-    if (count == 0) {
-        $('#selectTags').css('border-color', 'red');
-        return;
-    }
-    var tags = new Array(count);
-    for (var i = 0; i < count; i++) {
-
-        tags[i] = $('#divTags span:eq(' + i + ')  h6').html();
-    }
-
-    var countTr = $('#tbodyFood tr').length;
-    var foodType = new Array(count);
-    for (var i = 0; i < countTr; i++) {
-        foodType[i] = $('#tbodyFood tr:eq(' + i + ') td select').val();
-    }
-
-    var food = new Array(countTr);
-    var weight = new Array(countTr);
-    for (var i = 0; i < countTr; i++) {
-        var l = $('#tbodyFood tr:eq(' + i + ') #tdFood div').length - 1;
-        food[i] = new Array(l);
-        weight[i] = new Array(l);
-        for (var j = 0; j < l; j++) {
-            food[i][j] = $('#tbodyFood tr:eq(' + i + ') #tdFood div:eq(' + j + ') select').val();
-            var wInput = $('#tbodyFood tr:eq(' + i + ') #tdFood div:eq(' + j + ') input');
-            //alert(wInput.val());
-            if (wInput.val() == '') {
-                wInput.css('border-color', 'red');
-                return;
-            }
-            weight[i][j] = wInput.val();
-            //if (j == l - 1) {
-            //    food[i][j] += "|";
-            //    weight[i][j] += "|";
-            //}
-        }
-    }
-    //alert(food);
-    var data = {
-        name: name,
-        available: available,
-        rest: rest,
-        price: price,
-        sales: sales,
-        tags: tags,
-        foodType: foodType,
-        food: food,
-        weight: weight
-    }
-
-    $.ajax({
-        type: "post",
-        data: data,
-        url: "Recipe.aspx?method=add",
-        //url: "Recipe.aspx?method=add&name=" + name + "&available=" + available + "&rest=" + rest + "&price=" + price + "&sales=" + sales + "&tags=" + tags + "&foodType=" + foodType + "&food=" + food + "&weight=" + weight,
-        cache: false,
-        success: function (data) {
-            if (data == "exist")
-                alert("已存在该餐厅")
-            else
-                location.reload();
-        },
-        error: function (err) {
-            alert("出问题了");
-        }
-    });
-}
-
-function updateRecipe() {
-    tipsClear();
-    var id = $('#inputId').val();
-    var name = $('#divName').val();
-    var available = $('#selectAvailable').val();
-    var rest = $('#selectRest').val();
-    var price = $('#divPrice').val();
-    var sales = $('#divSales').val();
-
-    var count = $('#divTags span').length;
-    var tags = new Array(count);
-    for (var i = 0; i < count; i++) {
-        tags[i] = $('#divTags span:eq(' + i + ')  h6').html();
-    }
-
-    var countTr = $('#tbodyFood tr').length;
-    var foodType = new Array(count);
-    for (var i = 0; i < countTr; i++) {
-        foodType[i] = $('#tbodyFood tr:eq(' + i + ') td select').val();
-    }
-
-    var food = new Array(countTr);
-    var weight = new Array(countTr);
-    for (var i = 0; i < countTr; i++) {
-        var l = $('#tbodyFood tr:eq(' + i + ') #tdFood div').length - 1;
-        food[i] = new Array(l);
-        weight[i] = new Array(l);
-        for (var j = 0; j < l; j++) {
-            food[i][j] = $('#tbodyFood tr:eq(' + i + ') #tdFood div:eq(' + j + ') select').val();
-            weight[i][j] = $('#tbodyFood tr:eq(' + i + ') #tdFood div:eq(' + j + ') input').val();
-            //if (j == l - 1) {
-            //    food[i][j] += "|";
-            //    weight[i][j] += "|";
-            //}
-        }
-    }
-
-    var data = {
-        name: name,
-        available: available,
-        rest: rest,
-        price: price,
-        sales: sales,
-        tags: tags,
-        foodType: foodType,
-        food: food,
-        weight: weight,
-        id: id
-    }
-
-    $.ajax({
-        type: "post",
-        data: data,
-        url: "Recipe.aspx?method=update",
-        //url: "Recipe.aspx?method=update&name=" + name + "&available=" + available + "&rest=" + rest + "&price=" + price + "&sales=" + sales + "&tags=" + tags + "&foodType=" + foodType + "&food=" + food + "&weight=" + weight + "&id=" + id,
-        cache: false,
-        success: function (data) {
-            if (data == "exist")
-                alert("已存在该食谱")
-            else
-                location.reload();
-        },
-        error: function (err) {
-            alert("出问题了");
-        }
-    });
-}
-
-//$(document).ready(function () {
-//    //$('#trModel').hide();
-//});
-
-function deleteTags(node) {
-    var a = node.parentNode;
-    a.parentNode.removeChild(a);
-}
-
-function modalAdd() {
-    tipsClear();
-    isAdd = true;
-    document.getElementById("btnAdd").style.display = '';
-    document.getElementById("btnUpdate").style.display = 'none';
-    $('#modalAdd').modal();
-    $('#divName').val('');
-    $('#selectAvailable').prop('selectedIndex', 0);
-    $('#selectRest').prop('selectedIndex', 0);
-    $('#divPrice').val('');
-    $('#divSales').val('');
-    $('#divTags span').remove();
-
-    $('#tbodyFood tr:first').nextAll().remove();
-    $('#tbodyFood tr:eq(0) td:eq(1) #divFood').first().nextAll('#divFood').remove();
-}
-
-function getOption() {
-    var a = $('#selectTags option:selected').val();
-    //alert(a);
-    $('#divTags').prepend("<span class='label label-default' style='float:left'><h6>" + a + "</h6><a  class='btn btn-info' onclick='deleteTags(this)'>删除</a></span>");
-}
-
-function addFoodType() {
-    var a = document.getElementById("trModel");
-    var b = a.cloneNode(true);
-
-    $('#tbodyFood').append(b);
-}
-
-function deleteFoodType(node) {
-    var a = node.parentNode.parentNode;
-    if (a.parentNode.children.length > 1)
-        a.parentNode.removeChild(a);
-}
-
-function deleteFood(node) {
-    var a = node.parentNode;
-    if (a.parentNode.children.length > 2)
-        a.parentNode.removeChild(a);
-}
-
-function addFood(node) {
-    var a = document.getElementById("divFood");
-    var b = a.cloneNode(true);
-    //$('#tdFood').prepend(b);
-    node.parentNode.parentNode.prepend(b);
-}
-
-function deleteRecipe(id) {
-    var r = confirm("确认删除吗？")
-    if (r == true) {
-        var div = document.getElementById("div" + id);
-        div.parentNode.removeChild(div);
-        $.ajax({
-            type: "post",
-            url: "Recipe.aspx?method=delete&id=" + id,
-            cache: false,
-            success: function (data) {
-                //alert("ok");
-            },
-            error: function (err) {
-                alert("出问题了");
-            }
-        });
-    }
-}
-
-function modalUpdate(id) {
-    tipsClear();
-    isAdd = false;
-    document.getElementById("btnAdd").style.display = 'none';
-    document.getElementById("btnUpdate").style.display = '';
-    $('#inputId').val(id);
-    $('#modalAdd').modal();
-
-    $('#divName').val(document.getElementById("pName" + id).innerText);
-    $('#selectAvailable').val($('#info' + id + ' #available').html());
-    $('#selectRest').val($('#info' + id + ' #restId').html());
-    $('#divPrice').val($('#info' + id + ' #price').html());
-    $('#divSales').val($('#info' + id + ' #sales').html());
-    $('#divTags span').remove();
-    var a = new Array();
-    a = $('#info' + id + ' #tags').html().split(',');
-    for (var i = a.length - 1; i >= 0; i--) {
-        $('#divTags').prepend("<span class='label label-default' style='float:left'><h6>" + a[i] + "</h6><a class='btn btn-info' onclick='deleteTags(this)'>删除</a></span>");
-    }
-
-    $('#tbodyFood tr:first').nextAll().remove();
-    var countTr = $('#tbodyFood' + id + ' tr').length;
-    for (var i = 0; i < countTr - 1; i++) {
-        addFoodType();
-    }
-    for (var i = 0; i < countTr; i++) {
-        var s = $('#tbodyFood' + id + ' tr:eq(' + i + ') td:eq(0)').html();
-        $('#tbodyFood tr:eq(' + i + ') td:eq(0) select').val(s);
-
-        var td2 = $('#tbodyFood' + id + ' tr:eq(' + i + ') td:eq(1)').html();
-        var arr = new Array();
-        arr = td2.split(';');
-        $('#tbodyFood tr:eq(' + i + ') td:eq(1) #divFood').first().nextAll('#divFood').remove();
-        for (var j = 0; j < arr.length - 1; j++) {
-            var td = $('#tbodyFood tr:eq(' + i + ') td:eq(1)');
-            var a = document.getElementById("divFood");
-            var b = a.cloneNode(true);
-            //$('#tdFood').prepend(b);
-            td.prepend(b);
-        }
-        for (var j = 0; j < arr.length; j++) {
-            var food = arr[j].split(',')[0];
-            var weight = arr[j].replace(/[^0-9]+/g, '');
-            $('#tbodyFood tr:eq(' + i + ') td:eq(1) div:eq(' + j + ') select').val(food);
-            $('#tbodyFood tr:eq(' + i + ') td:eq(1) div:eq(' + j + ') input').val(weight);
-        }
-    }
-
-}
-
-function modalImg(id) {
-
-    $('#imgModal').modal();
-    $('#modalImgs').children().remove();
-    $('#idImg').val(id);
-    var imgs = document.getElementById('divImg' + id).getElementsByTagName('img');
-    $('#modalImgs').children().remove();
-    for (var i = 0; i < imgs.length; i++) {
-        var imgSrc = imgs[i].src;
-
-        var img = "<img src=\'" + imgSrc + "\' style=\'width:70px\'/>"
-        $('#modalImgs').append("<span>" + img + "<button onclick=\'deleteImg(this," + i + "," + id + ")\'>删除</button></span>");
-    }
-}
-
-function deleteImg(node, i, id) {
-    var parent = node.parentElement.parentElement;
-    var deleteNode = node.parentElement;
-    var l = parent.children.length;
-    for (var j = 0; j < l; j++) {
-        if (parent.children[j] == node.parentElement) {
-            //alert(parent.children[j].innerHTML);
-            //alert(node.parentElement.innerHTML);
-            i = j;
-            break;
-        }
-    }
-    deleteNode.parentElement.removeChild(deleteNode);
-    $.ajax({
-        type: 'post',
-        url: 'Recipe.aspx?method=deleteImg&index=' + i + '&id=' + id,
-        cache: false,
-        success: function (data) {
-            //alert('success');
-        },
-        error: function (err) {
-            alert(2);
-        }
-    })
-}
-
-//不用的
-//function test() {
-//    var type = new Array(2);
-//    type[0] = 'name';
-//    type[1] = 'available';
-//    var key = new Array(2);
-//    key[0] = '1';
-//    key[1] = '有';
-//    var data = {
-//        method: 'search',
-//        type: type,
-//        key: key
-//    }
-//    $.ajax({
-//        type: 'post',
-//        data: data,
-//        dataType: 'html',
-//        url: 'Recipe.aspx',
-//        cache: false,
-//        success: function (data) {
-//            getTable(data);
-
-//        },
-//        error: function (err) {
-//            alert('cuole');
-//        }
-//    })
-//}

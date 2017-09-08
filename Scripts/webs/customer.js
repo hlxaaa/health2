@@ -31,9 +31,9 @@ $(document).ready(function () {
         $('#info-password').val('')
         $('#info-height').val(height)
         $('#info-weight').val(weight);
-        if (sex == '男') 
+        if (sex == '男')
             $('#info-sex').val('True')
-        else if(sex=='女')
+        else if (sex == '女')
             $('#info-sex').val('False')
         else
             $('#info-sex').val('null')
@@ -43,7 +43,8 @@ $(document).ready(function () {
         $('#info-score').val(score)
         $('.info').removeClass('changed')
     })
-    getTable(jsonStr);
+    //getTable(jsonStr);
+    changePage(1)
 
     $('#info-age').datetimepicker({
         format: 'yyyy-mm-dd',
@@ -56,6 +57,7 @@ $(document).ready(function () {
         changePage(1);
     })
 
+    //修改
     $('.footer button').click(function () {
         if (!isClicked) {
             var page = $('.pagination li[class="active"] a').text();
@@ -65,12 +67,20 @@ $(document).ready(function () {
                 name = $('#info-name').val();
             }
             phone = $('#info-phone').val();
+            if (phone.length != 11) {
+                alert('手机号长度不对');
+                return;
+            }
 
             if ($('.info:eq(3)').hasClass('changed')) {
                 wechat = $('#info-wechat').val();
             }
             if ($('.info:eq(4)').hasClass('changed')) {
                 password = $('#info-password').val()
+                if (password.length < 6) {
+                    alert('密码长度不能小于6位');
+                    return;
+                }
             }
             if ($('.info:eq(5)').hasClass('changed')) {
                 height = $('#info-height').val()
@@ -115,9 +125,19 @@ $(document).ready(function () {
                 url: 'Customer.aspx',
                 cache: false,
                 success: function (data) {
-                    alert('更新成功');
-                    changePage(page);
-                    $('#modal1').modal('hide')
+                    if (data == 'password-format-error') {
+                        alert('密码格式不正确');
+                        isClicked = false;
+                    }
+                    else if (data == 'wechat-format-error') {
+                        alert('微信格式不正确');
+                        isClicked = false;
+                    }
+                    else {
+                        alert('更新成功');
+                        changePage(page);
+                        $('#modal1').modal('hide')
+                    }
                 },
                 error: function (err) {
                     alert('cuole');
@@ -132,7 +152,7 @@ $(document).ready(function () {
 
     $('body').delegate('.td-sport', 'click', function () {
         var id = $(this).parent().children('.customerId').html();
-        location.href = 'CustomerSport.aspx?id='+id;
+        location.href = 'CustomerSport.aspx?id=' + id;
     })
 })
 
@@ -153,7 +173,7 @@ function getTable(data) {
     $('tbody tr').remove();
     for (var i = 0; i < l; i++) {
         var h = '<tr style="background-color: white;">'
-    + '<td class="customerId">'+json[i].id+'</td>'
+    + '<td class="customerId">' + json[i].id + '</td>'
     + '<td>' + json[i].name + '</td>'
     + '<td>' + json[i].phone + '</td>'
     + '<td>' + json[i].wechat + '</td>'
@@ -191,8 +211,8 @@ function getTable(data) {
     //h += '</ul>'
     //+ '</nav>'
     var h = getPageHtml(pages, thePage);
-    $('.table-wrap table').next().remove();
-    $('.table-wrap table').after(h);
+    $('nav').remove();
+    $('.table-wrap').after(h);
 }
 
 function changePage(page) {

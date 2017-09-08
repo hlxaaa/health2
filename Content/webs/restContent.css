@@ -261,15 +261,18 @@ a:hover {
     background-color: white;
     height: 485px;
     border-radius: 10px;
+    padding-top: 20px;
 }
 
 .map-left {
-    width: 252px;
+    width: 305px;
 }
 
 .map-right {
     width: 556px;
     height: 390px;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 .map-left {
@@ -279,31 +282,76 @@ a:hover {
 #searchResultPanel {
     /*width: 280px!important;*/
     /*padding:0;*/
-
 }
 
 #suggestId {
-        border:1px solid #8c83a3;
-    border-radius:3px;
-    height:31px;
-    width:280px;
-    margin:0;
+    border: 1px solid #8c83a3;
+    /*border-radius:10px;*/
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    height: 31px;
+    width: 260px;
+    margin: 0;
 }
 
 .map-left, #r-result {
-    margin:0;
+    margin: 0;
 }
 
 .tangram-suggestion-main * {
-    margin:0;
+    margin: 0;
 }
 
 #l-map {
     height: 390px;
     width: 100%;
+    margin-left: 0;
 }
 
 #r-result {
     width: 100%;
+}
 
+.m-content2 {
+    border: none;
+}
+
+.map-coord {
+    /*width:500px;*/
+    margin-top: 20px;
+}
+
+    .map-coord input {
+        height: 28px;
+        width: 80px;
+        border: 1px solid #8c83a3;
+        border-radius: 3px;
+    }
+
+    .map-coord .coord-font {
+        color: red;
+    }
+
+.btn-getMap {
+    margin-top: 20px;
+    width: 64px;
+    height: 30px;
+    padding-top: 5px;
+}
+
+.btnSearch {
+    height: 31px;
+    width: 35px;
+    margin-left: 0;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.btn-search {
+    margin-top: 1px;
+    margin-left: 0;
+}
+
+.m-content2 .close {
+    margin-top: -20px;
 }

@@ -1,24 +1,14 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Web;
 //using System.Web.Services;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace WebApplication1.Webs
 {
     public partial class Article : System.Web.UI.Page
     {
-        protected SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["HealthConnection"].ConnectionString);
-        protected DataSet ds = new DataSet();
-        protected int ran = new Random().Next();
         protected string jsonStr = "";
         protected string[] ids = { };
         protected string path = "";
@@ -33,7 +23,7 @@ namespace WebApplication1.Webs
                 Response.End();
                 return;
             }
-            dictTags = Tool.GetDict("Tag", "id", "name", conn);
+            dictTags = Tool.GetDict("Tag", "id", "name");
             //GetArticle();
             switch (Request["method"])
             {
@@ -60,9 +50,9 @@ namespace WebApplication1.Webs
                     BatchDelete();
                     UpdateArticleCache();
                     break;
-                default:
-                    GetArticle();
-                    break;
+                //default:
+                //    GetArticle();
+                //    break;
             }
         }
 
@@ -70,18 +60,14 @@ namespace WebApplication1.Webs
         {
             string id = Request["id"];
             string selectCont = "select content from Article where id = " + id;
-            conn.Open();
-            SqlCommand sqlCom = new SqlCommand(selectCont, conn);
-            string content = (string)sqlCom.ExecuteScalar();
+            string content = Tool.ExecuteScalar(selectCont);
             content = content.Replace("*gt;", ">").Replace("*lt;", "<").Replace("*amp", "&");
             Response.Write(content);
             Response.End();
-            conn.Close();
         }
 
         protected void GetArticle()
         {
-
             int pageIndex = 1;
             int pageSize = 15;
             string index = Request["thePage"];
@@ -92,8 +78,6 @@ namespace WebApplication1.Webs
                 pageSize = Convert.ToInt32(size);
 
             string sqlSelect = "select id,title,content,cilckCount,loveCount,aTime from Article where 1 = 1 ";
-
-            //搜索条件
             int pages = 0;
             int thePage = 1;
             if (Request["thePage"] != null)
@@ -114,26 +98,27 @@ namespace WebApplication1.Webs
                         sqlSelect += " or id in (select r.id from Article as r,Tag_Relation as r2 ,Tag as t where r2.tagId = " + id + " and r2.relationId=r.id and r2.tagId = t.id and t.isDeleted = 'False')";
                     }
                 }
-
                 sqlSelect += ")";
             }
 
             int x = (pageIndex - 1) * pageSize;
             string sqlPaging = "select top " + pageSize + " * from (" + sqlSelect + ") r where id not in (select top " + x + " id from (" + sqlSelect + ") r order by id desc) order by id desc";
-            //sqlSelect += " and id in ( select top "+pageSize+" id from Recipe where id not in (select top "+x+" id from Recipe))";
-
-            conn.Open();
-
-            SqlDataAdapter da = new SqlDataAdapter(sqlSelect, conn);
-            da.Fill(ds);
+            DataSet ds = Tool.ExecuteGetDs(sqlSelect);
             int allCount = ds.Tables[0].Rows.Count;
             pages = allCount / pageSize;
             pages = pages * pageSize == allCount ? pages : pages + 1;
             ds.Clear();
 
-            SqlDataAdapter myda = new SqlDataAdapter(sqlPaging, conn);
-            myda.Fill(ds);
-
+            if (allCount > 0)
+            {
+                if (thePage > pages)//最后一页的最后一个被删掉时，处理
+                {
+                    thePage = pages;
+                    x = (pageIndex - 2) * pageSize;
+                    sqlPaging = "select top " + pageSize + " * from (" + sqlSelect + ") r where id not in (select top " + x + " id from (" + sqlSelect + ") r order by id desc) order by id desc";
+                }
+            }
+            ds = Tool.ExecuteGetDs(sqlPaging);
             ds = Tool.DsToString(ds);
             int count = ds.Tables[0].Rows.Count;
             ids = new string[count];
@@ -145,15 +130,13 @@ namespace WebApplication1.Webs
                 ds.Tables[0].Rows[i]["aTime"] = DateTime.Parse(ds.Tables[0].Rows[i]["aTime"].ToString()).ToString("yyyy-MM-dd HH:mm:ss");
                 string temp = ds.Tables[0].Rows[i]["content"].ToString().Replace("*gt;", ">").Replace("*lt;", "<").Replace("*amp", "&");
 
-
                 temp = Regex.Replace(temp, @"[^\u4e00-\u9fa5]+", "");
                 int l = temp.Length > 20 ? 20 : temp.Length;
                 ds.Tables[0].Rows[i]["content"] = temp.Substring(0, l);
 
-                ds.Tables[0].Rows[i]["tags"] = GetTags(ids[i], dictTags);
+                ds.Tables[0].Rows[i]["tags"] = GetTags(ids[i]);
             }
 
-            conn.Close();
             jsonStr = Tool.GetJsonByDataset(ds);
             string pagesStr = ",\"pages\":" + pages + "";
             string thePageStr = ",\"thePage\":" + thePage + "";
@@ -167,54 +150,27 @@ namespace WebApplication1.Webs
 
             var title = Request["title"];
             var content = Request["content"];
-            //var tags = Request["tags[]"];
-            var img = "";
-            string[] imgs = Request.Form.GetValues("img[]");
-            for (int i = 0; i < imgs.Length; i++)
+          
+            string[] imgNames = Request.Form.GetValues("imgName[]");
+            string[] imgs = new string[imgNames.Length];
+            for (int i = 0; i < imgNames.Length; i++)
             {
-                if (i != 0)
-                    img += ",";
-                img += path + imgs[i];
+                imgs[i] = "img//article//" + imgNames[i];
             }
-
-            var imgTemp = "";
-            string[] imgTemps = Request.Form.GetValues("imgTemp[]");
-            for (int i = 0; i < imgTemps.Length; i++)
+            string[] oImgs = new string[imgNames.Length];
+            for (int i = 0; i < imgNames.Length; i++)
             {
-                if (i != 0)
-                    imgTemp += ",";
-                imgTemp += path + imgTemps[i];
+                oImgs[i] = "img//article//temp//" + imgNames[i];
             }
 
             var thumbnail = Request["thumbnail"];
-            string tempUrl = Server.MapPath("~/img/article/temp/");
-            //ImgHandle(img, imgTemp);
-            Tool.ImgHandle(img, imgTemp, tempUrl);
-
-            //string[] tags = Request.Form["tags[]"].Split(',');
             string[] tags = Request.Form.GetValues("tags[]");
-            //string tagIds = "";
-            //for (int i = 0; i < tags.Length; i++)
-            //{
-            //    if (tags[i] != "")
-            //    {
-            //        if (i != 0)
-            //            tagIds += "|";
-            //        tagIds += Tool.GetKey(dictTags, tags[i]);
-            //    }
-            //}
             string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             string sqlInsert = "insert Article (title,content,tags,aTime,thumbnail,cilckCount,loveCount) values ('" + title + "','" + content + "','此字段不使用','" + time + "','" + thumbnail + "',0,0) Select @@IDENTITY";//tags不能为空，但这个字段已经不适用了-txy
-
-            conn.Open();
-            SqlCommand sqlCom = new SqlCommand(sqlInsert, conn);
-            //sqlCom.Parameters.Add("@id", SqlDbType.Int);
-            var id = sqlCom.ExecuteScalar();
+            var id = Tool.ExecuteScalar(sqlInsert);
             string url = "../webs/ArticleUrl.aspx?id=" + id;
             string urlStr = "update Article set url = '" + url + "' where id = " + id;
-            SqlCommand sqlCom2 = new SqlCommand(urlStr, conn);
-            sqlCom2.ExecuteScalar();
-
+            Tool.ExecuteNon(urlStr);
             string insertTag = "insert Tag_Relation (relationId,tagId,typename) values ";
             for (int i = 0; i < tags.Length; i++)
             {
@@ -226,10 +182,8 @@ namespace WebApplication1.Webs
                     insertTag += " (" + id + "," + tagId + ",'article')";
                 }
             }
-            sqlCom = new SqlCommand(insertTag, conn);
-            sqlCom.ExecuteScalar();
-
-            conn.Close();
+            Tool.ExecuteNon(insertTag);
+            Tool.CopyImg(imgs, oImgs, path);
         }
 
         protected void UpdateArticle()
@@ -241,66 +195,50 @@ namespace WebApplication1.Webs
             string title = Request["title"];
             string content = Request["content"];
             string thumbnail = Request["thumbnail"];
-            string oriImg = "";
             string[] oriImgs = Request["oriImg"].Split(',');
+            string[] oImgs = new string[oriImgs.Length];
             for (int i = 0; i < oriImgs.Length; i++)
             {
-                if (i != 0)
-                    oriImg += ",";
-                oriImg += path + oriImgs[i];
+                oImgs[i] = "img//article//" + oriImgs[i];
             }
-
-            var img = "";
-            string[] imgs = Request.Form.GetValues("img[]");
-            for (int i = 0; i < imgs.Length; i++)
+            string[] imgNames = Request.Form.GetValues("imgName[]");
+            string[] imgs = new string[imgNames.Length];
+            for (int i = 0; i < imgNames.Length; i++)
             {
-                if (i != 0)
-                    img += ",";
-                img += path + imgs[i];
+                imgs[i] = "img//article//" + imgNames[i];
             }
 
-            var imgTemp = "";
-            string[] imgTemps = Request.Form.GetValues("imgTemp[]");
+            string[] imgTemps = new string[imgNames.Length];
             for (int i = 0; i < imgTemps.Length; i++)
             {
-                if (i != 0)
-                    imgTemp += ",";
-                imgTemp += path + imgTemps[i];
+                imgTemps[i] = "img//article//temp//" + imgNames[i];
             }
-
-            Tool.ImgUpdate(oriImg.Split(','), img.Split(','));
+        
+            Tool.CopyImg(imgs, imgTemps, path);
+            Tool.ImgUpdate(oImgs, imgs, path + "//img//article//");
             string tempUrl = Server.MapPath("~/img/article/temp/");
-            Tool.ImgHandle(img, imgTemp, tempUrl);
             string[] tags = Request.Form.GetValues("tags[]");
-            for (int i = 0; i < tags.Length; i++) {
+            for (int i = 0; i < tags.Length; i++)
+            {
                 tags[i] = Tool.GetKey(dictTags, tags[i]);
             }
-          
+
             string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             string sqlUpdate = "update Article set title = '" + title + "',content = '" + content + "',aTime = '" + time + "',thumbnail = '" + thumbnail + "' where id = " + articleId;
-            conn.Open();
-            SqlCommand sqlCom = new SqlCommand(sqlUpdate, conn);
-            sqlCom.ExecuteScalar();
-            conn.Close();
+            Tool.ExecuteNon(sqlUpdate);
             Tool.UpdateTag_Relation(articleId, "article", tags);
         }
 
         protected void DeleteArticle(string articleId)
         {
-            //string id = Request["id"];
-            conn.Open();
-
             string selectImgs = "select content from Article where id = " + articleId;
-            SqlCommand sqlCom = new SqlCommand(selectImgs, conn);
-            string content = (string)sqlCom.ExecuteScalar();
+            string content = Tool.ExecuteScalar(selectImgs);
             content = content.Replace("*gt;", ">").Replace("*lt;", "<").Replace("*amp", "&");
             string[] imgs = GetImgPath(content);
 
             string sqlDelete = "delete from Article where id = " + articleId;
-            SqlCommand sqlCom2 = new SqlCommand(sqlDelete, conn);
-            sqlCom2.ExecuteScalar();
-            conn.Close();
+            Tool.ExecuteNon(sqlDelete);
             DeleteImgFile(imgs);
         }
 
@@ -311,16 +249,6 @@ namespace WebApplication1.Webs
             {
                 DeleteArticle(id);
             }
-            //conn.Open();
-            //foreach (string i in id) {
-            //    DeleteImgFile(i,conn);
-            //}
-            //string ids = Request["ids[]"];
-            //string batchDelete = "delete from Article where id in (" + ids + ")";
-
-            //SqlCommand sqlCom = new SqlCommand(batchDelete, conn);
-            //sqlCom.ExecuteScalar();
-            //conn.Close();
         }
 
         protected void DeleteImgFile(string[] imgs)
@@ -338,7 +266,6 @@ namespace WebApplication1.Webs
 
         protected void ResJsonStr()
         {
-
             Response.Write(jsonStr);
             Response.End();
         }
@@ -349,32 +276,10 @@ namespace WebApplication1.Webs
         /// <param name="articleId">文章id</param>
         /// <param name="dict">标签 id,名称 字典</param>
         /// <returns></returns>
-        protected string GetTags(string articleId, Dictionary<string, string> dict)
+        protected string GetTags(string articleId)
         {
-            string[] tags = { };
-            string result = "";
-            string str = "select tagId from Tag_Relation as t1,Tag as t2 where relationId = " + articleId + " and typename = 'article' and isDeleted = 'False' group by tagId";
-            DataSet ds = new DataSet();
-            SqlDataAdapter da = new SqlDataAdapter(str, conn);
-            da.Fill(ds);
-            int count = ds.Tables[0].Rows.Count;
-            tags = new string[count];
-            for (int i = 0; i < count; i++)
-            {
-                if (i != 0)
-                    result += " ";
-                string tagId = ds.Tables[0].Rows[i]["tagId"].ToString();
-                if (dict.ContainsKey(tagId))
-                {
-                    tags[i] = dict[ds.Tables[0].Rows[i]["tagId"].ToString()];
-                    result += tags[i];
-                }
-                else
-                {
-                    //result += "标签被删除";
-                }
-            }
-            return result;
+            string str = "select stuff ((select ' '+ t2.name from Tag_Relation as t1,Tag as t2 where relationId = "+articleId+" and typename = 'article' and isDeleted = 'False' and t2.id=t1.tagId group by t2.name for xml path('')),1,1,'')";
+            return Tool.ExecuteScalar(str);
         }
 
         /// <summary>
@@ -399,11 +304,5 @@ namespace WebApplication1.Webs
         {
             Tool.UpdateCache<DbOpertion.Models.Article>("Article", "List_Article", false);
         }
-
-        //[WebMethod]  
-        //public static string SayHello()
-        //{
-        //    return "Hello Ajax!";
-        //} 
     }
 }

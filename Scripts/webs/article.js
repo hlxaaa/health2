@@ -1,6 +1,7 @@
 ﻿var isAdd = true;
 var isHasResult = true;
 var isClicked = false;
+var oImgs = new Array();
 
 $(document).ready(function () {
     $('#inputSearch').keydown(function (e) {
@@ -13,9 +14,14 @@ $(document).ready(function () {
     //        $('#btn-addArticle').click();
     //})
 
-    getTable(jsonStr);
+    //getTable(jsonStr);
+    changePage(1)
 
     allselectToggle();
+
+    //$('#divEditor').change(function () {
+
+    //})
 
     //图片拉伸
     $('#modal1').keyup(function () {
@@ -147,7 +153,7 @@ $(document).ready(function () {
                 arr[i] = $('#divEditor img:eq(' + i + ')').attr("src");
                 imgTemp[i] = arr[i].substring(2).replace(/\//g, '\\');
                 name[i] = arr[i].substring(arr[i].lastIndexOf('/') + 1);
-                img[i] = '\\img\\article\\' + name[i];
+                img[i] = name[i];
                 $('#divEditor img:eq(' + i + ')').attr("src", "../img/article/" + name[i]);
                 $('#divEditor img:eq(' + i + ')').attr("width", "100%");
             }
@@ -162,8 +168,9 @@ $(document).ready(function () {
                     title: title,
                     content: content,
                     tags: tags,
-                    img: img,
-                    imgTemp: imgTemp,
+                    //img: img,
+                    //imgTemp: imgTemp,
+                    imgName: name,
                     thumbnail: thumbnail
                 }
 
@@ -192,8 +199,7 @@ $(document).ready(function () {
                     title: title,
                     content: content,
                     tags: tags,
-                    img: img,
-                    imgTemp: imgTemp,
+                    imgName: name,
                     oriImg: oriImg,
                     thumbnail: thumbnail
                 }
@@ -281,9 +287,11 @@ $(document).ready(function () {
                 var arr = new Array(imgs.length);
                 for (var i = 0; i < imgs.length; i++) {
                     arr[i] = $('#divEditor img:eq(' + i + ')').attr("src");
-                    oriImg[i] =arr[i].substring(2).replace(/\//g, '\\');
+                    //oriImg[i] =arr[i].substring(2).replace(/\//g, '\\');
+                    oriImg[i] = arr[i].substring(arr[i].lastIndexOf('/') + 1);
                 }
                 $('#originalImg').val(oriImg);
+                //alert($('#originalImg').val());
 
             },
             error: function (res) {
@@ -347,7 +355,7 @@ function getTable(data) {
         + '<td>'
         + '<input type="checkbox"></td>'
         + '<td>' + json[i].title + '</td>'
-        var tags = omit(json[i].tags,8)
+        var tags = omit(json[i].tags, 8)
         h += '<td>' + tags + '<input type="hidden" class="input-tags" value="' + json[i].tags + '"/></td>'
         + '<td>' + json[i].aTime + '</td>'
         + '<td>' + json[i].cilckCount + '</td>'
@@ -364,8 +372,8 @@ function getTable(data) {
     h += '</tbody>'
     + '</table>'
     + '</div>'
-    $('#divMain3 table').remove();
-    $('#divMain3').append(h);
+    $('.table-wrap table').remove();
+    $('.table-wrap').append(h);
 
 
     var pages = JSON.parse(data).pages;
@@ -456,6 +464,7 @@ editor.config.uploadImgUrl = 'Article.ashx';
 editor.config.hideLinkImg = true;
 editor.create();
 
+//取消编辑器上的按钮
 function changeWangEditor() {
     $('.menu-group:last').remove();
     $('.menu-group:first').remove();

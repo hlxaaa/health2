@@ -7,9 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>钱包余额</title>
     <script type="text/javascript">
-        var jsonDetail = '<%=jsonDetail%>'
-        var jsonWithdraw = '<%=jsonWithdraw%>'
-        var sellerId = '<%=id%>'
+        var isAdmin = '<%=isAdmin%>'
+        var sellerId ='<%=id%>';
     </script>
     <script src="../Scripts/jquery-2.0.0.min.js"></script>
     <script src="../Scripts/bootstrap.min.js"></script>
@@ -21,8 +20,9 @@
     <link href="../Scripts/checkboxStyle/skins/minimal/minimal.css" rel="stylesheet" />
     <script src="../Scripts/checkboxStyle/icheck.js"></script>
 
-    <script src="/Scripts/base.js?ver=<%=ran %>"></script>
-    <script src="/Scripts/webs/balanceSeller.js?ver=<%=ran %>"></script>
+    <script src="/Scripts/base.js"></script>
+    <script src="/Scripts/webs/balanceSeller.js"></script>
+    <script src="/Scripts/remind.js"></script>
     <link href="/Content/base.css" rel="stylesheet" />
     <link href="/Content/webs/balanceSeller.css" rel="stylesheet" />
 </head>
@@ -87,7 +87,7 @@
                     <img src="/Images/base/icon-balance.svg" /><a href="Balance.aspx">钱包余额</a></li>
                 <%}else{ %>
                  <li class="li-back li-back-open active">
-                    <img src="/Images/base/icon-balance.svg" /><a href="BalanceSeller.aspx?sellerId=<%=id %>">钱包余额</a></li>
+                    <img src="/Images/base/icon-balance.svg" /><a href="BalanceSeller.aspx">钱包余额</a></li>
                 <%} %>
                  <li class="li-back li-back-open">
                     <img src="/Images/base/icon-recipeSet.svg" /><a href="RecipeSet.aspx">食谱缺货设置</a></li>
@@ -140,27 +140,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                      <%--      <tr style="background-color: white;">
-                                <td>
-                                    2016-10-01 21:02:59
-                                </td>
-                                <td class="money-color" >
-                                    +500.00
-                                </td>
-                                <td>
-                                   套餐1
-                                </td>
-                                <td>
-                                  老王
-                                </td>
-                            </tr>--%>
-                      
                         </tbody>
                         </table>
                     </div>
-                   <%-- <nav style="text-align:center;display:block">
-                        <ul class="pagination"><li class="disabled"><a href="#" style="text-decoration: none;">«</a></li><li class="active"><a style="text-decoration: none;">1</a></li><li onclick="getPage(this)"><a style="text-decoration: none;">2</a></li><li onclick="getPage(this)"><a style="text-decoration: none;">3</a></li><li onclick="getNextPage()"><a style="text-decoration: none;">»</a></li></ul>
-                    </nav>--%>
+
                 </div>
                 <div class="cash-withdraw fl">
                      <div class="detail-title">
@@ -177,22 +160,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                       <%--     <tr style="background-color: white;">
-                                <td>
-                                    2016-10-01 21:02:59
-                                </td>
-                                <td class="money-color" >
-                                    +500.00
-                                </td>
-                                <td>
-                                   体现成功
-                                </td>
-                            </tr>--%>
+                    
                             
                         </tbody>
                         </table>
                     </div>
-                  <%--  <nav style="text-align:center;display:block"><ul class="pagination"><li class="disabled"><a href="#" style="text-decoration: none;">«</a></li><li class="active"><a style="text-decoration: none;">1</a></li><li onclick="getPage(this)"><a style="text-decoration: none;">2</a></li><li onclick="getPage(this)"><a style="text-decoration: none;">3</a></li><li onclick="getNextPage()"><a style="text-decoration: none;">»</a></li></ul></nav>--%>
+          
                 </div>
                 <div class="fc"></div>
             </div>

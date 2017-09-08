@@ -106,13 +106,15 @@ $(document).ready(function () {
                     cache: false,
                     success: function (res) {
 
-                        if (res == 'exist')
+                        if (res == 'exist') {
                             alert('已存在该菜品！');
+                            isClicked = false;
+                        }
                         else {
                             getTable(res);
-                          
+
                             $('#modal1').modal('hide');
-                           
+
                         }
                         //location.reload();
                     },
@@ -137,13 +139,15 @@ $(document).ready(function () {
                     url: 'Food.aspx',
                     cache: false,
                     success: function (res) {
-                        if (res == 'exist')
+                        if (res == 'exist') {
                             alert('已存在该菜品！');
+                            isClicked = false;
+                        }
                         else
                             getTable(res);
-                       
+
                         $('#modal1').modal('hide');
-                       
+
                         //location.reload();
                     },
                     error: function (res) {

@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace WebApplication1.Webs
 {
@@ -18,10 +13,9 @@ namespace WebApplication1.Webs
             Bitmap bit = GetCode(out Code);
             Session["vCode"] = Code;
             Response.ClearContent();
-            //Response.Write("<script>alert(1)</script>");
             bit.Save(Response.OutputStream, ImageFormat.Png);
             Response.ContentType = "image/png";
-            
+
             bit.Dispose();
         }
 
@@ -30,7 +24,7 @@ namespace WebApplication1.Webs
             int imgWidth = 80;
             int imgHeight = 40;
             //获取随机字符
-            Code = Str(4,false);
+            Code = Str(4, false);
             //颜色列表，用于验证码、噪线、噪点 
             Color[] color = { Color.Black, Color.Red, Color.Blue, Color.Green, Color.Orange, Color.Brown, Color.Brown, Color.DarkBlue };
             //字体列表，用于验证码 

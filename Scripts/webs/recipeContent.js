@@ -2,33 +2,113 @@
 $(document).ready(function () {
     //alert($('#oImg').val());
 
-    $('.btn-del').click(function () {
-       
+    $('body').delegate('.img-show', 'click', function () {
+        $('#imgCut').modal();
+        var src = $(this).attr('src').replace(/\?\w+\.\w+/, '')
+        //alert(src);
+        var img = new Image();
+        img.src = src //+ '?' + Math.random();
+        var width = img.width
+        var height = img.height;
 
-            if (id == '') {
-                //alert("新增，删除也没用");
-            }
-            else {
-                var r = confirm('确定删除吗？')
-                if (r = true) {
-                    var data = {
-                        method: 'deleteRecipe',
-                        id: id
+        $('.modal-body-cut img').remove();
+        $('.jcrop-holder').remove();
+        $('.modal-body-cut').prepend('<img src="" id="target" style="width:700px" />');
+
+        $('.jcrop-keymgr').remove();
+        imgCut();
+        //$('.jcrop-tracker').css('width','700px')
+        $('.jcrop-holder img').attr('src', src)
+        //$('.jcrop-holder img').css('height', 700 * height / width)
+        //$('.jcrop-holder img').css('width', '700px')
+        $('#target').attr('src', src)
+
+
+    })
+
+    $('.btn-cutImg').click(function () {
+        //var a = '321321?111111111111111';
+        //a = a.replace(/\?\w+/,'')
+        //alert(a);
+        //return
+        var x1 = $('#x1').val();
+        var y1 = $('#y1').val();
+        var w = $('#w').val();
+        var h = $('#h').val();
+        var width = 700;
+        var src = $('#target').attr('src')
+        var img = new Image();
+        img.src = src;
+        var realWidth = img.width
+        var flag = 1//realWidth > width ? realWidth / width : 1;
+        //alert(flag);
+        var imgName = src.substring(src.lastIndexOf('/') + 1);
+        var data = {
+            x1: parseInt(x1 * flag),
+            y1: parseInt(y1 * flag),
+            w: parseInt(w * flag),
+            h: parseInt(h * flag),
+            //width: width,
+            imgName: imgName,
+            method: 'cutImg',
+            id: id
+        }
+        var oImg = $('#oImg').val();
+        $.ajax({
+            type: 'post',
+            data: data,
+            url: 'RecipeContent.aspx',
+            cache: false,
+            success: function (res) {
+                $('#imgCut').modal('hide')
+                //alert(res);
+                $('.div-imgs .img-show').each(function () {
+                    var src = $(this).attr('src') //+ '?' + Math.random(); 
+                    //alert(src);
+                    if (src.substring(src.lastIndexOf('/') + 1) == res.substring(res.lastIndexOf('/') + 2)) {
+                        var tempSrc = '/img//recipe//temp//' + res.substring(res.lastIndexOf('/') + 1) //+ '?' + Math.random();
+                        $(this).attr('src', tempSrc)
+                        if (oImg.length != 0)
+                            oImg += '|';
+                        oImg += '/img//recipe//temp//' + res.substring(res.lastIndexOf('/') + 1);
                     }
-                    $.ajax({
-                        type: 'post',
-                        data: data,
-                        url: 'Recipe.aspx',
-                        cache: false,
-                        success: function (res) {
-                            location.href = 'Recipe.aspx';
-                        },
-                        error: function (res) {
+                    $('#oImg').val(oImg);
+                    //$(this).attr('src', src)
+                })
+            },
+            error: function (res) {
 
-                        }
-                    })
-                }
             }
+        })
+    })
+
+    $('.btn-del').click(function () {
+
+
+        if (id == '') {
+            //alert("新增，删除也没用");
+        }
+        else {
+            var r = confirm('确定删除吗？')
+            if (r = true) {
+                var data = {
+                    method: 'deleteRecipe',
+                    id: id
+                }
+                $.ajax({
+                    type: 'post',
+                    data: data,
+                    url: 'Recipe.aspx',
+                    cache: false,
+                    success: function (res) {
+                        location.href = 'Recipe.aspx';
+                    },
+                    error: function (res) {
+
+                    }
+                })
+            }
+        }
     })
 
     $('.btn-back').click(function () {
@@ -55,13 +135,13 @@ $(document).ready(function () {
     })
 
     $('body').delegate('.btn-del-food', 'click', function () {
-        if($('tbody tr').length>1)
-        $(this).parent().parent().remove();
+        if ($('tbody tr').length > 1)
+            $(this).parent().parent().remove();
     })
     setAvailable();
 
     $('body').delegate('.tag', 'click', function () {
-        if($(this).attr('class')!='tag fl label-select')
+        if ($(this).attr('class') != 'tag fl label-select')
             $(this).attr('class', 'tag fl label-select');
         else
             $(this).attr('class', 'tag fl label-default');
@@ -80,7 +160,7 @@ $(document).ready(function () {
             $('.tag').each(function () {
                 if (tags[i] == $(this).text()) {
                     $(this).attr('class', 'tag fl label-select');
-                    
+
                 }
             })
         }
@@ -89,7 +169,7 @@ $(document).ready(function () {
     $('.btn-saveTag').click(function () {
         $('.tags-span').remove();
         $('.tag[class="tag fl label-select"]').each(function () {
-            var h = '<span class="fl tags-span"> <div><font class="fl">' + $(this).text()+'</font>'
+            var h = '<span class="fl tags-span"> <div><font class="fl">' + $(this).text() + '</font>'
 + '<button type="button" class="close fl">×</button>       </div>'
 + '</span>'
             $('.btn-tag-selector').before(h);
@@ -102,6 +182,7 @@ $(document).ready(function () {
     })
 
     $('.div-upImg').click(function () {
+        $('#upImg').val('')
         $('#upImg').click();
     })
 
@@ -170,7 +251,7 @@ $(document).ready(function () {
 
             var imgs = new Array();
             $('.img-show').each(function () {
-                imgs.push($(this).attr('src'));
+                imgs.push($(this).attr('src').replace(/\?\w+\.\w+/, ''));
             })
             if (imgs.length == 0) {
                 alert('请至少选择一张图片')
@@ -182,10 +263,23 @@ $(document).ready(function () {
                 if ($('.div-imgs:eq(' + i + ') .thumb div').hasClass('checked'))
                     imgIndex = i;
             }
-            var oImgs = $('#oImg').val();
+            //var oImgs = $('#oImg').val();
             //alert(oImg);
             //return;
 
+            var oImgs = $('#oImg').val().split('|');
+            var imgNames = new Array();
+            var oImgNames = new Array();
+            //var imgTemps = new Array();
+            for (var i = 0; i < imgs.length; i++) {
+                imgNames[i] = imgs[i].substring(imgs[i].lastIndexOf('/') + 1);
+                //imgs[i] = '\\img\\restaurant\\' + imgNames[i];
+                imgs[i] = imgNames[i];
+                //imgTemps[i] = '\\img\\restaurant\\temp\\'+imgNames[i];
+            }
+            for (var i = 0; i < oImgs.length; i++) {
+                oImgNames[i] = oImgs[i].substring(oImgs[i].lastIndexOf('/') + 1);
+            }
 
             //if (a == true)
             isClicked = true;
@@ -201,8 +295,10 @@ $(document).ready(function () {
                     typeIds: typeIds,
                     foodIds: foodIds,
                     weights: weights,
-                    imgs: imgs,
-                    oImgs: oImgs,
+                    //imgs: imgs,
+                    //oImgs: oImgs,
+                    imgNames: imgNames,
+                    oImgNames: oImgNames,
                     method: 'addRecipe'
                 }
                 $.ajax({
@@ -233,8 +329,10 @@ $(document).ready(function () {
                     typeIds: typeIds,
                     foodIds: foodIds,
                     weights: weights,
-                    imgs: imgs,
-                    oImgs: oImgs,
+                    //imgs: imgs,
+                    //oImgs: oImgs,
+                    imgNames: imgNames,
+                    oImgNames: oImgNames,
                     method: 'updateRecipe'
                 }
                 $.ajax({
@@ -253,11 +351,11 @@ $(document).ready(function () {
             }
         }
     })
-   
+
 })
 
 function setAvailable() {
-    if (available=='False') {
+    if (available == 'False') {
         $('.info1-available .iradio_minimal:eq(1)').attr('class', 'iradio_minimal checked')
     } else {
         $('.info1-available .iradio_minimal:eq(0)').attr('class', 'iradio_minimal checked')
@@ -265,6 +363,34 @@ function setAvailable() {
 }
 
 function filechange(event) {
+
+    var obj = document.getElementById("upImg");
+    var length = obj.files.length;
+    var isPic = true;
+    for (var i = 0; i < obj.files.length; i++) {
+        var temp = obj.files[i].name;
+        var fileTarr = temp.split('.');
+        var filetype = fileTarr[fileTarr.length - 1];
+        if (filetype != 'png' && filetype != 'jpg' && filetype != 'jpeg') {
+            alert('上传文件必须为图片(后缀名为png,jpg,jpeg)');
+            isPic = false;
+        } else {
+            var size = obj.files[i].size / 1024;
+            //alert(size);
+            if (parseInt(size) > 2048) {
+                alert("图片大小不能超过2MB");
+                isPic = false;
+            }
+        }
+        if (!isPic)
+            break;
+    }
+
+
+
+    if (!isPic)
+        return;
+
     $("#formid").ajaxSubmit(function (res) {
         var a = res.split('|');
         var oImg = $('#oImg').val();
@@ -274,57 +400,24 @@ function filechange(event) {
     + '<img class="img-show" src="/' + a[i] + '"  />'
     + '<div class="thumb">'
             if ($('.div-imgs').length > 0) {
-                h+= '<input type="radio" name="name" value=" "/><font>封面图</font>'
+                h += '<input type="radio" name="name" value=" "/><font>封面图</font>'
             } else {
                 h += '<input type="radio" name="name" value=" " checked="checked"  /><font>封面图</font>'
             }
-    h+= '</div>'
-    + '</div>'
+            h += '</div>'
+            + '</div>'
             if ($('.div-imgs').length > 0)
                 $('.div-imgs:last').after(h);
             else
                 $('.div-upImg').before(h);
-            
+
             if (oImg.length != 0)
                 oImg += '|';
             oImg += a[i];
-           
+
         }
         $('#oImg').val(oImg);
         getInputStyle();
         setAvailable();
     });
-    //$('#testSubmit').click();
-    //$.ajax({
-    //    cache: true,
-    //    type: "POST",
-    //    url: 'RecipeContent.aspx',
-    //    data: $('#formid').serialize(),// 你的formid
-    //    async: false,
-    //    error: function (request) {
-    //        alert("Connection error");
-    //    },
-    //    success: function (data) {
-    //        alert(data);
-    //    }
-    //});
-
-
-    //var files = event.target.files, file;
-    //var form = new FormData();
-    //form.append('file', files);
-    //$.ajax({
-    //    type: 'post',
-    //    data: form,
-    //    url: 'RecipeContent.aspx',
-    //    contentType: false,
-    //    processData: false,
-    //    cache: false,
-    //    success: function (res) {
-
-    //    }
-    //})
-
-    //alert(files[0]);
-    //alert($('#upImg').val());
 }

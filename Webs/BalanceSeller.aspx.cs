@@ -12,14 +12,11 @@ namespace WebApplication1.Webs
 {
     public partial class BalanceSeller : System.Web.UI.Page
     {
-        protected SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["HealthConnection"].ConnectionString);
-
         protected string id = "";
-        protected int ran = new Random().Next();
+        protected string restId = "";
         protected string jsonDetail = "";
         protected string jsonWithdraw = "";
         protected double balance = 0;
-        protected DataSet ds = new DataSet();
         protected bool isAdmin = false;
         protected string loginName = "";
         protected double availableCash = 0;
@@ -34,7 +31,7 @@ namespace WebApplication1.Webs
             }
 
             string sellerId = "";
-            string restId = Session["restId"].ToString();
+            restId = Session["restId"].ToString();
 
             if (restId == "0")
             {
@@ -52,15 +49,16 @@ namespace WebApplication1.Webs
             id = sellerId;//传到前端
             availableCash = GetAvailableCash(Tool.GetRestIdBySellerId(sellerId), sellerId);
             balance = GetBalance(sellerId);
-            GetDetail(sellerId);
-            GetWithdraw(sellerId);
+
             switch (Request["method"])
             {
                 case "search":
+                    GetDetail(sellerId);
                     Response.Write(jsonDetail);
                     Response.End();
                     break;
                 case "search2":
+                    GetWithdraw(sellerId);
                     Response.Write(jsonWithdraw);
                     Response.End();
                     break;
@@ -68,41 +66,31 @@ namespace WebApplication1.Webs
                     DoWithdraw(sellerId);
                     break;
             }
-
         }
 
         protected void DoWithdraw(string sellerId)
         {
             var number = Request["number"];
-
             if (availableCash < Convert.ToDouble(number))
             {
                 Response.Write("no-money");
                 Response.End();
                 return;
             }
-            conn.Open();
-            SqlCommand sqlCom = new SqlCommand();
             string insertWithdraw = "insert Withdraw values(" + sellerId + ",'" + number + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','False')";
-            sqlCom = new SqlCommand(insertWithdraw, conn);
-            sqlCom.ExecuteScalar();
-            conn.Close();
+            Tool.ExecuteNon(insertWithdraw);
         }
 
         protected double GetBalance(string id)
         {
             string str = "select balance from Seller where id=" + id;
-            conn.Open();
-            SqlCommand sqlCom = new SqlCommand(str, conn);
-            double r = Convert.ToDouble(sqlCom.ExecuteScalar());
-            conn.Close();
-            return r;
+            return Convert.ToDouble(Tool.ExecuteScalar(str));
         }
 
         protected void GetDetail(string sellerId)
         {
             int pageIndex = 1;
-            int pageSize = 3;
+            int pageSize = 10;
             if (!string.IsNullOrEmpty(Request["thePage"]))
                 pageIndex = Convert.ToInt32(Request["thePage"]);
 
@@ -110,29 +98,23 @@ namespace WebApplication1.Webs
 
             int x = (pageIndex - 1) * pageSize;
             string sqlPaging = "select top " + pageSize + " * from (" + sqlSelect + ") r where id not in (select top " + x + " id from (" + sqlSelect + ") r order by id desc) order by id desc";
-            conn.Open();
-
-            SqlDataAdapter da = new SqlDataAdapter(sqlSelect, conn);
-            da.Fill(ds);
+            DataSet ds = Tool.ExecuteGetDs(sqlSelect);
             int allCount = ds.Tables[0].Rows.Count;
             int pages = allCount / pageSize;
             pages = pages * pageSize == allCount ? pages : pages + 1;
             ds.Clear();
-
-            da = new SqlDataAdapter(sqlPaging, conn);
-            da.Fill(ds);
+            ds = Tool.ExecuteGetDs(sqlPaging);
             ds = Tool.DsToString(ds);
             jsonDetail = Tool.GetJsonByDataset(ds);
             string pagesStr = ",\"pages\":" + pages + "";
             string thePageStr = ",\"thePage\":" + pageIndex + "";
             jsonDetail = jsonDetail.Substring(0, jsonDetail.Length - 1) + pagesStr + thePageStr + "}";
-            conn.Close();
         }
 
         protected void GetWithdraw(string sellerId)
         {
             int pageIndex = 1;
-            int pageSize = 6;
+            int pageSize = 10;
             if (!string.IsNullOrEmpty(Request["thePage"]))
                 pageIndex = Convert.ToInt32(Request["thePage"]);
 
@@ -140,26 +122,18 @@ namespace WebApplication1.Webs
 
             int x = (pageIndex - 1) * pageSize;
             string sqlPaging = "select top " + pageSize + " * from (" + sqlSelect + ") r where id not in (select top " + x + " id from (" + sqlSelect + ") r order by applyState,applyTime desc) order by  applyState,applyTime desc";
-            conn.Open();
-
-            SqlDataAdapter da = new SqlDataAdapter(sqlSelect, conn);
-
             DataSet ds2 = new DataSet();
-            da.Fill(ds2);
+            ds2 = Tool.ExecuteGetDs(sqlSelect);
             int allCount = ds2.Tables[0].Rows.Count;
             int pages = allCount / pageSize;
             pages = pages * pageSize == allCount ? pages : pages + 1;
             ds2.Clear();
-
-            da = new SqlDataAdapter(sqlPaging, conn);
-            da.Fill(ds2);
+            ds2 = Tool.ExecuteGetDs(sqlPaging);
             ds2 = Tool.DsToString(ds2);
             jsonWithdraw = Tool.GetJsonByDataset(ds2);
             string pagesStr = ",\"pages\":" + pages + "";
             string thePageStr = ",\"thePage\":" + pageIndex + "";
             jsonWithdraw = jsonWithdraw.Substring(0, jsonWithdraw.Length - 1) + pagesStr + thePageStr + "}";
-
-            conn.Close();
         }
 
         /// <summary>
@@ -171,22 +145,18 @@ namespace WebApplication1.Webs
         protected double GetAvailableCash(string restId, string sellerId)
         {
             string str2 = "select * from Withdraw where sellerId = " + sellerId + " and applyState='False'";
-            
-            conn.Open();
             double r = 0;
-            SqlCommand sqlCom = new SqlCommand(str2, conn);
-            if (sqlCom.ExecuteScalar() != null)
+            var result = Tool.ExecuteScalar(str2);
+            if (result != null)
             {
                 string str = "select (hasmoney.balance-applyingmoney.money2)as availablecash from  (select balance from Seller where restaurantid=" + restId + ") hasmoney ,(select SUM(applyMoney)as money2 from Withdraw where applyState='False' and sellerId=" + sellerId + ") applyingmoney";
-                sqlCom = new SqlCommand(str, conn);
-                r = Convert.ToDouble(sqlCom.ExecuteScalar());
+                r = Convert.ToDouble(Tool.ExecuteScalar(str));
             }
-            else {
-                string str = "select balance from Seller where id = "+sellerId;
-                sqlCom = new SqlCommand(str, conn);
-                r = Convert.ToDouble(sqlCom.ExecuteScalar());
+            else
+            {
+                string str = "select balance from Seller where id = " + sellerId;
+                r = Convert.ToDouble(Tool.ExecuteScalar(str));
             }
-            conn.Close();
             return r;
         }
     }

@@ -19,14 +19,14 @@
 
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=N3VxQPm4CRqm7odgrMuopqIWoMRPqesL"></script>
 
-    <script src="/Scripts/base.js?ver=<%=ran %>"></script>
-    <script src="/Scripts/webs/restContent.js?ver=<%=ran %>"></script>
+    <script src="/Scripts/base.js"></script>
+    <script src="/Scripts/webs/restContent.js"></script>
     <link href="/Content/base.css" rel="stylesheet" />
     <link href="/Content/webs/restContent.css" rel="stylesheet" />
      <script src="../Scripts/jquery-form.js"></script>
 
     <script type="text/javascript">
-     var id = '<%=id%>'
+        var id = '<%=id%>'
     </script>
 </head>
 <body>
@@ -239,7 +239,7 @@
                             </p>
                         </div>
                         <form id="formid" method = 'post' enctype="multipart/form-data" action = 'RestaurantContent.aspx' style="visibility:hidden"  >
-                            <input type="file" id="upImg" runat="server" onchange="filechange(event)" multiple="multiple" name="img" />
+                            <input type="file" id="upImg" runat="server" onchange="filechange(event)" multiple="multiple" name="img" accept=".png,.jpg,.jpeg"  />
                             <input id="testSubmit" type="submit" value="上传"/>
                        </form>
                         <div class="fc"></div>
@@ -298,27 +298,34 @@
 
     <div class="modal fade" id="div1" role="dialog" >
         <div class="modal-dialog m-dialog2" style="">
-            <div class="modal-content ">
+            <div class="modal-content m-content2 ">
                 <button type="button" class="close" data-dismiss="modal">×</button>
                 <div class="fl map-left">
                     <%--<div id="r-result">请输入:<input type="text" id="suggestId" size="20" value="百度" style="width: 250px; z-index: 9999" /></div>
                     <div id="searchResultPanel" style="border: 1px solid #C0C0C0; width: 250px; height: auto; display: none; z-index: 9999;padding-left:0;margin-left:0px;"></div>--%>
              
-                    <div id="r-result"><input type="text" id="suggestId" size="20" value=""/></div>
+                    <div id="r-result">
+                        <input type="text" id="suggestId" class="fl" size="20" value=""/>
+                        <div class="btnSearch fl">
+                            <img class="btn-search" src="/Images/recipe/icon-search.svg">
+                        </div>
+                        <div class="fc"></div>
+                    </div>
 	<div id="searchResultPanel" style="border:1px solid #C0C0C0;width:280px;height:31px; display:none;"></div>
                     
                 </div>
-                <div class="fl map-right">
-                    <div id="l-map">
+                <div class="fr map-right">
+                    <div id="l-map" class="fr">
                     </div>
-                    <div class="map-coord">
-                        <font>坐标</font>
-                        <font>X</font>
+                    <div class="map-coord fl">
+                        <font>坐标:</font>
+                        <font class="coord-font">X</font>
                         <input type="text" id="coord-x" readonly="true"/>
-                        <font>Y</font>
+                        <font class="coord-font">Y</font>
                         <input type="text" id="coord-y" readonly="true"/>
                     </div>
-                    <a class="btn btn-base btn-getMap">确定</a>
+                    <a class="btn btn-base btn-getMap fr">确定</a>
+                    <div class="fc"></div>
                 </div>
                 <%--<div class="fc"></div>--%>
     
